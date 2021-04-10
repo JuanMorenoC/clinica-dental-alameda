@@ -1,0 +1,30 @@
+section{
+  background-color: rgba(250, 250, 250, 0.5);
+  padding: 1em 2em;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 120px;
+  left: 0px;
+  right: 0px;
+  height: 30px;
+}
+
+#nosotros{
+  background-color: #1976d2;
+}
+
+#nosotros h2{
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.95rem;
+  font-weight: 500;
+  float: right;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+#nosotros h2 span{
+  color: rgb(245, 246, 246);
+}
