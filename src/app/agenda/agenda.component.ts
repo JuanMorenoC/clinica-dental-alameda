@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./agenda.component.css']
 })
 export class AgendaComponent implements OnInit {
+  dateActual = Date.now();
   constructor() { }
   ngOnInit(): void {
   }

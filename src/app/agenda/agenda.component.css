@@ -1,0 +1,42 @@
+.tabla {
+  padding: 1em 2em;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 220px;
+  left: 0px;
+  right: 0px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+}
+
+.titulo-agenda {
+  padding: 1em 2em;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 80px;
+  left: 0px;
+  right: 0px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  color: black;
+  font-weight: 600;
+}
+
+.titulo-agenda h2 {
+  float: right;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.titulo-agenda button {
+  margin: 0 8px;
+  padding: 1px;
+}
