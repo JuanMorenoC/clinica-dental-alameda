@@ -1,0 +1,76 @@
+<div class="rg" style="width: 200px; height: 200px;">
+  <ng-scrollbar>
+    <div class="titulo-registro-paciente">
+      <h2>Registro de Pacientes</h2>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="registrarPaciente($event)" class="needs-validation" novalidate>
+      <div class="registro-paciente">
+        <div class="row1">
+          <div class="col-sm-3">
+            <label for="buscarrut">Rut:</label>
+            <input id="buscarrut" formControlName="rut" type="search" class="form-control form-control-sm" />
+            <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
+              El rut es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="col-sm-3">
+            <label for="nombre">Nombres:</label>
+            <input id="nombre" type="text" formControlName="nombre" class="form-control form-control-sm" required="required" />
+            <ngb-alert *ngIf="form.get('nombre').hasError('required') && form.get('nombre').touched">
+              El nombre es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label for="apellido">Apellidos:</label>
+            <input id="apellido" type="text" formControlName="apellido" class="form-control form-control-sm" required="required"/>
+            <ngb-alert *ngIf="form.get('apellido').hasError('required') && form.get('apellido').touched">
+              El apellido es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-5">
+            <label for="email">Email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control form-control-sm" required="required"/>
+            <ngb-alert *ngIf="form.get('email').hasError('required') && form.get('email').touched">
+              El email es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="row3">
+          <div class="col-sm-3">
+            <label>Telefono:</label>
+            <input class="form-control" formControlName="telefono" class="form-control form-control-sm" type="tel" required="required"/>
+            <ngb-alert *ngIf="form.get('telefono').hasError('required') && form.get('telefono').touched">
+              El telefono es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label>Celular:</label>
+            <input class="form-control" formControlName="celular" class="form-control form-control-sm" type="tel"/>
+          </div>
+        </div>
+        <div class="row4">
+          <div class="col-sm-3">
+            <label>Fecha de nacimiento:</label>
+            <input class="form-control" formControlName="fecha_nacimiento" placeholder="yyyy-mm-dd" type="date" required="required"/>
+            <ngb-alert *ngIf="form.get('fecha_nacimiento').hasError('required') && form.get('fecha_nacimiento').touched">
+              La fecha de nacimiento es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label>Direccion:</label>
+            <input class="form-control" formControlName="direccion" class="form-control form-control-sm" type="text" required="required"/>
+            <ngb-alert *ngIf="form.get('direccion').hasError('required') && form.get('direccion').touched">
+              La direccion es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </ng-scrollbar>
+</div>
+
+
+<router-outlet></router-outlet>

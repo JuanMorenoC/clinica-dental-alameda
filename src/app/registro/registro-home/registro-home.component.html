@@ -1,0 +1,22 @@
+<div class="rg" style="width: 200px; height: 200px;">
+  <ng-scrollbar>
+    <div class="titulo-registro">
+      <h2>Registro</h2>
+    </div>
+    <div class="registro-principal">
+      <div class="row1">
+        <div class="col-sm-3">
+          <button type="submit"><a routerLink="/registro/registro-cita" routerLinkActive="active">Registro de Citas</a></button>
+        </div>
+        <div class="col-sm-4">
+          <button type="submit"><a routerLink="/registro/registro-administrador" routerLinkActive="active">Registro de Administrador</a></button>
+        </div>
+        <div class="col-sm-3">
+          <button type="submit"><a routerLink="/registro/registro-paciente" routerLinkActive="active">Registro de Pacientes</a></button>
+        </div>
+      </div>
+    </div>
+  </ng-scrollbar>
+</div>
+
+<router-outlet></router-outlet>

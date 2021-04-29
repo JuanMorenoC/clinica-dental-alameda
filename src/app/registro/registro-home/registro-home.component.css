@@ -15,22 +15,40 @@
   height: 1000px;
 }
 
-.rg ng-scrollbar .tabla {
-  padding: 1em 2em;
+.rg ng-scrollbar .registro-principal {
   position: fixed;
-  width: 100%;
-  z-index: 100;
-  top: 280px;
-  left: 0px;
-  right: 0px;
-  height: 60px;
-  display: inline-flex;
+  top: 180px;
+  left: 0;
+  right: 0;
+  height: 200px;
+  display: flex;
   align-items: center;
+  background-color: #1976d2;
   color: white;
   font-weight: 600;
 }
 
-.rg ng-scrollbar .titulo-agenda {
+.rg ng-scrollbar .registro-principal .row1 {
+  position: fixed;
+  top: 240px;
+  left: 200px;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  margin: 0 8px;
+  padding: 1px;
+}
+
+.rg ng-scrollbar .registro-principal .row1 button {
+  margin: 0 8px;
+  padding: 1em 2em;
+}
+
+.rg ng-scrollbar .titulo-registro {
   padding: 1em 2em;
   position: fixed;
   width: 100%;
@@ -45,15 +63,10 @@
   font-weight: 600;
 }
 
-.rg ng-scrollbar .titulo-agenda h2 {
+.rg ng-scrollbar .titulo-registro h2 {
   float: right;
   text-align: center;
   width: 100%;
   margin: 0;
   padding: 0;
-}
-
-.rg ng-scrollbar .titulo-agenda button {
-  margin: 0 8px;
-  padding: 1px;
 }

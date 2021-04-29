@@ -1,0 +1,147 @@
+<div class="rg" style="width: 200px; height: 200px;">
+  <ng-scrollbar>
+    <div class="titulo-registro-citas">
+      <h2>Registro de Citas</h2>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="registrarCita($event)" class="needs-validation" novalidate>
+      <div class="registro-citas">
+
+        <div class="row1">
+          <div class="col-sm-3">
+            <label for="buscarrut">Rut:</label>
+            <input id="buscarrut" type="search" formControlName="rut" class="form-control form-control-sm"/>
+            <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
+              El rut es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="col-sm-3">
+            <label for="nombre">Nombres:</label>
+            <input id="nombre" type="text" formControlName="nombre" class="form-control form-control-sm" required="required" />
+            <ngb-alert *ngIf="form.get('nombre').hasError('required') && form.get('nombre').touched">
+              El nombre es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label for="apellido">Apellidos:</label>
+            <input id="apellido" type="text" formControlName="apellido" class="form-control form-control-sm" required="required"/>
+            <ngb-alert *ngIf="form.get('apellido').hasError('required') && form.get('apellido').touched">
+              El apellido es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-5">
+            <label for="email">Email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control form-control-sm" required="required"/>
+            <ngb-alert *ngIf="form.get('email').hasError('required') && form.get('email').touched">
+              El email es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="row3">
+          <div class="col-sm-3">
+            <label>Tipo consulta:</label>
+            <select class="form-select" formControlName="tipo_consulta" aria-label="Default select example" required="required">
+              <option selected>Consulta</option>
+              <option value="1">Higiene Oral</option>
+              <option value="2">Consulta</option>
+            </select>
+            <ngb-alert *ngIf="form.get('tipo_consulta').hasError('required') && form.get('tipo_consulta').touched">
+              El Tipo Consulta es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label>Odontologo:</label>
+            <select class="form-select" formControlName="odontologo" aria-label="Default select example" required="required">
+              <option selected>Odontologo</option>
+              <option value="1">Juan Carlos Acosta</option>
+              <option value="2">Tatiana Acosta</option>
+            </select>
+            <ngb-alert *ngIf="form.get('odontologo').hasError('required') && form.get('odontologo').touched">
+              El Odontologo es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <div class="row4">
+          <div class="col-sm-3">
+            <label>Fecha de cita:</label>
+            <input class="form-control" formControlName="fecha_cita" placeholder="yyyy-mm-dd" type="date" required="required"/>
+            <ngb-alert *ngIf="form.get('fecha_cita').hasError('required') && form.get('fecha_cita').touched">
+              La fecha de la cita es requerido
+            </ngb-alert>
+          </div>
+          <div class="col-sm-3">
+            <label>Hora de la cita:</label>
+            <input class="form-control" type="time" formControlName="hora" required="required"/>
+            <ngb-alert *ngIf="form.get('hora').hasError('required') && form.get('hora').touched">
+              La hora es requerido
+            </ngb-alert>
+          </div>
+        </div>
+        <!--<button type="submit"><a routerLink="/home" routerLinkActive="active">Registrar</a></button>-->
+        <!--<button type="submit" [disabled]="form.invalid">Registrar</button>-->
+        <button type="submit">Registrar</button>
+      </div>
+    </form>
+  </ng-scrollbar>
+</div>
+
+<!--<div class="invalid-feedback" *ngIf="form.get('search').errors && form.get('search').touched">
+  <p *ngIf="form.get('search').hasErrors('required')">
+    Es un campo requerido
+  </p>
+</div>
+
+<div class="invalid-feedback" *ngIf="form.get('time').errors && form.get('time').touched">
+          Es un campo requerido
+        </div>
+
+
+
+     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                        <mat-form-field class="example-full-width" appearance="outline">
+                                          <mat-label>Nombre</mat-label>
+                                          <input matInput formControlName="nombre" required>
+                                          <mat-icon matSuffix>face</mat-icon>
+                                          <mat-error *ngIf="register.get('nombre').hasError('required')">
+                                            Nombre es requireda!!!
+                                          </mat-error>
+                                        </mat-form-field>
+                                      </div>
+
+
+                                       // Form 3
+  thirdForm: FormGroup;
+  hide3 = true;
+  constructor(
+    private fb: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private modalService: NgbModal,
+    private clienteService: ClienteService
+    ) {
+
+
+    //this.initThirdForm();
+    this.initEditForm();
+   }
+
+  ngOnInit(){
+    this.fetch((data) => {
+      this.data = data;
+      this.filteredData = data;
+    });
+
+    this.register = this.fb.group({
+      cedula: ["", [Validators.required, Validators.pattern("[0-9]+")]],
+      nombre: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      email: [
+        "",
+        [Validators.required, Validators.email, Validators.minLength(5)],
+      ],
+    });
+
+  }
+        -->
+
+
+<router-outlet></router-outlet>

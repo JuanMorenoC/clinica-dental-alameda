@@ -1,0 +1,122 @@
+
+.rg {
+  position: fixed;
+  top: 65px;
+  left: 0px;
+  right: 0px;
+  height: 1000px;
+}
+
+.rg ng-scrollbar {
+  position: fixed;
+  top: 65px;
+  left: 0px;
+  right: 0px;
+  height: 1000px;
+}
+
+.rg ng-scrollbar .titulo-registro-administrador {
+  padding: 1em 2em;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  top: 80px;
+  left: 0px;
+  right: 0px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
+  color: black;
+  font-weight: 600;
+}
+
+.rg ng-scrollbar .titulo-registro-administrador h2 {
+  float: right;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.rg ng-scrollbar form {
+  position: fixed;
+  top: 180px;
+  left: 200px;
+  right: 200px;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+}
+
+.rg ng-scrollbar .registro-administrador {
+  position: fixed;
+  top: 180px;
+  left: 200px;
+  right: 200px;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+}
+
+.rg ng-scrollbar .registro-administrador .row1 {
+  position: fixed;
+  top: 240px;
+  left: 200px;
+  right: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  margin: 0 8px;
+  padding: 1px;
+}
+
+.rg ng-scrollbar .registro-administrador .row2 {
+  position: fixed;
+  top: 360px;
+  left: 200px;
+  right: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  margin: 0 8px;
+  padding: 1px;
+}
+
+.rg ng-scrollbar .registro-administrador .row3 {
+  position: fixed;
+  top: 480px;
+  left: 200px;
+  right: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  margin: 0 8px;
+  padding: 1px;
+}
+
+.rg ng-scrollbar .registro-administrador button{
+  position: fixed;
+  top: 600px;
+  left: 600px;
+  right: 200px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  margin: 0 8px;
+  padding: 1em 2em;
+}
