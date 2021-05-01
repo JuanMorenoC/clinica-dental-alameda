@@ -12,6 +12,11 @@ export class AgendaComponent implements OnInit {
   dateF2 = this.dateF.toString();
   fechaCAL = Object.values('Saturday, April 17, 2021');
 
+  currentYear = new Date().getFullYear();
+  currentDate = new Date();
+  minDate = new Date(this.currentDate);
+  maxDate = new Date(this.currentYear + 0, 11, 31);
+
   agenda = {
     agenda1: {
       hora: '7:30 a.m.',
@@ -37,13 +42,13 @@ export class AgendaComponent implements OnInit {
   fechaC = Number(this.agenda.agenda1.fecha);
 
   constructor() {
-    console.log(typeof this.dateActual);
-    console.log(typeof this.dateF);
     console.log(typeof this.agenda.agenda1.fecha);
     console.log(typeof this.dataAgenda);
+    console.log("dataagenda:  ", this.dataAgenda);
     console.log(typeof this.fechaC);
-    console.log(typeof this.dateF2);
     console.log(typeof this.agenda);
+    console.log(typeof this.currentDate);
+    console.log("currentDate:  ", this.currentDate);
   }
   ngOnInit(): void {
   }

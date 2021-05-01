@@ -5,7 +5,7 @@
     </div>
     <form [formGroup]="form" (ngSubmit)="registrarCita($event)" class="needs-validation" novalidate>
       <div class="registro-citas">
-
+        <p>Porfavor completar todos los campos para registrar la cita.</p>
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut">Rut:</label>
@@ -63,19 +63,24 @@
           </div>
         </div>
         <div class="row4">
-          <div class="col-sm-3">
-            <label>Fecha de cita:</label>
-            <input class="form-control" formControlName="fecha_cita" placeholder="yyyy-mm-dd" type="date" required="required"/>
-            <ngb-alert *ngIf="form.get('fecha_cita').hasError('required') && form.get('fecha_cita').touched">
-              La fecha de la cita es requerido
-            </ngb-alert>
+          <div class="col-sm-5">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Fecha de la cita:</mat-label>
+              <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="fecha_cita" required="required">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div class="form-text text-danger">Seleccionar la fecha solo de Lunes a Viernes</div>
           </div>
-          <div class="col-sm-3">
-            <label>Hora de la cita:</label>
-            <input class="form-control" type="time" formControlName="hora" required="required"/>
-            <ngb-alert *ngIf="form.get('hora').hasError('required') && form.get('hora').touched">
-              La hora es requerido
-            </ngb-alert>
+          <div class="col-sm-5">
+            <mat-label>Hora de la cita:</mat-label>
+            <ngb-timepicker [formControl]="ctrl" formControlName="hora" required></ngb-timepicker>
+            <div *ngIf="ctrl.valid" class="form-text text-success">Hora Correcta</div>
+            <div *ngIf="ctrl.errors" class="form-text text-danger">
+              <div *ngIf="ctrl.errors['required']">Seleccionar solo de 7:00 a.m. - 18:40 p.m.</div>
+              <div *ngIf="ctrl.errors['tooLate']">Solo se puede menos o igual de 18:40 p.m.</div>
+              <div *ngIf="ctrl.errors['tooEarly']">Solo se puede mayor o igual de 7:00 a.m.</div>
+            </div>
           </div>
         </div>
         <!--<button type="submit"><a routerLink="/home" routerLinkActive="active">Registrar</a></button>-->
@@ -140,6 +145,11 @@
       ],
     });
 
+
+
+<ngb-alert *ngIf="compararTiempo({hora : form.get('hora')}) == true && form.get('hora').touched" >
+              Por favor escoger una hra valida entre las 7:00 a.m. y las 19:00 p.m.
+            </ngb-alert>
   }
         -->
 

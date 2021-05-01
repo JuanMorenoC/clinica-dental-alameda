@@ -13,14 +13,15 @@ import { RegistroCitaComponent } from './registro/registro-cita/registro-cita.co
 import { RegistroHomeComponent } from './registro/registro-home/registro-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegistroPacienteComponent } from './registro/registro-paciente/registro-paciente.component';
-import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true
-};
-
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,15 +40,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    PerfectScrollbarModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    NgbTimepickerModule,
+    MatNativeDateModule,
+    MatInputModule
   ],
-  providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
