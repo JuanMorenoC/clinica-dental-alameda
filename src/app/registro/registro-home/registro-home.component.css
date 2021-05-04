@@ -15,32 +15,25 @@
   height: 1000px;
 }
 
-.rg ng-scrollbar .registro-principal {
+.titulo-registro {
   position: fixed;
-  top: 180px;
-  left: 0;
-  right: 0;
-  height: 200px;
-  display: flex;
+  top: 40px;
+  left: 0px;
+  right: 0px;
+  height: 30px;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
-  font-weight: 600;
+  color: black;
 }
 
-.rg ng-scrollbar .registro-principal .row1 {
+ .row1 {
   position: fixed;
-  top: 240px;
-  left: 200px;
+  top: 250px;
+  left: 300px;
   right: 0;
-  height: 60px;
-  display: flex;
+  height: 30px;
   align-items: center;
-  background-color: #1976d2;
+  display: flex;
   color: white;
-  font-weight: 600;
-  margin: 0 8px;
-  padding: 1px;
 }
 
 .rg ng-scrollbar .registro-principal .row1 button {
@@ -48,25 +41,3 @@
   padding: 1em 2em;
 }
 
-.rg ng-scrollbar .titulo-registro {
-  padding: 1em 2em;
-  position: fixed;
-  width: 100%;
-  z-index: 100;
-  top: 80px;
-  left: 0px;
-  right: 0px;
-  height: 60px;
-  display: inline-flex;
-  align-items: center;
-  color: black;
-  font-weight: 600;
-}
-
-.rg ng-scrollbar .titulo-registro h2 {
-  float: right;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}

@@ -19,6 +19,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegistroModeradorComponent } from './registro/registro-moderador/registro-moderador.component';
+import { UsuarioService } from './Service/usuario/usuario.service';
 
 
 // @ts-ignore
@@ -31,7 +34,9 @@ import { MatInputModule } from '@angular/material/input';
     RegistroAdministradorComponent,
     RegistroCitaComponent,
     RegistroHomeComponent,
-    RegistroPacienteComponent
+    RegistroPacienteComponent,
+    NavbarComponent,
+    RegistroModeradorComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,7 @@ import { MatInputModule } from '@angular/material/input';
     MatNativeDateModule,
     MatInputModule
   ],
-  providers: [],
+  providers: [ UsuarioService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

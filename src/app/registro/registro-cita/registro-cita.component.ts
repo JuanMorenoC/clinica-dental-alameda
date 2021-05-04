@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-
+import { UsuarioService, Usuario } from '../../Service/usuario/usuario.service';
 
 @Component({
   selector: 'app-registro-cita',
@@ -34,12 +34,14 @@ export class RegistroCitaComponent implements OnInit {
   maxDate = new Date(this.currentYear + 0, 11, 31);
 
   form: FormGroup | any;
-  constructor(private formBuilder: FormBuilder) {
+  dataUsuario: Usuario[] = [];
+  constructor(private formBuilder: FormBuilder, private usuarioServicio: UsuarioService) {
     this.builForm();
   }
   ngOnInit(): void {
+    this.dataUsuario = this.usuarioServicio.getUsuario();
   }
-  private builForm(){
+  private builForm(): void{
     this.form = this.formBuilder.group({
       rut: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
@@ -54,17 +56,29 @@ export class RegistroCitaComponent implements OnInit {
     console.log(typeof this.form.get('hora'));
     console.log(typeof this.form);
 
-    //this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
-      //console.log(value);});
+    // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
+      // console.log(value);});
   }
 
-  registrarCita(event: Event){
+  registrarCita(event: Event): void{
     event.preventDefault();
     if (this.form.valid){
       const value = this.form.value;
       console.log(value);
     } else {
       this.form.markAllAsTouched();
+    }
+  }
+
+  buscarCita(rut: string): void {
+    for (const iter of this.dataUsuario){
+      if (rut === iter.rut){
+        this.form.patchValue({
+          nombre: iter.nombre,
+          apellido: iter.apellido,
+          email: iter.email,
+        });
+      }
     }
   }
 

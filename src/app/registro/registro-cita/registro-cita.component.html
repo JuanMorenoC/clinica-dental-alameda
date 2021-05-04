@@ -8,30 +8,33 @@
         <p>Porfavor completar todos los campos para registrar la cita.</p>
         <div class="row1">
           <div class="col-sm-3">
-            <label for="buscarrut">Rut:</label>
-            <input id="buscarrut" type="search" formControlName="rut" class="form-control form-control-sm"/>
+            <label for="buscarrut" class="form-check-label">Rut:</label>
+            <input id="buscarrut" type="text" formControlName="rut" class="form-control form-control-sm"/>
             <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
               El rut es requerido
             </ngb-alert>
           </div>
+          <div class="col-sm-5">
+            <button type="submit" (click)="buscarCita(form.get('rut'))" class="btn btn-light form-control-sm-3">Buscar</button>
+          </div>
         </div>
         <div class="row2">
           <div class="col-sm-3">
-            <label for="nombre">Nombres:</label>
+            <label for="nombre" class="form-check-label">Nombres:</label>
             <input id="nombre" type="text" formControlName="nombre" class="form-control form-control-sm" required="required" />
             <ngb-alert *ngIf="form.get('nombre').hasError('required') && form.get('nombre').touched">
               El nombre es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-3">
-            <label for="apellido">Apellidos:</label>
+            <label for="apellido" class="form-check-label">Apellidos:</label>
             <input id="apellido" type="text" formControlName="apellido" class="form-control form-control-sm" required="required"/>
             <ngb-alert *ngIf="form.get('apellido').hasError('required') && form.get('apellido').touched">
               El apellido es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-5">
-            <label for="email">Email:</label>
+            <label for="email" class="form-check-label">Email:</label>
             <input id="email" type="email" formControlName="email" class="form-control form-control-sm" required="required"/>
             <ngb-alert *ngIf="form.get('email').hasError('required') && form.get('email').touched">
               El email es requerido
@@ -40,7 +43,7 @@
         </div>
         <div class="row3">
           <div class="col-sm-3">
-            <label>Tipo consulta:</label>
+            <label class="form-check-label">Tipo consulta:</label>
             <select class="form-select" formControlName="tipo_consulta" aria-label="Default select example" required="required">
               <option selected>Consulta</option>
               <option value="1">Higiene Oral</option>
@@ -51,7 +54,7 @@
             </ngb-alert>
           </div>
           <div class="col-sm-3">
-            <label>Odontologo:</label>
+            <label class="form-check-label">Odontologo:</label>
             <select class="form-select" formControlName="odontologo" aria-label="Default select example" required="required">
               <option selected>Odontologo</option>
               <option value="1">Juan Carlos Acosta</option>
@@ -85,8 +88,11 @@
         </div>
         <!--<button type="submit"><a routerLink="/home" routerLinkActive="active">Registrar</a></button>-->
         <!--<button type="submit" [disabled]="form.invalid">Registrar</button>-->
-        <button type="submit">Registrar</button>
+        <div class="row5">
+          <button type="submit" class="btn btn-light">Registrar</button>
+        </div>
       </div>
+
     </form>
   </ng-scrollbar>
 </div>

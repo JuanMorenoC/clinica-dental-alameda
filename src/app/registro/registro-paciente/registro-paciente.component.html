@@ -1,14 +1,14 @@
 <div class="rg" style="width: 200px; height: 200px;">
   <ng-scrollbar>
     <div class="titulo-registro-paciente">
-      <h2>Registro de Pacientes</h2>
+      <h2>Registro de Usuarios</h2>
     </div>
     <form [formGroup]="form" (ngSubmit)="registrarPaciente($event)" class="needs-validation" novalidate>
       <div class="registro-paciente">
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut">Rut:</label>
-            <input id="buscarrut" formControlName="rut" type="search" class="form-control form-control-sm" />
+            <input id="buscarrut" formControlName="rut" type="text" class="form-control form-control-sm" />
             <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
               El rut es requerido
             </ngb-alert>
@@ -40,14 +40,14 @@
         <div class="row3">
           <div class="col-sm-3">
             <label>Telefono:</label>
-            <input class="form-control" formControlName="telefono" class="form-control form-control-sm" type="tel" required="required"/>
+            <input class="form-control" formControlName="telefono" class="form-control form-control-sm" type="text" required="required"/>
             <ngb-alert *ngIf="form.get('telefono').hasError('required') && form.get('telefono').touched">
               El telefono es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-3">
             <label>Celular:</label>
-            <input class="form-control" formControlName="celular" class="form-control form-control-sm" type="tel"/>
+            <input class="form-control" formControlName="celular" class="form-control form-control-sm" type="text"/>
           </div>
         </div>
         <div class="row4">

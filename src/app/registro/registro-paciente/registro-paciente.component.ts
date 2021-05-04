@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registro-paciente',
@@ -8,6 +9,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegistroPacienteComponent implements OnInit {
   form: FormGroup | any;
+  dataUsuario = [];
   constructor(private formBuilder: FormBuilder) {
     this.builForm();
   }
@@ -15,7 +17,7 @@ export class RegistroPacienteComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private builForm(){
+  private builForm(): void{
     this.form = this.formBuilder.group({
       rut: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
@@ -27,16 +29,24 @@ export class RegistroPacienteComponent implements OnInit {
       direccion: ['', [Validators.required]],
     });
 
-    //this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
-    //console.log(value);});
+    // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
+    // console.log(value);});
   }
 
-  registrarPaciente(event: Event){
+  registrarPaciente(event: Event): void{
     event.preventDefault();
+    // @ts-ignore
     if (this.form.valid){
+      // @ts-ignore
       const value = this.form.value;
+      // @ts-ignore
+      this.dataUsuario.push(this.form.value);
+      this.dataUsuario = [...this.dataUsuario];
       console.log(value);
+      console.log();
+      console.log(this.dataUsuario);
     } else {
+      // @ts-ignore
       this.form.markAllAsTouched();
     }
   }

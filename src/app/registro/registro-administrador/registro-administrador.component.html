@@ -8,7 +8,7 @@
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut">Rut:</label>
-            <input id="buscarrut" formControlName="rut" type="search" class="form-control form-control-sm" />
+            <input id="buscarrut" formControlName="rut" type="text" class="form-control form-control-sm" />
             <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
               El rut es requerido
             </ngb-alert>

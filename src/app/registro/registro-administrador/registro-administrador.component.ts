@@ -26,8 +26,8 @@ export class RegistroAdministradorComponent implements OnInit {
       contrasena: ['', [Validators.required]],
     });
 
-    //this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
-    //console.log(value);});
+    // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
+    // console.log(value);});
   }
 
   registrarAdministrador(event: Event){

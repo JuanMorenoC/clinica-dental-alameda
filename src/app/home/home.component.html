@@ -1,17 +1,20 @@
-<header>
-  <nav>
-    <ul>
-      <li><a href="#nosotros" class="scroll">Nosotros</a></li>
-      <li><a href="#especialidades" class="scroll">Especialidades</a></li>
-      <li><a href="#contacto" class="scroll">Contacto</a></li>
-      <li><a href="#ubicacion" class="scroll">Ubicacion</a></li>
-    </ul>
-  </nav>
-</header>
+<div class="rg" style="width: 200px; height: 200px;">
+  <ng-scrollbar>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#nosotros" class="scroll">Nosotros</a></li>
+          <li><a href="#especialidades" class="scroll">Especialidades</a></li>
+          <li><a href="#contacto" class="scroll">Contacto</a></li>
+          <li><a href="#ubicacion" class="scroll">Ubicacion</a></li>
+        </ul>
+      </nav>
+    </header>
+    <app-nosotros></app-nosotros>
+  </ng-scrollbar>
+</div>
 
-
-<app-nosotros></app-nosotros>
-
+<router-outlet></router-outlet>
 <!--
 <footer>
   <p>Copyright &copy; 2021 Clinica Dental Alameda - Todos los derechos reservados</p>

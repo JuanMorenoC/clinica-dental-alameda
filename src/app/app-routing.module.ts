@@ -7,6 +7,7 @@ import {RegistroHomeComponent} from './registro/registro-home/registro-home.comp
 import {RegistroCitaComponent} from './registro/registro-cita/registro-cita.component';
 import {RegistroAdministradorComponent} from './registro/registro-administrador/registro-administrador.component';
 import {RegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
+import {RegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
 
 const routes: Routes = [
   {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'registro/registro-administrador',
     component: RegistroAdministradorComponent, // another child route component that the router renders
+  },
+  {
+    path: 'registro/registro-moderador',
+    component: RegistroModeradorComponent, // another child route component that the router renders
   },
   {
     path: 'registro/registro-paciente',
