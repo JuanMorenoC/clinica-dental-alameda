@@ -37,7 +37,37 @@ export class AgendaComponent implements OnInit {
       hora: '10:30 a.m.',
       nombre: 'valeria',
       estado: 'reservado',
-      fecha: new Date('2021/05/01'),
+      fecha: new Date('2021/05/06'),
+    },
+    agenda4: {
+      hora: '11:30 a.m.',
+      nombre: 'lucas',
+      estado: 'confirmado',
+      fecha: new Date('2021/05/06'),
+    },
+    agenda5: {
+      hora: '10:30 a.m.',
+      nombre: 'lina',
+      estado: 'confirmado',
+      fecha: new Date('2021/05/05'),
+    },
+    agenda6: {
+      hora: '8:30 a.m.',
+      nombre: 'pablo',
+      estado: 'confirmado',
+      fecha: new Date('2021/05/05'),
+    },
+    agenda7: {
+      hora: '9:30 a.m.',
+      nombre: 'tatiana',
+      estado: 'confirmado',
+      fecha: new Date('2021/05/05'),
+    },
+    agenda8: {
+      hora: '10:30 a.m.',
+      nombre: 'katty',
+      estado: 'confirmado',
+      fecha: new Date('2021/05/04'),
     }
   };
 

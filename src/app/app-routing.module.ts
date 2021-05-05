@@ -40,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: AppComponent, // another child route component that the router renders
+    component: HomeComponent, // another child route component that the router renders
   },
   { path: '',   redirectTo: '/home', pathMatch: 'full' }, // redirect to `first-component`
 ];

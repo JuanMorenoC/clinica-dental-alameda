@@ -7,7 +7,7 @@
       <div class="registro-moderador">
         <div class="row1">
           <div class="col-sm-3">
-            <label for="buscarrut">Rut:</label>
+            <label for="buscarrut" class="form-check-label">Rut:</label>
             <input id="buscarrut" formControlName="rut" type="text" class="form-control form-control-sm" />
             <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
               El rut es requerido
@@ -16,21 +16,21 @@
         </div>
         <div class="row2">
           <div class="col-sm-3">
-            <label for="nombre">Nombres:</label>
+            <label for="nombre" class="form-check-label">Nombres:</label>
             <input id="nombre" type="text" formControlName="nombre" class="form-control form-control-sm" required="required" />
             <ngb-alert *ngIf="form.get('nombre').hasError('required') && form.get('nombre').touched">
               El nombre es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-3">
-            <label for="apellido">Apellidos:</label>
+            <label for="apellido" class="form-check-label">Apellidos:</label>
             <input id="apellido" type="text" formControlName="apellido" class="form-control form-control-sm" required="required"/>
             <ngb-alert *ngIf="form.get('apellido').hasError('required') && form.get('apellido').touched">
               El apellido es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-5">
-            <label for="email">Email:</label>
+            <label for="email" class="form-check-label">Email:</label>
             <input id="email" type="email" formControlName="email" class="form-control form-control-sm" required="required"/>
             <ngb-alert *ngIf="form.get('email').hasError('required') && form.get('email').touched">
               El email es requerido
@@ -39,21 +39,21 @@
         </div>
         <div class="row3">
           <div class="col-sm-3">
-            <label>Usuario:</label>
+            <label class="form-check-label">Usuario:</label>
             <input class="form-control" formControlName="usuario" class="form-control form-control-sm" type="text" required="required"/>
             <ngb-alert *ngIf="form.get('usuario').hasError('required') && form.get('usuario').touched">
               El nombre de usuario es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-3">
-            <label>Contrasena:</label>
+            <label class="form-check-label">Contrasena:</label>
             <input class="form-control" formControlName="contrasena" class="form-control form-control-sm" type="password" required="required"/>
             <ngb-alert *ngIf="form.get('contrasena').hasError('required') && form.get('contrasena').touched">
               La contrasena es requerida
             </ngb-alert>
           </div>
         </div>
-        <button type="submit">Registrar</button>
+        <button type="submit" class="btn btn-light">Registrar</button>
       </div>
     </form>
   </ng-scrollbar>

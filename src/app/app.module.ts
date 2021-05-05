@@ -21,7 +21,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegistroModeradorComponent } from './registro/registro-moderador/registro-moderador.component';
+
 import { UsuarioService } from './Service/usuario/usuario.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AppConfig } from './config/config';
 
 
 // @ts-ignore
@@ -50,9 +53,10 @@ import { UsuarioService } from './Service/usuario/usuario.service';
     MatFormFieldModule,
     NgbTimepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
-  providers: [ UsuarioService ],
+  providers: [ UsuarioService, AppConfig ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

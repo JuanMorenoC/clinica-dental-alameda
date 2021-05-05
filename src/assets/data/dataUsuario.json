@@ -1,0 +1,157 @@
+{
+  "usuario": [
+    {
+      "rut": 1,
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "email": "juanmoreno@gmail.com",
+      "telefono": "7345263",
+      "celular": "311847463",
+      "fecha_nacimiento": "1994/05/09",
+      "direccion": "cll 31 # 20 - 41"
+    },
+    {
+      "rut": 2,
+      "nombre": "Valeria",
+      "apellido": "Rodriguez",
+      "email": "valerodri@gmail.com",
+      "telefono": "7373462",
+      "celular": "31198263654",
+      "fecha_nacimiento": "1999/04/11",
+      "direccion": "cll 32 # 22 - 42"
+    },
+    {
+      "rut": 3,
+      "nombre": "Laura",
+      "apellido": "Montoya",
+      "email": "lauramontoya@gmail.com",
+      "telefono": "73453383",
+      "celular": "31189383773",
+      "fecha_nacimiento": "2000/05/28",
+      "direccion": "cll 34 # 24 - 44"
+    },
+    {
+      "rut": 4,
+      "nombre": "Katty",
+      "apellido": "Rodriguez",
+      "email": "kattyrodriguez@gmail.com",
+      "telefono": "7345177",
+      "celular": "311883838",
+      "fecha_nacimiento": "1984/02/19",
+      "direccion": "cll 11 # 10 - 21"
+    },
+    {
+      "rut": 5,
+      "nombre": "Pablo",
+      "apellido": "Montoya",
+      "email": "pablomontoya@gmail.com",
+      "telefono": "7445263",
+      "celular": "3118345343",
+      "fecha_nacimiento": "1994/08/11",
+      "direccion": "cll 30 # 20 - 44"
+    },
+    {
+      "rut": 6,
+      "nombre": "Lina",
+      "apellido": "Moreno",
+      "email": "linamoreno@gmail.com",
+      "telefono": "7548293",
+      "celular": "311274006",
+      "fecha_nacimiento": "1996/11/09",
+      "direccion": "cll 21 # 20 - 44"
+    }
+  ],
+  "cita": [
+    {
+      "rut": 6,
+      "nombre": "Lina",
+      "apellido": "Moreno",
+      "email": "linamoreno@gmail.com",
+      "tipo_consulta": "Higiene Oral",
+      "odontologo": "Juan Carlos Acosta",
+      "fecha_cita": "2021/05/09",
+      "hora": "07:30"
+    },
+    {
+      "rut": 1,
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "email": "juanmoreno@gmail.com",
+      "tipo_consulta": "Higiene Oral",
+      "odontologo": "Juan Carlos Acosta",
+      "fecha_cita": "2021/05/10",
+      "hora": "09:30"
+    },
+    {
+      "rut": 4,
+      "nombre": "Katty",
+      "apellido": "Rodriguez",
+      "email": "kattyrodriguez@gmail.com",
+      "tipo_consulta": "Higiene Oral",
+      "odontologo": "Juan Carlos Acosta",
+      "fecha_cita": "2021/05/09",
+      "hora": "11:30"
+    }
+  ],
+  "administrador": [
+    {
+      "rut": 1,
+      "nombre": "Andres Felipe",
+      "apellido": "Rincon",
+      "email": "andresfeliperincon@gmail.com",
+      "usuario": "andresfelipe",
+      "contrasena": "af123"
+    }
+  ],
+  "moderador": [
+    {
+      "rut": 1,
+      "nombre": "Juan David",
+      "apellido": "Moreno",
+      "email": "juandavidmoreno@gmail.com",
+      "usuario": "juanmorenoc",
+      "contrasena": "jm123"
+    }
+  ],
+  "odontologo": [
+    {
+      "rut": 1,
+      "nombre": "Juan Carlos ",
+      "apellido": "Acosta",
+      "email": "juancarlosacosta@gmail.com",
+      "usuario": "juancarlos",
+      "contrasena": "jc123"
+    },
+    {
+      "rut": 2,
+      "nombre": "Tatiana",
+      "apellido": " Mora Acosta",
+      "email": "tatianamoraacosta@gmail.com",
+      "usuario": "tatiana",
+      "contrasena": "tm123"
+    }
+  ],
+  "agenda": [
+    {
+      "id": 1,
+      "hora": "07:30",
+      "nombre": "Lina",
+      "estado": "Moreno",
+      "fecha_cita": "2021/05/09"
+    },
+    {
+      "id": 2,
+      "hora": "08:30",
+      "nombre": "Juan",
+      "estado": "Moreno",
+      "fecha_cita": "2021/05/09"
+    },
+    {
+      "id": 3,
+      "hora": "11:30",
+      "nombre": "Katty",
+      "estado": "Rodriguez",
+      "fecha_cita": "2021/05/09"
+    }
+  ]
+}

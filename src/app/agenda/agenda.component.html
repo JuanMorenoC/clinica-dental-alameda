@@ -6,24 +6,13 @@
     <form [formGroup]="form" (ngSubmit)="comparar($event)" class="needs-validation">
       <div class="tabla">
         <div class="row1">
-          <div class="col-sm-5">
-            <mat-form-field class="example-full-width" appearance="fill">
-              <mat-label>Fecha:</mat-label>
-              <input formControlName="fecha" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" required="required">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-5">
-            <button type="submit">Buscar</button>
-          </div>
-        </div>
-        <div class="row2">
-          <div class="form-text text-danger">  Seleccionar la fecha solo de Lunes a Viernes</div>
-        </div>
-        <div class="row3">
           <table class="table table-hover">
             <thead>
+            <tr>
+              <th colspan="4" class="text-center">
+                {{ dateActual | date: 'fullDate' }}
+              </th>
+            </tr>
             <tr>
               <th scope="col">Hora</th>
               <th scope="col">Nombres del Paciente</th>
@@ -33,10 +22,10 @@
             </thead>
             <tbody>
             <tr *ngFor="let element of dataAgenda">
-              <th scope="row">{{element.hora}}</th>
-              <td>{{element.nombre}}</td>
-              <td>{{element.estado}}</td>
-              <td>{{element.fecha}}</td>
+              <th *ngIf="currentDate.getFullYear() == element.fecha.getFullYear() && currentDate.getMonth() == element.fecha.getMonth() && currentDate.getDate() == element.fecha.getDate()" scope="row">{{element.hora}}</th>
+              <td *ngIf="currentDate.getFullYear() == element.fecha.getFullYear() && currentDate.getMonth() == element.fecha.getMonth() && currentDate.getDate() == element.fecha.getDate()">{{element.nombre}}</td>
+              <td *ngIf="currentDate.getFullYear() == element.fecha.getFullYear() && currentDate.getMonth() == element.fecha.getMonth() && currentDate.getDate() == element.fecha.getDate()">{{element.estado}}</td>
+              <td *ngIf="currentDate.getFullYear() == element.fecha.getFullYear() && currentDate.getMonth() == element.fecha.getMonth() && currentDate.getDate() == element.fecha.getDate()">{{element.fecha}}</td>
             </tr>
             </tbody>
           </table>

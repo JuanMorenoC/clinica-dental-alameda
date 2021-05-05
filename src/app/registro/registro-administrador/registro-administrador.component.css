@@ -15,7 +15,7 @@
   height: 1000px;
 }
 
-.rg ng-scrollbar .titulo-registro-administrador {
+.titulo-registro-administrador {
   padding: 1em 2em;
   position: fixed;
   width: 100%;
@@ -30,7 +30,7 @@
   font-weight: 600;
 }
 
-.rg ng-scrollbar .titulo-registro-administrador h2 {
+.titulo-registro-administrador h2 {
   float: right;
   text-align: center;
   width: 100%;
@@ -38,33 +38,33 @@
   padding: 0;
 }
 
-.rg ng-scrollbar form {
+form {
   position: fixed;
   top: 180px;
   left: 200px;
   right: 200px;
-  height: 650px;
+  height: 600px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
+  background-color: #77a3d6;
+  color: black;
   font-weight: 600;
 }
 
-.rg ng-scrollbar .registro-administrador {
+.registro-administrador {
   position: fixed;
   top: 180px;
   left: 200px;
   right: 200px;
-  height: 650px;
+  height: 600px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
+  background-color: #77a3d6;
+  color: black;
   font-weight: 600;
 }
 
-.rg ng-scrollbar .registro-administrador .row1 {
+.registro-administrador .row1 {
   position: fixed;
   top: 240px;
   left: 200px;
@@ -72,14 +72,12 @@
   height: 30px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
   font-weight: 600;
   margin: 0 8px;
   padding: 1px;
 }
 
-.rg ng-scrollbar .registro-administrador .row2 {
+.registro-administrador .row2 {
   position: fixed;
   top: 360px;
   left: 200px;
@@ -87,14 +85,12 @@
   height: 30px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
   font-weight: 600;
   margin: 0 8px;
   padding: 1px;
 }
 
-.rg ng-scrollbar .registro-administrador .row3 {
+.registro-administrador .row3 {
   position: fixed;
   top: 480px;
   left: 200px;
@@ -102,14 +98,12 @@
   height: 30px;
   display: flex;
   align-items: center;
-  background-color: #1976d2;
-  color: white;
   font-weight: 600;
   margin: 0 8px;
   padding: 1px;
 }
 
-.rg ng-scrollbar .registro-administrador button{
+.registro-administrador button{
   position: fixed;
   top: 600px;
   left: 600px;

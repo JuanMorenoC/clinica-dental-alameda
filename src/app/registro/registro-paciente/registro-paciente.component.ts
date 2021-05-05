@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UsuarioService } from '../../Service/usuario/usuario.service';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -9,16 +10,31 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class RegistroPacienteComponent implements OnInit {
   form: FormGroup | any;
-  dataUsuario = [];
-  constructor(private formBuilder: FormBuilder) {
-    this.builForm();
+  data = [];
+  mostrar: any = false;
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+    this.initEditForm();
   }
 
   ngOnInit(): void {
+    this.builForm();
+  }
+
+  initEditForm(): void{
+    this.form = this.fb.group({
+      rut: new FormControl(),
+      nombre: new FormControl(),
+      apellido: new FormControl(),
+      email: new FormControl(),
+      telefono: new FormControl(),
+      celular: new FormControl(),
+      fecha_nacimiento: new FormControl(),
+      direccion: new FormControl(),
+    });
   }
 
   private builForm(): void{
-    this.form = this.formBuilder.group({
+    this.form = this.fb.group({
       rut: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
@@ -32,23 +48,10 @@ export class RegistroPacienteComponent implements OnInit {
     // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
     // console.log(value);});
   }
-
-  registrarPaciente(event: Event): void{
-    event.preventDefault();
-    // @ts-ignore
-    if (this.form.valid){
-      // @ts-ignore
-      const value = this.form.value;
-      // @ts-ignore
-      this.dataUsuario.push(this.form.value);
-      this.dataUsuario = [...this.dataUsuario];
-      console.log(value);
-      console.log();
-      console.log(this.dataUsuario);
-    } else {
-      // @ts-ignore
-      this.form.markAllAsTouched();
-    }
+  onThirdFormSubmit(): void {
+    this.mostrar = true;
+    this.usuarioService.addUsuario(this.form.value).subscribe( (data: any) => {
+      console.log(data);
+    });
   }
-
 }

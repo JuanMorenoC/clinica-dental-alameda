@@ -15,12 +15,12 @@
   height: 10000px;
 }
 
-.rg ng-scrollbar .tabla {
+ .tabla {
   padding: 1em 2em;
   position: fixed;
-  top: 110px;
-  left: 0px;
-  right: 0px;
+  top: 250px;
+  left: 200px;
+  right: 200px;
   height: 10000px;
   display: inline-flex;
   align-items: center;
@@ -28,11 +28,11 @@
   font-weight: 600;
 }
 
-.rg ng-scrollbar .tabla .row1 {
+.tabla .row1 {
   position: fixed;
-  top: 180px;
-  left: 50px;
-  right: 0px;
+  top: 250px;
+  left: 200px;
+  right: 200px;
   height: 60px;
   display: inline-flex;
   align-items: center;

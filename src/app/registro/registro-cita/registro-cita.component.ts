@@ -34,15 +34,29 @@ export class RegistroCitaComponent implements OnInit {
   maxDate = new Date(this.currentYear + 0, 11, 31);
 
   form: FormGroup | any;
-  dataUsuario: Usuario[] = [];
-  constructor(private formBuilder: FormBuilder, private usuarioServicio: UsuarioService) {
-    this.builForm();
+  data = [];
+  // dataUsuario: Usuario[] = [];
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+    this.initEditForm();
   }
   ngOnInit(): void {
-    this.dataUsuario = this.usuarioServicio.getUsuario();
+    this.builForm();
+    // this.dataUsuario = this.usuarioServicio.getUsuario();
+  }
+  initEditForm(): void{
+    this.form = this.fb.group({
+      rut: new FormControl(),
+      nombre: new FormControl(),
+      apellido: new FormControl(),
+      email: new FormControl(),
+      telefono: new FormControl(),
+      celular: new FormControl(),
+      fecha_nacimiento: new FormControl(),
+      direccion: new FormControl(),
+    });
   }
   private builForm(): void{
-    this.form = this.formBuilder.group({
+    this.form = this.fb.group({
       rut: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
@@ -59,6 +73,35 @@ export class RegistroCitaComponent implements OnInit {
     // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
       // console.log(value);});
   }
+  cargarData(rut: string): void{
+    console.log('prueba');
+    this.usuarioService.getUsuario(rut).subscribe( data => {
+      console.log(data);
+      this.data = data;
+      console.log(this.data);
+    });
+
+  }
+  crearData(): void {
+    this.usuarioService.addUsuario(this.form.value).subscribe( (data: any) => {
+      console.log(data);
+    });
+  }
+  actualizarData(): void{
+    this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
+      console.log(data);
+    });
+  }
+  /*onEditSave(form: FormGroup) {
+    this.data = this.data.filter((value, key) => {
+      if (value.rut === form.value.rut) {
+        value.nombre = form.value.nombre;
+        value.email = form.value.email;
+      }
+      this.modalService.dismissAll();
+      return true;
+    });
+  }*/
 
   registrarCita(event: Event): void{
     event.preventDefault();
@@ -71,7 +114,7 @@ export class RegistroCitaComponent implements OnInit {
   }
 
   buscarCita(rut: string): void {
-    for (const iter of this.dataUsuario){
+    /*for (const iter of this.dataUsuario){
       if (rut === iter.rut){
         this.form.patchValue({
           nombre: iter.nombre,
@@ -79,7 +122,7 @@ export class RegistroCitaComponent implements OnInit {
           email: iter.email,
         });
       }
-    }
+    }*/
   }
 
   /*compararTiempo({hora}: { hora: any }) {
