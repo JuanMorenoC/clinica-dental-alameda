@@ -34,7 +34,7 @@ export class RegistroCitaComponent implements OnInit {
   maxDate = new Date(this.currentYear + 0, 11, 31);
 
   form: FormGroup | any;
-  data = [];
+  data: Object = [];
   // dataUsuario: Usuario[] = [];
   constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
     this.initEditForm();
