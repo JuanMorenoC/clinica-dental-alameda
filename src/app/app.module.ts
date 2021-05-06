@@ -21,10 +21,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegistroModeradorComponent } from './registro/registro-moderador/registro-moderador.component';
+import {MatCardModule} from '@angular/material/card';
 
 import { UsuarioService } from './Service/usuario/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig } from './config/config';
+import { LoginComponent } from './login/login.component';
 
 
 // @ts-ignore
@@ -39,7 +41,8 @@ import { AppConfig } from './config/config';
     RegistroHomeComponent,
     RegistroPacienteComponent,
     NavbarComponent,
-    RegistroModeradorComponent
+    RegistroModeradorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { AppConfig } from './config/config';
     NgbTimepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule
   ],
   providers: [ UsuarioService, AppConfig ],
   bootstrap: [AppComponent]
