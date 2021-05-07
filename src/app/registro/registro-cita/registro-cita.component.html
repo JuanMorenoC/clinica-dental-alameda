@@ -9,13 +9,13 @@
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut" class="form-check-label">Rut:</label>
-            <input id="buscarrut" type="text" formControlName="rut" class="form-control form-control-sm"/>
-            <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
+            <input id="buscarrut" type="text" formControlName="id" class="form-control form-control-sm"/>
+            <ngb-alert *ngIf="form.get('id').hasError('required') && form.get('id').touched">
               El rut es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-5">
-            <button type="submit" (click)="cargarData(form.get('rut'))" class="btn btn-light form-control-sm-3">Buscar</button>
+            <button type="submit" (click)="cargarData()" class="btn btn-light form-control-sm-3">Buscar</button>
           </div>
         </div>
         <div class="row2">
@@ -95,7 +95,11 @@
           <button type="submit" (click)="crearData()" class="btn btn-light">Registrar</button>
         </div>
       </div>
-
+      <div class="row6">
+        <ng-container class="text-success" *ngIf="mostrar">
+          Su regitro ha sido exitoso.
+        </ng-container>
+      </div>
     </form>
   </ng-scrollbar>
 </div>
@@ -162,5 +166,3 @@
   }
         -->
 
-
-<router-outlet></router-outlet>
