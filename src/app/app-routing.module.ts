@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {AgendaComponent} from './agenda/agenda.component';
+import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {AppComponent} from './app.component';
 import {RegistroHomeComponent} from './registro/registro-home/registro-home.component';
@@ -13,6 +14,10 @@ const routes: Routes = [
   {
     path: 'agenda',
     component: AgendaComponent, // another child route component that the router renders
+  },
+  {
+    path: 'login',
+    component: LoginComponent, // another child route component that the router renders
   },
   {
     path: 'home',

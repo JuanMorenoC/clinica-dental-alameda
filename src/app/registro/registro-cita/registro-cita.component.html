@@ -9,19 +9,20 @@
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut" class="form-check-label">Rut:</label>
-            <input id="buscarrut" type="text" formControlName="id" class="form-control form-control-sm"/>
-            <ngb-alert *ngIf="form.get('id').hasError('required') && form.get('id').touched">
+            <input id="buscarrut" type="text" formControlName="rut" class="form-control form-control-sm"/>
+            <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
               El rut es requerido
             </ngb-alert>
           </div>
           <div class="col-sm-5">
-            <button type="submit" (click)="cargarData()" class="btn btn-light form-control-sm-3">Buscar</button>
+            <button type="submit" (click)="cargarData(form.get('rut'))" class="btn btn-light form-control-sm-3">Buscar</button>
           </div>
         </div>
         <div class="row2">
           <div class="col-sm-3">
             <label for="nombre" class="form-check-label">Nombres:</label>
             <input id="nombre" type="text" formControlName="nombre" class="form-control form-control-sm" required="required" />
+            {{ data.nombre }}
             <ngb-alert *ngIf="form.get('nombre').hasError('required') && form.get('nombre').touched">
               El nombre es requerido
             </ngb-alert>
@@ -29,6 +30,7 @@
           <div class="col-sm-3">
             <label for="apellido" class="form-check-label">Apellidos:</label>
             <input id="apellido" type="text" formControlName="apellido" class="form-control form-control-sm" required="required"/>
+            {{ data.apellido }}
             <ngb-alert *ngIf="form.get('apellido').hasError('required') && form.get('apellido').touched">
               El apellido es requerido
             </ngb-alert>
@@ -36,6 +38,7 @@
           <div class="col-sm-5">
             <label for="email" class="form-check-label">Email:</label>
             <input id="email" type="email" formControlName="email" class="form-control form-control-sm" required="required"/>
+            {{ data.email }}
             <ngb-alert *ngIf="form.get('email').hasError('required') && form.get('email').touched">
               El email es requerido
             </ngb-alert>
@@ -76,8 +79,8 @@
             <div class="form-text text-danger">Seleccionar la fecha solo de Lunes a Viernes</div>
           </div>
           <div class="col-sm-5">
-            <label>Hora de la cita:</label>
-            <input [formControl]="ctrl" id="hora" type="time" formControlName="hora" class="form-control form-control-sm" required="required"/>
+            <mat-label>Hora de la cita:</mat-label>
+            <ngb-timepicker [formControl]="ctrl" formControlName="hora" required></ngb-timepicker>
             <div *ngIf="ctrl.valid" class="form-text text-success">Hora Correcta</div>
             <div *ngIf="ctrl.errors" class="form-text text-danger">
               <div *ngIf="ctrl.errors['required']">Seleccionar solo de 7:00 a.m. - 18:40 p.m.</div>
@@ -90,11 +93,6 @@
         <!--<button type="submit" [disabled]="form.invalid">Registrar</button>-->
         <div class="row5">
           <button type="submit" (click)="crearData()" class="btn btn-light">Registrar</button>
-        </div>
-        <div class="row6">
-          <ng-container class="text-success" *ngIf="mostrar">
-            Su regitro ha sido exitoso.
-          </ng-container>
         </div>
       </div>
 
