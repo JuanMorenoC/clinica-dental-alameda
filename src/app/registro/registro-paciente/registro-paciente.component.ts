@@ -22,7 +22,7 @@ export class RegistroPacienteComponent implements OnInit {
 
   initEditForm(): void{
     this.form = this.fb.group({
-      rut: new FormControl(),
+      id: new FormControl(),
       nombre: new FormControl(),
       apellido: new FormControl(),
       email: new FormControl(),
@@ -35,7 +35,7 @@ export class RegistroPacienteComponent implements OnInit {
 
   private builForm(): void{
     this.form = this.fb.group({
-      rut: ['', [Validators.required]],
+      id: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -48,9 +48,10 @@ export class RegistroPacienteComponent implements OnInit {
     // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
     // console.log(value);});
   }
-  onThirdFormSubmit(): void {
+  agregarUsuario(): void {
     this.mostrar = true;
     this.usuarioService.addUsuario(this.form.value).subscribe( (data: any) => {
+      console.log('agregado');
       console.log(data);
     });
   }

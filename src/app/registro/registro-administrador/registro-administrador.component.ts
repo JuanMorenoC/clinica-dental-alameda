@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import  { AdministradorService } from '../../Service/administrador/administrador.service';
 
 @Component({
   selector: 'app-registro-administrador',
@@ -8,17 +9,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegistroAdministradorComponent implements OnInit {
   form: FormGroup | any;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.builForm();
+  data = [];
+  mostrar: any = false;
+  constructor(private fb: FormBuilder, private administradorService: AdministradorService) {
+    this.initEditForm();
   }
 
   ngOnInit(): void {
+    this.builForm();
   }
 
   private builForm(){
-    this.form = this.formBuilder.group({
-      rut: ['', [Validators.required]],
+    this.form = this.fb.group({
+      id: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -30,6 +33,17 @@ export class RegistroAdministradorComponent implements OnInit {
     // console.log(value);});
   }
 
+  initEditForm(): void{
+    this.form = this.fb.group({
+      id: new FormControl(),
+      nombre: new FormControl(),
+      apellido: new FormControl(),
+      email: new FormControl(),
+      usuario: new FormControl(),
+      contrasena: new FormControl(),
+    });
+  }
+
   registrarAdministrador(event: Event){
     event.preventDefault();
     if (this.form.valid){
@@ -38,6 +52,14 @@ export class RegistroAdministradorComponent implements OnInit {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  agregarAdministrador(): void {
+    this.mostrar = true;
+    this.administradorService.addAdministrador(this.form.value).subscribe( (data: any) => {
+      console.log('agregado');
+      console.log(data);
+    });
   }
 
 }

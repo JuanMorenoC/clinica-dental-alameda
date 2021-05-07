@@ -8,8 +8,8 @@
         <div class="row1">
           <div class="col-sm-3">
             <label for="buscarrut" class="form-check-label">Rut:</label>
-            <input id="buscarrut" formControlName="rut" type="text" class="form-control form-control-sm" />
-            <ngb-alert *ngIf="form.get('rut').hasError('required') && form.get('rut').touched">
+            <input id="buscarrut" formControlName="id" type="text" class="form-control form-control-sm" />
+            <ngb-alert *ngIf="form.get('id').hasError('required') && form.get('id').touched">
               El rut es requerido
             </ngb-alert>
           </div>
@@ -53,7 +53,14 @@
             </ngb-alert>
           </div>
         </div>
-        <button type="submit" class="btn btn-light">Registrar</button>
+        <div class="row4">
+          <button type="submit" (click)="agregarModerador()" class="btn btn-light">Registrar</button>
+        </div>
+        <div class="row5">
+          <ng-container class="text-success" *ngIf="mostrar">
+            Su regitro ha sido exitoso.
+          </ng-container>
+        </div>
       </div>
     </form>
   </ng-scrollbar>

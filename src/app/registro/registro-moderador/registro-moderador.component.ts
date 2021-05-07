@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { ModeradorService } from '../../Service/moderador/moderador.service';
 
 @Component({
   selector: 'app-registro-moderador',
@@ -8,16 +9,18 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class RegistroModeradorComponent implements OnInit {
   form: FormGroup | any;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.builForm();
+  data = [];
+  mostrar: any = false;
+  constructor(private fb: FormBuilder, private moderadorService: ModeradorService) {
+    this.initEditForm();
   }
 
   ngOnInit(): void {
+    this.builForm();
   }
   private builForm(){
-    this.form = this.formBuilder.group({
-      rut: ['', [Validators.required]],
+    this.form = this.fb.group({
+      id: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -36,6 +39,24 @@ export class RegistroModeradorComponent implements OnInit {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  initEditForm(): void{
+    this.form = this.fb.group({
+      id: new FormControl(),
+      nombre: new FormControl(),
+      apellido: new FormControl(),
+      email: new FormControl(),
+      usuario: new FormControl(),
+      contrasena: new FormControl(),
+    });
+  }
+  agregarModerador(): void {
+    this.mostrar = true;
+    this.moderadorService.addModerador(this.form.value).subscribe( (data: any) => {
+      console.log('agregado');
+      console.log(data);
+    });
   }
 
 }

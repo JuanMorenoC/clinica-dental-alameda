@@ -43,7 +43,7 @@
   top: 180px;
   left: 200px;
   right: 200px;
-  height: 650px;
+  height: 1000px;
   display: flex;
   align-items: center;
   background-color: #77a3d6;
@@ -56,7 +56,7 @@
   top: 180px;
   left: 200px;
   right: 200px;
-  height: 650px;
+  height: 1000px;
   display: flex;
   align-items: center;
   background-color: #77a3d6;
@@ -119,4 +119,21 @@
   align-items: center;
   margin: 0 8px;
   padding: 1em 2em;
+}
+
+.registro-paciente .row5 {
+  position: fixed;
+  top: 700px;
+  left: 300px;
+  right: 200px;
+  height: 30px;
+  display: flex;
+}
+
+.registro-paciente .row5 p{
+  float: right;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }

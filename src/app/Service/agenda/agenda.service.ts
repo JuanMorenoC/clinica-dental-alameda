@@ -11,8 +11,8 @@ export class AgendaService {
     console.log('servicio agenda listo para usar');
     this.url = this.configuracion.configuracion;
   }
-  getAgenda(id: string){
-    return this.httpClient.get(`${this.url}/agenda/${id}`);
+  getAgenda(){
+    return this.httpClient.get(`${this.url}/agenda/`);
   }
   addAgenda(agenda: any){
     // console.log(agenda);

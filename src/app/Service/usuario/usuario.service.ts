@@ -12,18 +12,18 @@ export class UsuarioService {
     console.log('servicio usuario listo para usar');
     this.url = this.configuracion.configuracion;
   }
-  getUsuario(rut: string){
-    return this.httpClient.get(`${this.url}/usuario/${rut}`);
+  getUsuario(id: number){
+    return this.httpClient.get(`${this.url}/usuario/${id}`);
   }
   addUsuario(usuario: any){
     // console.log(usuario);
     return this.httpClient.post(`${this.url}/usuario/`, usuario);
   }
   updateUsuario(usuario: any){
-    return this.httpClient.put(`${this.url}/usuario/${usuario.rut}`, usuario);
+    return this.httpClient.put(`${this.url}/usuario/${usuario.id}`, usuario);
   }
-  deleteUsuario(rut: string) {
-    return this.httpClient.delete(`${this.url}/usuario/${rut}`);
+  deleteUsuario(id: number) {
+    return this.httpClient.delete(`${this.url}/usuario/${id}`);
   }
 }
 export interface Usuario{

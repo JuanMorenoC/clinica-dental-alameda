@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { UsuarioService, Usuario } from '../../Service/usuario/usuario.service';
+import { CitaService } from '../../Service/cita/cita.service';
+import { AgendaService } from '../../Service/agenda/agenda.service';
 
 @Component({
   selector: 'app-registro-cita',
@@ -34,9 +36,10 @@ export class RegistroCitaComponent implements OnInit {
   maxDate = new Date(this.currentYear + 0, 11, 31);
 
   form: FormGroup | any;
-  data: Object = [];
+  data: any = [];
+  mostrar: any = false;
   // dataUsuario: Usuario[] = [];
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService) {
+  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private citaService: CitaService, private agendaService: AgendaService) {
     this.initEditForm();
   }
   ngOnInit(): void {
@@ -45,19 +48,19 @@ export class RegistroCitaComponent implements OnInit {
   }
   initEditForm(): void{
     this.form = this.fb.group({
-      rut: new FormControl(),
+      id: new FormControl(),
       nombre: new FormControl(),
       apellido: new FormControl(),
       email: new FormControl(),
-      telefono: new FormControl(),
-      celular: new FormControl(),
-      fecha_nacimiento: new FormControl(),
-      direccion: new FormControl(),
+      tipo_consulta: new FormControl(),
+      odontologo: new FormControl(),
+      fecha_cita: new FormControl(),
+      hora: new FormControl(),
     });
   }
   private builForm(): void{
     this.form = this.fb.group({
-      rut: ['', [Validators.required]],
+      id: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -73,35 +76,72 @@ export class RegistroCitaComponent implements OnInit {
     // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
       // console.log(value);});
   }
-  cargarData(rut: string): void{
-    console.log('prueba');
-    this.usuarioService.getUsuario(rut).subscribe( data => {
+  cargarData(): void{
+    this.usuarioService.getUsuario(Number(this.form.value.id)).subscribe( data => {
       console.log(data);
       this.data = data;
       console.log(this.data);
+      this.form.patchValue({
+        nombre: this.data.nombre,
+        apellido: this.data.apellido,
+        email: this.data.email,
+      });
     });
-
   }
   crearData(): void {
-    this.usuarioService.addUsuario(this.form.value).subscribe( (data: any) => {
+    this.mostrar = true;
+    console.log('creardata');
+    console.log(this.form.value.fecha_cita.getFullYear());
+    console.log(typeof this.form.value);
+    this.citaService.addCita(this.form.value).subscribe( (data: any) => {
       console.log(data);
     });
+    this.crearDataAgenda();
+  }
+  crearDataAgenda(): void{
+    let cantidadAgenda = 0;
+    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) =>{
+      cantidadAgenda = dataAgendaAll.length;
+      console.log('cantiad all agenda');
+      console.log(dataAgendaAll.length);
+      console.log('cantiad agenda');
+      console.log(cantidadAgenda);
+      let dataAgenda = {
+        id: cantidadAgenda + 1,
+        hora: this.form.value.hora,
+        nombre: this.form.value.nombre,
+        estado: 'Confirmado',
+        fecha_cita: this.form.value.fecha_cita
+      };
+      this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
+        console.log(dataAgendaAgregar);
+      });
+    });
+    /*console.log('cantiad agenda');
+    console.log(cantidadAgenda);
+    let dataAgenda = {
+      id: cantidadAgenda + 1,
+      hora: this.form.value.hora,
+      nombre: this.form.value.nombre,
+      estado: 'Confirmado',
+      fecha_cita: this.form.value.fecha_cita
+    };
+    this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
+      console.log(dataAgendaAgregar);
+    });*/
   }
   actualizarData(): void{
     this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
       console.log(data);
     });
   }
-  /*onEditSave(form: FormGroup) {
-    this.data = this.data.filter((value, key) => {
-      if (value.rut === form.value.rut) {
-        value.nombre = form.value.nombre;
-        value.email = form.value.email;
-      }
-      this.modalService.dismissAll();
-      return true;
-    });
-  }*/
+  editarCampos(datos: any []) {
+    for (const i of datos){
+      this.form.value.nombre = i.nombre;
+      this.form.value.apellido = i.apellido;
+      this.form.value.email = i.email;
+    }
+  }
 
   registrarCita(event: Event): void{
     event.preventDefault();

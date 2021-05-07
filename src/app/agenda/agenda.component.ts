@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import  { AgendaService } from '../Service/agenda/agenda.service';
 
 @Component({
   selector: 'app-agenda',
@@ -7,8 +8,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./agenda.component.css']
 })
 export class AgendaComponent implements OnInit {
-
-  constructor(private fb: FormBuilder) {
+  public listaAgenda: any = [];
+  public listaAgendaSola: any = [];
+  constructor(private fb: FormBuilder, private agendaService: AgendaService) {
+    this.cargarData();
   }
   dateActual = Date.now();
   dateF = new Date(Date.now());
@@ -98,5 +101,17 @@ export class AgendaComponent implements OnInit {
       const value = this.form.value;
       console.log(value);
     }
+  }
+  cargarData(): void{
+    this.agendaService.getAgenda().subscribe((data: any) => {
+      console.log(data);
+      // console.log(data);
+      this.listaAgenda = data;
+      /*for (let i = 0 ; i < data.length ; i++){
+        if (this.currentDate.getFullYear() === data[i].fecha_cita.getFullYear() &&  this.currentDate.getMonth() === data[i].fecha_cita.getMonth() && this.currentDate.getDate() === data[i].fecha_cita.getDate()){
+          this.listaAgenda = data[i];
+        }
+      }*/
+    });
   }
 }
