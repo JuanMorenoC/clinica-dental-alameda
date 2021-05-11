@@ -99,6 +99,26 @@
       "celular": "3189447766",
       "fecha_nacimiento": "1990-06-05",
       "direccion": "cra 34 # 33 - 12"
+    },
+    {
+      "id": "11",
+      "nombre": "Wendy",
+      "apellido": "Rodriguez",
+      "email": "wendyrodriguz@gmail.com",
+      "telefono": "7236534",
+      "celular": "3134920087",
+      "fecha_nacimiento": "1996-11-12",
+      "direccion": "cll 31 # 66 -  77"
+    },
+    {
+      "id": "21872007-2",
+      "nombre": "Jhon",
+      "apellido": "Acosta",
+      "email": "hacosta@hotmail.com",
+      "telefono": "991484833",
+      "celular": "",
+      "fecha_nacimiento": "1977-06-30",
+      "direccion": "San Eugenio 701"
     }
   ],
   "cita": [
@@ -209,6 +229,16 @@
       "odontologo": "1",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
       "hora": "10:16"
+    },
+    {
+      "id": "11",
+      "nombre": "Wendy",
+      "apellido": "Rodriguez",
+      "email": "wendyrodriguz@gmail.com",
+      "tipo_consulta": "1",
+      "odontologo": "1",
+      "fecha_cita": "2021-05-07T05:00:00.000Z",
+      "hora": "10:30"
     }
   ],
   "administrador": [
@@ -284,38 +314,45 @@
   "agenda": [
     {
       "id": 1,
-      "hora": "07:30",
+      "hora": "10:30",
       "nombre": "Lina",
-      "estado": "Moreno",
-      "fecha_cita": "2021/05/09"
+      "estado": "Sala espera",
+      "fecha_cita": "2021-05-10T05:00:00.000Z"
     },
     {
       "id": 2,
       "hora": "08:30",
       "nombre": "Juan",
-      "estado": "Moreno",
-      "fecha_cita": "2021/05/09"
+      "estado": "Cancelado",
+      "fecha_cita": "2021-05-10T05:00:00.000Z"
     },
     {
       "id": 3,
       "hora": "11:30",
       "nombre": "Katty",
-      "estado": "Rodriguez",
-      "fecha_cita": "2021/05/09"
+      "estado": "Pendiente",
+      "fecha_cita": "2021-05-10T05:00:00.000Z"
     },
     {
       "id": 4,
-      "hora": "10:16",
+      "hora": "10:15",
       "nombre": "jose",
       "estado": "Confirmado",
       "fecha_cita": "2021-05-06T05:00:00.000Z"
     },
     {
       "id": 5,
-      "hora": "17:16",
+      "hora": "16:15",
       "nombre": "Lola",
       "estado": "Confirmado",
       "fecha_cita": "2021-05-06T05:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "hora": "10:30",
+      "nombre": "Wendy",
+      "estado": "Esta en el Box",
+      "fecha_cita": "2021-05-11T05:00:00.000Z"
     }
   ]
 }

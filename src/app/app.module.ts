@@ -28,6 +28,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppConfig } from './config/config';
 import { LoginComponent } from './login/login.component';
 
+// FullCalendar
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+
+FullCalendarModule.registerPlugins([
+  dayGridPlugin,
+  timeGridPlugin,
+  listPlugin,
+  interactionPlugin
+])
+
 
 // @ts-ignore
 @NgModule({
@@ -58,7 +72,8 @@ import { LoginComponent } from './login/login.component';
     MatNativeDateModule,
     MatInputModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    FullCalendarModule
   ],
   providers: [ UsuarioService, AppConfig ],
   bootstrap: [AppComponent]
