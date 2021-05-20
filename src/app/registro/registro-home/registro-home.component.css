@@ -1,20 +1,4 @@
 
-.rg {
-  position: fixed;
-  top: 65px;
-  left: 0px;
-  right: 0px;
-  height: 1000px;
-}
-
-.rg ng-scrollbar {
-  position: fixed;
-  top: 65px;
-  left: 0px;
-  right: 0px;
-  height: 1000px;
-}
-
 .titulo-registro {
   position: fixed;
   top: 40px;
@@ -36,7 +20,7 @@
   color: white;
 }
 
-.rg ng-scrollbar .registro-principal .row1 button {
+registro-principal .row1 button {
   margin: 0 8px;
   padding: 1em 2em;
 }

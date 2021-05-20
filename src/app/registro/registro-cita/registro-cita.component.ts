@@ -1,35 +1,48 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { UsuarioService, Usuario } from '../../Service/usuario/usuario.service';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup, NgControl,
+  Validators
+} from '@angular/forms';
+import { MatFormFieldControl} from '@angular/material/form-field';
+import { UsuarioService } from '../../Service/usuario/usuario.service';
 import { CitaService } from '../../Service/cita/cita.service';
 import { AgendaService } from '../../Service/agenda/agenda.service';
+import {Observable} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+
+/** Data structure for cita. */
+export class Cita {
+  constructor(
+    public id: string,
+    public nombre: string,
+    public apellido: string,
+    public email: string,
+    public tipoespecialidad: string,
+    public fechacita: Date,
+    public hora: string
+  ) {}
+}
 
 @Component({
   selector: 'app-registro-cita',
   templateUrl: './registro-cita.component.html',
   styleUrls: ['./registro-cita.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: MatFormFieldControl, useExisting: RegistroCitaComponent }]
 })
-export class RegistroCitaComponent implements OnInit {
-  // @ts-ignore
-  ctrl = new FormControl('', (control: FormControl) => {
-    const value = control.value;
-
-    if (!value) {
-      return null;
-    }
-
-    if (value.hour < 7) {
-      return {tooEarly: true};
-    }
-    if (value.hour > 19) {
-      return {tooLate: true};
-    }
-
-    return null;
-  });
-
+export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
+  constructor(private fb: FormBuilder,
+              private usuarioService: UsuarioService,
+              private citaService: CitaService,
+              private agendaService: AgendaService,
+              public dialog: MatDialog) {
+  }
   private currentYear = new Date().getFullYear();
   private currentDate = new Date();
   minDate = new Date(this.currentDate);
@@ -38,23 +51,48 @@ export class RegistroCitaComponent implements OnInit {
   form: FormGroup | any;
   data: any = [];
   mostrar: any = false;
-  // dataUsuario: Usuario[] = [];
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private citaService: CitaService, private agendaService: AgendaService) {
-    this.initEditForm();
-  }
-  ngOnInit(): void {
+
+  readonly autofilled: boolean | undefined;
+  readonly controlType: string | undefined;
+  // @ts-ignore
+  readonly disabled: boolean | undefined;
+  // @ts-ignore
+  readonly empty: boolean | undefined;
+  // @ts-ignore
+  readonly errorState: boolean | undefined;
+  // @ts-ignore
+  readonly focused: boolean | undefined;
+  // @ts-ignore
+  readonly id: string | undefined;
+  // @ts-ignore
+  readonly ngControl: NgControl | null | undefined;
+
+  // @ts-ignore
+  readonly placeholder: string | undefined;
+  // @ts-ignore
+  readonly required: boolean | undefined;
+
+  // @ts-ignore
+  readonly shouldLabelFloat: boolean | undefined;
+  // @ts-ignore
+  readonly stateChanges: Observable<void> | undefined;
+  readonly userAriaDescribedBy: string | undefined;
+  // @ts-ignore
+  value: Cita | null | undefined;
+
+  ngOnInit(): void{
     this.builForm();
-    // this.dataUsuario = this.usuarioServicio.getUsuario();
   }
-  initEditForm(): void{
+
+
+    initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
       nombre: new FormControl(),
       apellido: new FormControl(),
       email: new FormControl(),
-      tipo_consulta: new FormControl(),
-      odontologo: new FormControl(),
-      fecha_cita: new FormControl(),
+      tipoespecialidad: new FormControl(),
+      fechacita: new FormControl(),
       hora: new FormControl(),
     });
   }
@@ -64,20 +102,16 @@ export class RegistroCitaComponent implements OnInit {
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      tipo_consulta: ['', [Validators.required]],
-      odontologo: ['', [Validators.required]],
-      fecha_cita: ['', [Validators.required]],
+      tipoespecialidad: ['', [Validators.required]],
+      fechacita: ['', [Validators.required]],
       hora: ['', [Validators.required]],
     });
 
     console.log(typeof this.form.get('hora'));
     console.log(typeof this.form);
-
-    // this.form.valueChanges.pipe(debounceTime(500)).subscribe((value: any) => {
-      // console.log(value);});
   }
   cargarData(): void{
-    this.usuarioService.getUsuario(Number(this.form.value.id)).subscribe( data => {
+    this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
       console.log(data);
       this.data = data;
       console.log(this.data);
@@ -91,16 +125,17 @@ export class RegistroCitaComponent implements OnInit {
   crearData(): void {
     this.mostrar = true;
     console.log('creardata');
-    console.log(this.form.value.fecha_cita.getFullYear());
+    console.log(this.form.value.fechacita.getFullYear());
     console.log(typeof this.form.value);
     this.citaService.addCita(this.form.value).subscribe( (data: any) => {
       console.log(data);
     });
     this.crearDataAgenda();
+    this.dialog.open(DialogRegistroCitaComponent);
   }
   crearDataAgenda(): void{
     let cantidadAgenda = 0;
-    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) =>{
+    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
       cantidadAgenda = dataAgendaAll.length;
       console.log('cantiad all agenda');
       console.log(dataAgendaAll.length);
@@ -108,77 +143,32 @@ export class RegistroCitaComponent implements OnInit {
       console.log(cantidadAgenda);
       let dataAgenda = {
         id: cantidadAgenda + 1,
+        idusuario: Number(this.form.value.id),
         hora: this.form.value.hora,
         nombre: this.form.value.nombre,
-        estado: 'Confirmado',
-        fecha_cita: this.form.value.fecha_cita
+        estado: 'Pendiente',
+        fecha_cita: this.form.value.fechacita
       };
       this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
         console.log(dataAgendaAgregar);
       });
     });
-    /*console.log('cantiad agenda');
-    console.log(cantidadAgenda);
-    let dataAgenda = {
-      id: cantidadAgenda + 1,
-      hora: this.form.value.hora,
-      nombre: this.form.value.nombre,
-      estado: 'Confirmado',
-      fecha_cita: this.form.value.fecha_cita
-    };
-    this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
-      console.log(dataAgendaAgregar);
-    });*/
   }
   actualizarData(): void{
     this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
       console.log(data);
     });
   }
-  editarCampos(datos: any []) {
-    for (const i of datos){
-      this.form.value.nombre = i.nombre;
-      this.form.value.apellido = i.apellido;
-      this.form.value.email = i.email;
-    }
+
+  onContainerClick(event: MouseEvent): void {
   }
 
-  registrarCita(event: Event): void{
-    event.preventDefault();
-    if (this.form.valid){
-      const value = this.form.value;
-      console.log(value);
-    } else {
-      this.form.markAllAsTouched();
-    }
+  setDescribedByIds(ids: string[]): void {
   }
-
-  buscarCita(rut: string): void {
-    /*for (const iter of this.dataUsuario){
-      if (rut === iter.rut){
-        this.form.patchValue({
-          nombre: iter.nombre,
-          apellido: iter.apellido,
-          email: iter.email,
-        });
-      }
-    }*/
-  }
-
-  /*compararTiempo({hora}: { hora: any }) {
-    const tiempo1 = new Date("2021/03/18 07:00:00");
-    const tiempo2 = new Date("2021/03/18 19:00:00");
-
-    console.log(typeof hora);
-    console.log(hora);
-    console.log(typeof tiempo1);
-    console.log(tiempo1.getHours());
-
-    if (hora > tiempo1 &&  hora < tiempo2){
-      return false;
-    } else {
-      return true;
-    }
-  }*/
-
 }
+
+@Component({
+  selector: 'app-dialog-registro-cita',
+  templateUrl: 'dialog-registro-cita.html',
+})
+export class DialogRegistroCitaComponent {}

@@ -12,7 +12,10 @@ export class UsuarioService {
     console.log('servicio usuario listo para usar');
     this.url = this.configuracion.configuracion;
   }
-  getUsuario(id: number){
+  getAllUsuario(){
+    return this.httpClient.get(`${this.url}/usuario/`);
+  }
+  getUsuario(id: string){
     return this.httpClient.get(`${this.url}/usuario/${id}`);
   }
   addUsuario(usuario: any){

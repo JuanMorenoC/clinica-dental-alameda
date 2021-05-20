@@ -9,6 +9,9 @@ import {RegistroCitaComponent} from './registro/registro-cita/registro-cita.comp
 import {RegistroAdministradorComponent} from './registro/registro-administrador/registro-administrador.component';
 import {RegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
 import {RegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
+import {OdontologoComponent} from './odontologo/odontologo.component';
+import {SecretariaComponent} from './secretaria/secretaria.component';
+import {BuscarPacienteComponent} from './paciente/buscar-paciente/buscar-paciente.component';
 
 const routes: Routes = [
   {
@@ -22,6 +25,14 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent, // another child route component that the router renders
+  },
+  {
+    path: 'odontologo',
+    component: OdontologoComponent, // another child route component that the router renders
+  },
+  {
+    path: 'secretaria',
+    component: SecretariaComponent, // another child route component that the router renders
   },
   {
     path: 'registro/registro-home',
@@ -42,6 +53,10 @@ const routes: Routes = [
   {
     path: 'registro/registro-paciente',
     component: RegistroPacienteComponent, // another child route component that the router renders
+  },
+  {
+    path: 'paciente/buscar-paciente',
+    component: BuscarPacienteComponent, // another child route component that the router renders
   },
   {
     path: '',

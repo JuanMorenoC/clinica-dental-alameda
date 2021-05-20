@@ -1,7 +1,7 @@
 {
   "usuario": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Juan",
       "apellido": "Moreno",
       "email": "juanmoreno@gmail.com",
@@ -11,7 +11,7 @@
       "direccion": "cll 31 # 20 - 41"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Valeria",
       "apellido": "Rodriguez",
       "email": "valerodri@gmail.com",
@@ -21,7 +21,7 @@
       "direccion": "cll 32 # 22 - 42"
     },
     {
-      "id": 3,
+      "id": "3",
       "nombre": "Laura",
       "apellido": "Montoya",
       "email": "lauramontoya@gmail.com",
@@ -31,7 +31,7 @@
       "direccion": "cll 34 # 24 - 44"
     },
     {
-      "id": 4,
+      "id": "4",
       "nombre": "Katty",
       "apellido": "Rodriguez",
       "email": "kattyrodriguez@gmail.com",
@@ -41,7 +41,7 @@
       "direccion": "cll 11 # 10 - 21"
     },
     {
-      "id": 5,
+      "id": "5",
       "nombre": "Pablo",
       "apellido": "Montoya",
       "email": "pablomontoya@gmail.com",
@@ -51,7 +51,7 @@
       "direccion": "cll 30 # 20 - 44"
     },
     {
-      "id": 6,
+      "id": "6",
       "nombre": "Lina",
       "apellido": "Moreno",
       "email": "linamoreno@gmail.com",
@@ -61,7 +61,7 @@
       "direccion": "cll 21 # 20 - 44"
     },
     {
-      "id": 7,
+      "id": "7",
       "nombre": "jose",
       "apellido": "rodriguez",
       "email": "jose@conectando",
@@ -119,6 +119,20 @@
       "celular": "",
       "fecha_nacimiento": "1977-06-30",
       "direccion": "San Eugenio 701"
+    },
+    {
+      "id": "13",
+      "tipoidentificacion": "CI",
+      "nombre": "Michelli",
+      "apellido": "Brito",
+      "email": "michellibrito@gmail.com",
+      "celular": "3117392365",
+      "fechanacimiento": "1981-03-05T05:00:00.000Z",
+      "direccion": "cll 43 # 56 - 99",
+      "departamento": "Region Metropolitana de Santiago",
+      "ciudad": "Alto Jahuel",
+      "seudonimo": "michelli",
+      "clave": "michelli5"
     }
   ],
   "cita": [
@@ -127,8 +141,7 @@
       "nombre": "Lina",
       "apellido": "Moreno",
       "email": "linamoreno@gmail.com",
-      "tipo_consulta": "Higiene Oral",
-      "odontologo": "Juan Carlos Acosta",
+      "tipo_especialidad": "Higiene Oral",
       "fecha_cita": "2021/05/09",
       "hora": "07:30"
     },
@@ -137,8 +150,7 @@
       "nombre": "Katty",
       "apellido": "Rodriguez",
       "email": "kattyrodriguez@gmail.com",
-      "tipo_consulta": "Higiene Oral",
-      "odontologo": "Juan Carlos Acosta",
+      "tipo_especialidad": "Higiene Oral",
       "fecha_cita": "2021/05/09",
       "hora": "11:30"
     },
@@ -147,8 +159,7 @@
       "nombre": "Juan",
       "apellido": "Moreno",
       "email": "juanmoreno@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
       "hora": {
         "hour": 14,
@@ -161,8 +172,7 @@
       "nombre": "jose",
       "apellido": "rodriguez",
       "email": "jose@conectando",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
       "hora": {
         "hour": 17,
@@ -175,8 +185,7 @@
       "nombre": "Valeria",
       "apellido": "Rodriguez",
       "email": "valerodri@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "2",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "11:30"
     },
@@ -185,8 +194,7 @@
       "nombre": "Laura",
       "apellido": "Montoya",
       "email": "lauramontoya@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "2",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "16:30"
     },
@@ -195,8 +203,7 @@
       "nombre": "Pablo",
       "apellido": "Montoya",
       "email": "pablomontoya@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "14:15"
     },
@@ -205,8 +212,7 @@
       "nombre": "Pepe",
       "apellido": "Contreras",
       "email": "pepecontreras@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "10:30"
     },
@@ -215,8 +221,7 @@
       "nombre": "sara",
       "apellido": "andrade",
       "email": "saraanrade@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
       "hora": "08:20"
     },
@@ -225,8 +230,7 @@
       "nombre": "Lola",
       "apellido": "Wanda",
       "email": "lolawanda@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
       "hora": "10:16"
     },
@@ -235,10 +239,18 @@
       "nombre": "Wendy",
       "apellido": "Rodriguez",
       "email": "wendyrodriguz@gmail.com",
-      "tipo_consulta": "1",
-      "odontologo": "1",
+      "tipo_especialidad": "1",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "10:30"
+    },
+    {
+      "id": "13",
+      "nombre": "Michelli",
+      "apellido": "Brito",
+      "email": "michellibrito@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-19T05:00:00.000Z",
+      "hora": "11:00"
     }
   ],
   "administrador": [
@@ -314,6 +326,7 @@
   "agenda": [
     {
       "id": 1,
+      "idusuario": 6,
       "hora": "10:30",
       "nombre": "Lina",
       "estado": "Sala espera",
@@ -321,6 +334,7 @@
     },
     {
       "id": 2,
+      "idusuario": 1,
       "hora": "08:30",
       "nombre": "Juan",
       "estado": "Cancelado",
@@ -328,6 +342,7 @@
     },
     {
       "id": 3,
+      "idusuario": 4,
       "hora": "11:30",
       "nombre": "Katty",
       "estado": "Pendiente",
@@ -335,24 +350,35 @@
     },
     {
       "id": 4,
-      "hora": "10:15",
+      "idusuario": 7,
+      "hora": "10:30",
       "nombre": "jose",
       "estado": "Confirmado",
       "fecha_cita": "2021-05-06T05:00:00.000Z"
     },
     {
       "id": 5,
-      "hora": "16:15",
+      "idusuario": 10,
+      "hora": "16:30",
       "nombre": "Lola",
       "estado": "Confirmado",
       "fecha_cita": "2021-05-06T05:00:00.000Z"
     },
     {
       "id": 6,
+      "idusuario": 11,
       "hora": "10:30",
       "nombre": "Wendy",
       "estado": "Esta en el Box",
       "fecha_cita": "2021-05-11T05:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "idusuario": 13,
+      "hora": "11:00",
+      "nombre": "Michelli",
+      "estado": "Pendiente",
+      "fecha_cita": "2021-05-19T05:00:00.000Z"
     }
   ]
 }

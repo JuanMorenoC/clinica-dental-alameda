@@ -1,158 +1,34 @@
-
-
-.rg {
-  position: fixed;
-  top: 65px;
-  left: 0px;
-  right: 0px;
-  height: 1000px;
-}
-
-.rg ng-scrollbar {
-  position: fixed;
-  top: 65px;
-  left: 0px;
-  right: 0px;
-  height: 1000px;
-}
-
-.rg ng-scrollbar .titulo-registro-paciente {
-  padding: 1em 2em;
-  position: fixed;
-  width: 100%;
-  z-index: 100;
+.reg-cita {
   top: 80px;
-  left: 0px;
-  right: 0px;
-  height: 60px;
-  display: inline-flex;
+}
+
+.example-card {
+  max-width: 800px;
+  left: 275px;
+}
+
+.row .col .mat-form-field + .mat-form-field {
+  margin-left: 12px;
   align-items: center;
-  color: black;
-  font-weight: 600;
 }
 
-.rg ng-scrollbar .titulo-registro-paciente h2 {
-  float: right;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.rg ng-scrollbar form {
-  position: fixed;
-  top: 180px;
-  left: 200px;
-  right: 200px;
-  height: 1000px;
-  display: flex;
+.row .boton {
+  max-width: 200px;
   align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-}
-
-.rg ng-scrollbar .registro-paciente {
-  position: fixed;
-  top: 180px;
-  left: 200px;
-  right: 200px;
-  height: 1000px;
-  display: flex;
-  align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-}
-
-.rg ng-scrollbar .registro-paciente .row1 {
-  position: fixed;
-  top: 240px;
-  left: 200px;
-  right: 200px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-  margin: 0 8px;
-  padding: 1px;
-}
-
-.rg ng-scrollbar .registro-paciente .row2 {
-  position: fixed;
-  top: 360px;
-  left: 200px;
-  right: 200px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-  margin: 0 8px;
-  padding: 1px;
-}
-
-.rg ng-scrollbar .registro-paciente .row3 {
-  position: fixed;
-  top: 480px;
-  left: 200px;
-  right: 200px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-  margin: 0 8px;
-  padding: 1px;
-}
-
-.rg ng-scrollbar .registro-paciente .row4 {
-  position: fixed;
-  top: 600px;
-  left: 200px;
-  right: 200px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  background-color: #77a3d6;
-  color: black;
-  font-weight: 600;
-  margin: 0 8px;
-  padding: 1px;
-}
-
-.rg ng-scrollbar .registro-paciente .row5 {
-  position: fixed;
-  top: 720px;
-  left: 600px;
-  right: 200px;
-  height: 30px;
-  display: flex;
-}
-
-.rg ng-scrollbar .registro-paciente .row5 button{
-  align-items: center;
-  margin: 0 8px;
-  padding: 1em 2em;
-}
-
-.rg ng-scrollbar .registro-paciente .row6 {
-  position: fixed;
-  top: 800px;
   left: 300px;
-  right: 200px;
-  height: 30px;
-  display: flex;
 }
 
-.rg ng-scrollbar .registro-paciente .row6 p{
-  float: right;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+.row .especial {
+  max-width: 250px;
+  align-items: center;
+}
+
+.row .colemail {
+  max-width: 250px;
+  align-items: center;
+}
+
+.row .departa {
+  max-width: 300px;
+  align-items: center;
 }

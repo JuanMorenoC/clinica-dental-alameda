@@ -1,17 +1,16 @@
 
 .nosotros {
   padding: 1em 2em;
-  position: fixed;
+  position: relative;
   width: 100%;
   z-index: 100;
-  top: 120px;
+  top: 90px;
   left: 0px;
   right: 0px;
-  height: 60px;
+  height: 30px;
   display: inline-flex;
   align-items: center;
   background: #015798;
-  color: white;
   font-weight: 600;
 }
 
@@ -26,9 +25,10 @@
 .nosotros h2 span{
   color: rgb(245, 246, 246);
 }
-body{
+.informacion {
+  position: relative;
+  top: 120px;
   background: #015798;
-
 }
 .container{
   width: 100%;

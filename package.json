@@ -29,9 +29,9 @@
     "@fullcalendar/list": "^5.6.0",
     "@fullcalendar/timegrid": "^5.6.0",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
+    "angular-calendar": "^0.28.24",
     "bootstrap": "^4.6.0",
-    "devextreme": "20.2.7",
-    "devextreme-angular": "20.2.7",
+    "date-fns": "^2.21.3",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-scrollbar": "^7.5.4",
@@ -54,9 +54,14 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "postcss": "^8.2.13",
+    "postcss-focus": "^5.0.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.1.5"
+  },
+  "peerDependencies": {
+    "postcss": "^8.2.13"
   }
 }

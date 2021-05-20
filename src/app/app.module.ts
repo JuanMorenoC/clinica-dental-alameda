@@ -16,32 +16,29 @@ import { RegistroPacienteComponent } from './registro/registro-paciente/registro
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { NavbarComponent } from './navbar/navbar.component';
 import { RegistroModeradorComponent } from './registro/registro-moderador/registro-moderador.component';
 import {MatCardModule} from '@angular/material/card';
-
 import { UsuarioService } from './Service/usuario/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfig } from './config/config';
 import { LoginComponent } from './login/login.component';
-
-// FullCalendar
-import { FullCalendarModule } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
-
-FullCalendarModule.registerPlugins([
-  dayGridPlugin,
-  timeGridPlugin,
-  listPlugin,
-  interactionPlugin
-])
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { OdontologoComponent } from './odontologo/odontologo.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SecretariaComponent } from './secretaria/secretaria.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DialogRegistroCitaComponent} from './registro/registro-cita/registro-cita.component';
+import {MatIconModule} from '@angular/material/icon';
+import {DialogRegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
+import {DialogErrorRegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
+import { BuscarPacienteComponent } from './paciente/buscar-paciente/buscar-paciente.component';
+import {MatTableModule} from '@angular/material/table';
 
 // @ts-ignore
 @NgModule({
@@ -54,26 +51,53 @@ FullCalendarModule.registerPlugins([
     RegistroCitaComponent,
     RegistroHomeComponent,
     RegistroPacienteComponent,
-    NavbarComponent,
     RegistroModeradorComponent,
-    LoginComponent
+    LoginComponent,
+    OdontologoComponent,
+    SecretariaComponent,
+    DialogRegistroCitaComponent,
+    DialogRegistroPacienteComponent,
+    DialogErrorRegistroPacienteComponent,
+    BuscarPacienteComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    NgScrollbarModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        NgScrollbarModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule,
+        MatInputModule,
+        HttpClientModule,
+        MatCardModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
+        MatAutocompleteModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        MatTableModule,
+    ],
+  exports: [
     MatDatepickerModule,
     MatFormFieldModule,
-    NgbTimepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    HttpClientModule,
     MatCardModule,
-    FullCalendarModule
+    MatAutocompleteModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   providers: [ UsuarioService, AppConfig ],
   bootstrap: [AppComponent]
