@@ -14,81 +14,79 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <button mat-raised-button type="submit" color="primary" (click)="cargarData()">Buscar</button>
-          </div>
-        </div>
-        <!-- DATOS DEL PACIENTE -->
-        <br>
-        <br>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Tipo de Identificaci&oacute;n:</mat-label>
-              <input matInput type="text" formControlName="tipoidentificacion" class="form-control"/>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col">
             <mat-form-field>
               <mat-label>Nombre:</mat-label>
-              <input matInput type="text" formControlName="nombre" class="form-control"/>
+              <input matInput formControlName="nombre" class="form-control" type="text"/>
             </mat-form-field>
           </div>
           <div class="col">
             <mat-form-field>
               <mat-label>Apellido:</mat-label>
-              <input matInput type="text" formControlName="apellido" class="form-control"/>
+              <input matInput formControlName="apellido" class="form-control" type="text"/>
             </mat-form-field>
           </div>
         </div>
         <br>
         <div class="row">
           <div class="col">
-            <mat-form-field>
-              <mat-label>Email:</mat-label>
-              <input matInput type="text" formControlName="email" class="form-control"/>
-            </mat-form-field>
+            <button mat-raised-button appDebounceClick type="submit" color="primary" (click)="cargarData()" (debounceClick)="log()" [debounceTime]="500">Buscar</button>
           </div>
           <div class="col">
-            <mat-form-field>
-              <mat-label>Celular:</mat-label>
-              <input matInput type="text" formControlName="celular" class="form-control"/>
-            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary" (click)="borrarCampos()">Restaurar</button>
           </div>
         </div>
+        <!-- DATOS DEL PACIENTE -->
         <br>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Fecha de Nacimiento:</mat-label>
-              <input matInput type="text" formControlName="fechanacimiento" class="form-control"/>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Direcci&oacute;n:</mat-label>
-              <input matInput type="text" formControlName="direccion" class="form-control"/>
-            </mat-form-field>
-          </div>
-        </div>
         <br>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Departamento:</mat-label>
-              <input matInput type="text" formControlName="departamento" class="form-control"/>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Ciudad:</mat-label>
-              <input matInput type="text" formControlName="ciudad" class="form-control"/>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
+        <table class="table table-hover">
+          <thead class="text-center">
+          <tr>
+            <th colspan="2">Datos Paciente</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Identificaci&oacute;n:</th>
+              <td>{{ listaPaciente[0] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Tipo de Identificaci&oacute;n:</th>
+              <td>{{ listaPaciente[1] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Nombre:</th>
+              <td>{{ listaPaciente[2] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Apellido:</th>
+              <td>{{ listaPaciente[3] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email:</th>
+              <td>{{ listaPaciente[4] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Celular:</th>
+              <td>{{ listaPaciente[5] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Fecha de Nacimiento:</th>
+              <td>{{ listaPaciente[6] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Direcci&oacute;n:</th>
+              <td>{{ listaPaciente[7] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Departamento:</th>
+              <td>{{ listaPaciente[8] }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Ciudad:</th>
+              <td>{{ listaPaciente[9] }}</td>
+            </tr>
+          </tbody>
+        </table>
       </form>
     </mat-card-content>
   </mat-card>

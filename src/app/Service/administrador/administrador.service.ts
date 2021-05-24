@@ -11,6 +11,9 @@ export class AdministradorService {
     console.log('servicio administrador listo para usar');
     this.url = this.configuracion.configuracion;
   }
+  getAllAdministrador(){
+    return this.httpClient.get(`${this.url}/administrador/`);
+  }
   getAdministrador(rut: string){
     return this.httpClient.get(`${this.url}/administrador/${rut}`);
   }

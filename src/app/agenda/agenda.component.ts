@@ -180,8 +180,8 @@ export class AgendaComponent implements OnInit {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
         const datosEventos = {
-          start: new Date(String(new Date(data[i].fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
-          end: new Date(String(new Date(data[i].fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
+          start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
+          end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
           title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
           color: this.obtenerColor(data, i),
           resizable: {

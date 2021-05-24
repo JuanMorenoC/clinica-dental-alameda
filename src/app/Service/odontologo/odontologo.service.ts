@@ -11,17 +11,20 @@ export class OdontologoService {
     console.log('servicio odontologo listo para usar');
     this.url = this.configuracion.configuracion;
   }
-  getOdontologo(rut: string){
-    return this.httpClient.get(`${this.url}/odontologo/${rut}`);
+  getAllOdontologo(){
+    return this.httpClient.get(`${this.url}/odontologo/`);
+  }
+  getOdontologo(id: string){
+    return this.httpClient.get(`${this.url}/odontologo/${id}`);
   }
   addOdontologo(odontologo: any){
     // console.log(odontologo);
     return this.httpClient.post(`${this.url}/odontologo/`, odontologo);
   }
   updateOdontologo(odontologo: any){
-    return this.httpClient.put(`${this.url}/odontologo/${odontologo.rut}`, odontologo);
+    return this.httpClient.put(`${this.url}/odontologo/${odontologo.id}`, odontologo);
   }
-  deleteOdontologo(rut: string) {
-    return this.httpClient.delete(`${this.url}/odontologo/${rut}`);
+  deleteOdontologo(id: string) {
+    return this.httpClient.delete(`${this.url}/odontologo/${id}`);
   }
 }

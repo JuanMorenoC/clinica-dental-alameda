@@ -11,6 +11,9 @@ export class ModeradorService {
     console.log('servicio moderador listo para usar');
     this.url = this.configuracion.configuracion;
   }
+  getAllModerador(){
+    return this.httpClient.get(`${this.url}/moderador/`);
+  }
   getModerador(rut: string){
     return this.httpClient.get(`${this.url}/moderador/${rut}`);
   }

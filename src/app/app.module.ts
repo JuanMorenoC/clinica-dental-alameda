@@ -8,7 +8,7 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { AgendaComponent } from './agenda/agenda.component';
 import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RegistroAdministradorComponent } from './registro/registro-administrador/registro-administrador.component';
+import { RegistroOdontologoComponent } from './registro/registro-odontologo/registro-odontologo.component';
 import { RegistroCitaComponent } from './registro/registro-cita/registro-cita.component';
 import { RegistroHomeComponent } from './registro/registro-home/registro-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +39,31 @@ import {DialogRegistroPacienteComponent} from './registro/registro-paciente/regi
 import {DialogErrorRegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
 import { BuscarPacienteComponent } from './paciente/buscar-paciente/buscar-paciente.component';
 import {MatTableModule} from '@angular/material/table';
+import { ActualizarPacienteComponent } from './paciente/actualizar-paciente/actualizar-paciente.component';
+import { ActualizarPacienteParaSecretariaComponent } from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
+import {DialogActualizarPacienteComponent} from './paciente/actualizar-paciente/actualizar-paciente.component';
+import {DialogActualizarPacienteParaSecretariaComponent} from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
+import { BorrarPacienteComponent } from './paciente/borrar-paciente/borrar-paciente.component';
+import {DialogBorrarPacienteComponent} from './paciente/borrar-paciente/borrar-paciente.component';
+import {DialogErrorActualizarPacienteParaSecretariaComponent} from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
+import {DialogErrorBorrarPacienteComponent} from './paciente/borrar-paciente/borrar-paciente.component';
+import { PacienteHomeComponent } from './paciente/paciente-home/paciente-home.component';
+import { ConfirmarCitaComponent } from './cita/confirmar-cita/confirmar-cita.component';
+import {DialogConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
+import { CambiarEstadoComponent } from './cita/cambiar-estado/cambiar-estado.component';
+import {DialogCambiarEstadoComponent} from './cita/cambiar-estado/cambiar-estado.component';
+import {DialogRegistroOdontologoComponent} from './registro/registro-odontologo/registro-odontologo.component';
+import {DialogErrorRegistroOdontologoComponent} from './registro/registro-odontologo/registro-odontologo.component';
+import {DialogRegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
+import {DialogErrorRegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+import { ModeradorComponent } from './moderador/moderador.component';
+import { RegistroSecretariaComponent } from './registro/registro-secretaria/registro-secretaria.component';
+import {DialogRegistroSecretariaComponent} from './registro/registro-secretaria/registro-secretaria.component';
+import {DialogErrorRegistroSecretariaComponent} from './registro/registro-secretaria/registro-secretaria.component';
+import { PqrsComponent } from './cita/pqrs/pqrs.component';
+import { HistorialPacienteComponent } from './paciente/historial-paciente/historial-paciente.component';
+import { DebounceClickDirective } from './directivas/debounce-click/debounce-click.directive';
 
 // @ts-ignore
 @NgModule({
@@ -47,7 +72,7 @@ import {MatTableModule} from '@angular/material/table';
     NosotrosComponent,
     AgendaComponent,
     HomeComponent,
-    RegistroAdministradorComponent,
+    RegistroOdontologoComponent,
     RegistroCitaComponent,
     RegistroHomeComponent,
     RegistroPacienteComponent,
@@ -58,7 +83,32 @@ import {MatTableModule} from '@angular/material/table';
     DialogRegistroCitaComponent,
     DialogRegistroPacienteComponent,
     DialogErrorRegistroPacienteComponent,
-    BuscarPacienteComponent
+    BuscarPacienteComponent,
+    ActualizarPacienteComponent,
+    ActualizarPacienteParaSecretariaComponent,
+    DialogActualizarPacienteComponent,
+    DialogActualizarPacienteParaSecretariaComponent,
+    BorrarPacienteComponent,
+    DialogBorrarPacienteComponent,
+    DialogErrorActualizarPacienteParaSecretariaComponent,
+    DialogErrorBorrarPacienteComponent,
+    PacienteHomeComponent,
+    ConfirmarCitaComponent,
+    DialogConfirmarCitaComponent,
+    CambiarEstadoComponent,
+    DialogCambiarEstadoComponent,
+    DialogRegistroOdontologoComponent,
+    DialogErrorRegistroOdontologoComponent,
+    DialogRegistroModeradorComponent,
+    DialogErrorRegistroModeradorComponent,
+    AdministradorComponent,
+    ModeradorComponent,
+    RegistroSecretariaComponent,
+    DialogRegistroSecretariaComponent,
+    DialogErrorRegistroSecretariaComponent,
+    PqrsComponent,
+    HistorialPacienteComponent,
+    DebounceClickDirective
   ],
     imports: [
         BrowserModule,
@@ -98,6 +148,7 @@ import {MatTableModule} from '@angular/material/table';
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    MatTableModule,
   ],
   providers: [ UsuarioService, AppConfig ],
   bootstrap: [AppComponent]

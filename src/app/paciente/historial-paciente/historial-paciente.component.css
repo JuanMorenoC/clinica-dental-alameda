@@ -1,0 +1,27 @@
+.reg-cita {
+  top: 80px;
+}
+
+.example-card-one {
+  max-width: 800px;
+  left: 275px;
+}
+
+.example-card-two {
+  width: 100%;
+}
+
+.row .col .mat-form-field + .mat-form-field {
+  margin-left: 10px;
+  align-items: center;
+}
+
+.row .col .boton {
+  max-width: 100px;
+  align-items: center;
+  left: 300px;
+}
+
+table thead {
+  font-weight: bold;
+}

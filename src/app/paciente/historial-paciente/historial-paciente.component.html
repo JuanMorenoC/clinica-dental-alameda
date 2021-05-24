@@ -1,0 +1,68 @@
+<div class="reg-cita">
+  <mat-card class="example-card-one">
+    <mat-card-header>
+      <mat-card-title>Historial Paciente</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Descripci&oacute;n</mat-label>
+              <textarea matInput formControlName="descripcion"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Odontologo</mat-label>
+              <mat-select formControlName="odontologo">
+                <mat-option value="{{concepto}}"  *ngFor = "let concepto of listaOdontologo;">{{concepto}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <button mat-raised-button appDebounceClick type="submit" color="primary" (click)="cargarData()" (debounceClick)="log()" [debounceTime]="500">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+  <br>
+  <mat-card class="example-card-two">
+    <mat-card-header>
+      <mat-card-subtitle>Evoluciones ordenados desde la mas reciente</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <br>
+      <form [formGroup]="formTabla">
+        <table class="table table-hover">
+          <thead class="text-center">
+          <tr>
+            <th scope="col">Fecha</th>
+            <th scope="col">Evoluci&oacute;n</th>
+            <th scope="col">
+              <mat-form-field appearance="fill">
+                <mat-label>Odontologo</mat-label>
+                <mat-select formControlName="odontologo">
+                  <mat-option value="{{concepto}}"  *ngFor = "let concepto of listaOdontologo;">{{concepto}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row"></th>
+            <td></td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

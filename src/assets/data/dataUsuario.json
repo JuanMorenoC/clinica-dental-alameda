@@ -2,123 +2,31 @@
   "usuario": [
     {
       "id": "1",
+      "tipoidentificacion": "RUT",
       "nombre": "Juan",
       "apellido": "Moreno",
       "email": "juanmoreno@gmail.com",
-      "telefono": "7345263",
-      "celular": "311847463",
-      "fecha_nacimiento": "1994/05/09",
-      "direccion": "cll 31 # 20 - 41"
+      "celular": "3118474633",
+      "fechanacimiento": "1994-05-09T05:00:00.000Z",
+      "direccion": "cll 31 # 20 - 41",
+      "departamento": "Antofagasta",
+      "ciudad": "Antofagasta",
+      "seudonimo": "donjuan",
+      "clave": "juan5"
     },
     {
       "id": "2",
+      "tipoidentificacion": "RUN",
       "nombre": "Valeria",
       "apellido": "Rodriguez",
       "email": "valerodri@gmail.com",
-      "telefono": "7373462",
-      "celular": "31198263654",
-      "fecha_nacimiento": "1999/04/11",
-      "direccion": "cll 32 # 22 - 42"
-    },
-    {
-      "id": "3",
-      "nombre": "Laura",
-      "apellido": "Montoya",
-      "email": "lauramontoya@gmail.com",
-      "telefono": "73453383",
-      "celular": "31189383773",
-      "fecha_nacimiento": "2000/05/28",
-      "direccion": "cll 34 # 24 - 44"
-    },
-    {
-      "id": "4",
-      "nombre": "Katty",
-      "apellido": "Rodriguez",
-      "email": "kattyrodriguez@gmail.com",
-      "telefono": "7345177",
-      "celular": "311883838",
-      "fecha_nacimiento": "1984/02/19",
-      "direccion": "cll 11 # 10 - 21"
-    },
-    {
-      "id": "5",
-      "nombre": "Pablo",
-      "apellido": "Montoya",
-      "email": "pablomontoya@gmail.com",
-      "telefono": "7445263",
-      "celular": "3118345343",
-      "fecha_nacimiento": "1994/08/11",
-      "direccion": "cll 30 # 20 - 44"
-    },
-    {
-      "id": "6",
-      "nombre": "Lina",
-      "apellido": "Moreno",
-      "email": "linamoreno@gmail.com",
-      "telefono": "7548293",
-      "celular": "311274006",
-      "fecha_nacimiento": "1996/11/09",
-      "direccion": "cll 21 # 20 - 44"
-    },
-    {
-      "id": "7",
-      "nombre": "jose",
-      "apellido": "rodriguez",
-      "email": "jose@conectando",
-      "telefono": "7889944",
-      "celular": "3135663377",
-      "fecha_nacimiento": "2000-11-16",
-      "direccion": "cll 77 # 33 -  44"
-    },
-    {
-      "id": "8",
-      "nombre": "Pepe",
-      "apellido": "Contreras",
-      "email": "pepecontreras@gmail.com",
-      "telefono": "7234455",
-      "celular": "3134557799",
-      "fecha_nacimiento": "1998-01-07",
-      "direccion": "cll 33 # 777 - 33"
-    },
-    {
-      "id": "9",
-      "nombre": "sara",
-      "apellido": "andrade",
-      "email": "saraanrade@gmail.com",
-      "telefono": "7247264",
-      "celular": "313847562378",
-      "fecha_nacimiento": "1999-02-20",
-      "direccion": "cll 313 9847"
-    },
-    {
-      "id": "10",
-      "nombre": "Lola",
-      "apellido": "Wanda",
-      "email": "lolawanda@gmail.com",
-      "telefono": "4553366",
-      "celular": "3189447766",
-      "fecha_nacimiento": "1990-06-05",
-      "direccion": "cra 34 # 33 - 12"
-    },
-    {
-      "id": "11",
-      "nombre": "Wendy",
-      "apellido": "Rodriguez",
-      "email": "wendyrodriguz@gmail.com",
-      "telefono": "7236534",
-      "celular": "3134920087",
-      "fecha_nacimiento": "1996-11-12",
-      "direccion": "cll 31 # 66 -  77"
-    },
-    {
-      "id": "21872007-2",
-      "nombre": "Jhon",
-      "apellido": "Acosta",
-      "email": "hacosta@hotmail.com",
-      "telefono": "991484833",
-      "celular": "",
-      "fecha_nacimiento": "1977-06-30",
-      "direccion": "San Eugenio 701"
+      "celular": "311982636",
+      "fechanacimiento": "1999-04-11T05:00:00.000Z",
+      "direccion": "cll 32 # 22 - 42",
+      "departamento": "Valparaiso",
+      "ciudad": "Valparaíso",
+      "seudonimo": "valeriaph",
+      "clave": "valeria5"
     },
     {
       "id": "13",
@@ -137,111 +45,22 @@
   ],
   "cita": [
     {
-      "id": 6,
-      "nombre": "Lina",
-      "apellido": "Moreno",
-      "email": "linamoreno@gmail.com",
-      "tipo_especialidad": "Higiene Oral",
-      "fecha_cita": "2021/05/09",
-      "hora": "07:30"
-    },
-    {
-      "id": 4,
-      "nombre": "Katty",
-      "apellido": "Rodriguez",
-      "email": "kattyrodriguez@gmail.com",
-      "tipo_especialidad": "Higiene Oral",
-      "fecha_cita": "2021/05/09",
-      "hora": "11:30"
-    },
-    {
       "id": "1",
       "nombre": "Juan",
       "apellido": "Moreno",
       "email": "juanmoreno@gmail.com",
-      "tipo_especialidad": "1",
+      "tipo_especialidad": "Higiene Oral",
       "fecha_cita": "2021-05-06T05:00:00.000Z",
-      "hora": {
-        "hour": 14,
-        "minute": 0,
-        "second": 0
-      }
-    },
-    {
-      "id": "7",
-      "nombre": "jose",
-      "apellido": "rodriguez",
-      "email": "jose@conectando",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-06T05:00:00.000Z",
-      "hora": {
-        "hour": 17,
-        "minute": 0,
-        "second": 0
-      }
+      "hora": "14:00"
     },
     {
       "id": "2",
       "nombre": "Valeria",
       "apellido": "Rodriguez",
       "email": "valerodri@gmail.com",
-      "tipo_especialidad": "1",
+      "tipo_especialidad": "Higiene Oral",
       "fecha_cita": "2021-05-07T05:00:00.000Z",
       "hora": "11:30"
-    },
-    {
-      "id": "3",
-      "nombre": "Laura",
-      "apellido": "Montoya",
-      "email": "lauramontoya@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-07T05:00:00.000Z",
-      "hora": "16:30"
-    },
-    {
-      "id": "5",
-      "nombre": "Pablo",
-      "apellido": "Montoya",
-      "email": "pablomontoya@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-07T05:00:00.000Z",
-      "hora": "14:15"
-    },
-    {
-      "id": "8",
-      "nombre": "Pepe",
-      "apellido": "Contreras",
-      "email": "pepecontreras@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-07T05:00:00.000Z",
-      "hora": "10:30"
-    },
-    {
-      "id": "9",
-      "nombre": "sara",
-      "apellido": "andrade",
-      "email": "saraanrade@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-06T05:00:00.000Z",
-      "hora": "08:20"
-    },
-    {
-      "id": "10",
-      "nombre": "Lola",
-      "apellido": "Wanda",
-      "email": "lolawanda@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-06T05:00:00.000Z",
-      "hora": "10:16"
-    },
-    {
-      "id": "11",
-      "nombre": "Wendy",
-      "apellido": "Rodriguez",
-      "email": "wendyrodriguz@gmail.com",
-      "tipo_especialidad": "1",
-      "fecha_cita": "2021-05-07T05:00:00.000Z",
-      "hora": "10:30"
     },
     {
       "id": "13",
@@ -249,136 +68,108 @@
       "apellido": "Brito",
       "email": "michellibrito@gmail.com",
       "tipoespecialidad": "Higiene Oral",
-      "fechacita": "2021-05-19T05:00:00.000Z",
+      "fechacita": "2021-05-21T05:00:00.000Z",
       "hora": "11:00"
     }
   ],
   "administrador": [
     {
-      "id": 1,
-      "nombre": "Andres Felipe",
-      "apellido": "Rincon",
-      "email": "andresfeliperincon@gmail.com",
-      "usuario": "andresfelipe",
-      "contrasena": "af123"
-    },
-    {
-      "id": "2",
-      "nombre": "Juan Carlos",
-      "apellido": "Montoya",
-      "email": "juancarlosm@gmail.com",
-      "usuario": "juancarlosm",
-      "contrasena": "jcm123"
-    },
-    {
-      "id": "3",
-      "nombre": "myriam",
-      "apellido": "taborda",
-      "email": "myriamtaborda@gmail.com",
-      "usuario": "myriamt",
-      "contrasena": "mt123"
+      "id": "1",
+      "tipoidentificacion": "RUN",
+      "nombre": "Jhon",
+      "apellido": "Acosta",
+      "email": "jhonacosta@gmail.com",
+      "usuario": "jhonacosta",
+      "contrasena": "ja123"
     }
   ],
   "moderador": [
     {
-      "id": 1,
+      "id": "1",
+      "tipoidentificacion": "CI",
       "nombre": "Juan David",
       "apellido": "Moreno",
       "email": "juandavidmoreno@gmail.com",
-      "usuario": "juanmorenoc",
-      "contrasena": "jm123"
+      "seudonimo": "juanmorenoc",
+      "clave": "jm123"
     },
     {
-      "id": "2",
-      "nombre": "Maria",
-      "apellido": "Moreno",
-      "email": "mariamoreno@gmail.com",
-      "usuario": "mariamoreno",
-      "contrasena": "mm123"
-    },
-    {
-      "id": "3",
-      "nombre": "sandra",
-      "apellido": "montoya",
-      "email": "sandramontoya@gmail.com",
-      "usuario": "sandram",
-      "contrasena": "sm123"
+      "id": "18",
+      "tipoidentificacion": "CI",
+      "nombre": "Andres",
+      "apellido": "Valencia",
+      "email": "andresvalencia@hotmail.com",
+      "seudonimo": "andresv",
+      "clave": "andres5"
     }
   ],
   "odontologo": [
     {
-      "id": 1,
-      "nombre": "Juan Carlos ",
+      "id": "1",
+      "tipoidentificacion": "CI",
+      "nombre": "Juan Carlos",
       "apellido": "Acosta",
       "email": "juancarlosacosta@gmail.com",
-      "usuario": "juancarlos",
-      "contrasena": "jc123"
+      "seudonimo": "juancarlos",
+      "clave": "jc123"
     },
     {
-      "id": 2,
+      "id": "2",
+      "tipoidentificacion": "CI",
+      "nombre": "Hans",
+      "apellido": "Ramirez",
+      "email": "hansramirez@gmail.com",
+      "seudonimo": "hans",
+      "clave": "hr123"
+    },
+    {
+      "id": "24",
+      "tipoidentificacion": "RUN",
+      "nombre": "Sara",
+      "apellido": "Smith",
+      "email": "sarasmith@gmail.com",
+      "seudonimo": "saras",
+      "clave": "sara5"
+    }
+  ],
+  "secretaria": [
+    {
+      "id": "1",
+      "tipoidentificacion": "CI",
       "nombre": "Tatiana",
-      "apellido": " Mora Acosta",
+      "apellido": "Mora Acosta",
       "email": "tatianamoraacosta@gmail.com",
-      "usuario": "tatiana",
-      "contrasena": "tm123"
+      "seudonimo": "tatiana",
+      "clave": "tm123"
+    },
+    {
+      "id": "55",
+      "tipoidentificacion": "CI",
+      "nombre": "Lina",
+      "apellido": "Moreno",
+      "email": "linamoreno@hotmail.com",
+      "seudonimo": "linam",
+      "clave": "lina5"
     }
   ],
   "agenda": [
     {
       "id": 1,
-      "idusuario": 6,
-      "hora": "10:30",
-      "nombre": "Lina",
-      "estado": "Sala espera",
-      "fecha_cita": "2021-05-10T05:00:00.000Z"
-    },
-    {
-      "id": 2,
       "idusuario": 1,
       "hora": "08:30",
       "nombre": "Juan",
       "estado": "Cancelado",
-      "fecha_cita": "2021-05-10T05:00:00.000Z"
+      "fechacita": "2021-05-10T05:00:00.000Z",
+      "odontologo": "Juan Carlos Acosta"
     },
     {
-      "id": 3,
-      "idusuario": 4,
-      "hora": "11:30",
-      "nombre": "Katty",
-      "estado": "Pendiente",
-      "fecha_cita": "2021-05-10T05:00:00.000Z"
-    },
-    {
-      "id": 4,
-      "idusuario": 7,
-      "hora": "10:30",
-      "nombre": "jose",
-      "estado": "Confirmado",
-      "fecha_cita": "2021-05-06T05:00:00.000Z"
-    },
-    {
-      "id": 5,
-      "idusuario": 10,
-      "hora": "16:30",
-      "nombre": "Lola",
-      "estado": "Confirmado",
-      "fecha_cita": "2021-05-06T05:00:00.000Z"
-    },
-    {
-      "id": 6,
-      "idusuario": 11,
-      "hora": "10:30",
-      "nombre": "Wendy",
-      "estado": "Esta en el Box",
-      "fecha_cita": "2021-05-11T05:00:00.000Z"
-    },
-    {
-      "id": 7,
+      "id": 2,
       "idusuario": 13,
       "hora": "11:00",
       "nombre": "Michelli",
-      "estado": "Pendiente",
-      "fecha_cita": "2021-05-19T05:00:00.000Z"
+      "estado": "Esta en el Box",
+      "fechacita": "2021-05-21T05:00:00.000Z",
+      "odontologo": "Sara"
     }
   ]
 }

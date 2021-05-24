@@ -1,0 +1,134 @@
+<div class="reg-cita">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Cambiar Estado</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Porfavor completar todos los campos para cambiar el estado de la cita y asignar odontolog.
+      </p>
+      <br>
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Identificaci&oacute;n:</mat-label>
+              <input matInput formControlName="id" class="form-control" type="text" required/>
+              <mat-error *ngIf="form.get('id').hasError('required')">
+                La Identificaci&oacute;n es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <button mat-raised-button type="submit" color="primary" (click)="cargarData()">Buscar</button>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Nombre:</mat-label>
+              <input matInput type="text" formControlName="nombre" class="form-control" required/>
+              <mat-error *ngIf="form.get('nombre').hasError('required')">
+                El Nombre es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Apellido:</mat-label>
+              <input matInput type="text" formControlName="apellido" class="form-control" required/>
+              <mat-error *ngIf="form.get('apellido').hasError('required')">
+                El Apellido es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="colemail">
+              <mat-label>Email:</mat-label>
+              <input matInput type="email" formControlName="email" class="form-control" required/>
+              <mat-error *ngIf="form.get('email').hasError('required')">
+                El Email es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="especial" appearance="fill">
+              <mat-label>Tipo de Especialidad:</mat-label>
+              <mat-select formControlName="tipoespecialidad" required>
+                <mat-option value="Higiene Oral">Higiene Oral</mat-option>
+                <mat-option value="especialidad">Especialidad 1</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('tipoespecialidad').hasError('required')">
+                El Tipo de Especialidad es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="especial" appearance="fill">
+              <mat-label>Fecha de Cita:</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechacita" required/>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.get('fechacita').hasError('required')">
+                La Fecha de cita es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="fill">
+              <mat-label>Hora de la Cita:</mat-label>
+              <mat-select formControlName="hora" required>
+                <mat-option value="07:30">07:30</mat-option>
+                <mat-option value="11:00">11:00</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('hora').hasError('required')">
+                La Hora es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="especial" appearance="fill">
+              <mat-label>Estado:</mat-label>
+              <mat-select formControlName="estado" required>
+                <mat-option value="Confirmado">Confirmado</mat-option>
+                <mat-option value="Pendiente">Pendiente</mat-option>
+                <mat-option value="Sala espera">Sala espera</mat-option>
+                <mat-option value="Cancelado">Cancelado</mat-option>
+                <mat-option value="Esta en el Box">Esta en el Box</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('estado').hasError('required')">
+                El estado nuevo es requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="especial" appearance="fill">
+              <mat-label>Odontologo:</mat-label>
+              <mat-select formControlName="odontologo">
+                <mat-option value="{{concepto}}"  *ngFor = "let concepto of listaOdontologo;">{{concepto}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('odontologo').hasError('required')">
+                El odontologo es requerido.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+          <button mat-raised-button class="boton" type="submit" color="primary" (click)="actualizarEstado()">Guardar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

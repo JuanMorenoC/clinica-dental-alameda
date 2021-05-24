@@ -8,7 +8,7 @@
 }
 
 form .row .col .mat-form-field + .mat-form-field {
-  margin-left: 12px;
+  margin-left: 10px;
   align-items: center;
 }
 
@@ -18,7 +18,17 @@ form .row .boton {
   left: 300px;
 }
 
+form .row .col .boton + .boton {
+  margin-left: 8px;
+  align-items: center;
+}
+
 form .row .col .mat-form-field {
+  font-weight: bold;
+  color: #020202;
+}
+
+form table {
   font-weight: bold;
   color: #020202;
 }

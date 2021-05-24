@@ -147,7 +147,8 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
         hora: this.form.value.hora,
         nombre: this.form.value.nombre,
         estado: 'Pendiente',
-        fecha_cita: this.form.value.fechacita
+        fechacita: this.form.value.fechacita,
+        odontologo: 'Ninguno'
       };
       this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
         console.log(dataAgendaAgregar);

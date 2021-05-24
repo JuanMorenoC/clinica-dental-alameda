@@ -6,12 +6,18 @@ import {HomeComponent} from './home/home.component';
 import {AppComponent} from './app.component';
 import {RegistroHomeComponent} from './registro/registro-home/registro-home.component';
 import {RegistroCitaComponent} from './registro/registro-cita/registro-cita.component';
-import {RegistroAdministradorComponent} from './registro/registro-administrador/registro-administrador.component';
+import {RegistroOdontologoComponent} from './registro/registro-odontologo/registro-odontologo.component';
 import {RegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
 import {RegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
 import {OdontologoComponent} from './odontologo/odontologo.component';
 import {SecretariaComponent} from './secretaria/secretaria.component';
 import {BuscarPacienteComponent} from './paciente/buscar-paciente/buscar-paciente.component';
+import {ActualizarPacienteComponent} from './paciente/actualizar-paciente/actualizar-paciente.component';
+import {ActualizarPacienteParaSecretariaComponent} from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
+import {PacienteHomeComponent} from './paciente/paciente-home/paciente-home.component';
+import {ConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
+import {AdministradorComponent} from './administrador/administrador.component';
+import {ModeradorComponent} from './moderador/moderador.component';
 
 const routes: Routes = [
   {
@@ -35,6 +41,14 @@ const routes: Routes = [
     component: SecretariaComponent, // another child route component that the router renders
   },
   {
+    path: 'administrador',
+    component: AdministradorComponent, // another child route component that the router renders
+  },
+  {
+    path: 'moderador',
+    component: ModeradorComponent, // another child route component that the router renders
+  },
+  {
     path: 'registro/registro-home',
     component: RegistroHomeComponent, // another child route component that the router renders
   },
@@ -43,8 +57,8 @@ const routes: Routes = [
     component: RegistroCitaComponent, // another child route component that the router renders
   },
   {
-    path: 'registro/registro-administrador',
-    component: RegistroAdministradorComponent, // another child route component that the router renders
+    path: 'registro/registro-odontologo',
+    component: RegistroOdontologoComponent, // another child route component that the router renders
   },
   {
     path: 'registro/registro-moderador',
@@ -57,6 +71,22 @@ const routes: Routes = [
   {
     path: 'paciente/buscar-paciente',
     component: BuscarPacienteComponent, // another child route component that the router renders
+  },
+  {
+    path: 'paciente/actualizar-paciente',
+    component: ActualizarPacienteComponent, // another child route component that the router renders
+  },
+  {
+    path: 'paciente/actualizar-paciente-para-secretaria',
+    component: ActualizarPacienteParaSecretariaComponent, // another child route component that the router renders
+  },
+  {
+    path: 'paciente/paciente-home',
+    component: PacienteHomeComponent, // another child route component that the router renders
+  },
+  {
+    path: 'cita/confirmar-cita',
+    component: ConfirmarCitaComponent, // another child route component that the router renders
   },
   {
     path: '',

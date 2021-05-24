@@ -1,0 +1,23 @@
+.reg-cita {
+  top:30%;
+  width:100%;
+  text-align:center;
+  position:fixed;
+}
+
+.example-card {
+  margin:0 auto;
+  display:inline-block;
+}
+
+.row .col .mat-form-field {
+  align-items: center;
+  width: 100%;
+  min-width: 300px;
+}
+
+.row .boton {
+  max-width: 200px;
+  align-items: center;
+  left: 300px;
+}
