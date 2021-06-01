@@ -1,18 +1,19 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  OnInit
+  OnInit, ViewChild
 } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  FormGroup, NgControl,
-  Validators
+  FormGroup, NgControl
 } from '@angular/forms';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import { ProcedimientoService } from '../../Service/procedimiento/procedimiento.service';
 import {OdontologoService} from '../../Service/odontologo/odontologo.service';
 import {Observable} from 'rxjs';
+import {UsuarioService} from '../../Service/usuario/usuario.service';
+import {map, startWith} from 'rxjs/operators';
 
 /** Data structure for cita. */
 export class Procedimiento {
@@ -32,23 +33,50 @@ export class Procedimiento {
 export class HistorialPacienteComponent implements MatFormFieldControl<Procedimiento>, OnInit{
   data: any = [];
   public listaOdontologo: Array<any> = [];
+  public listaUsuarios: Array<any> = [];
+  public listaPaciente: Array<any> = [];
+  public listaFecha: Array<any> = [];
+  public listaDescripcion: Array<any> = [];
+  public listaOdonto: Array<any> = [];
+  public lista: Array<any> = [];
+  public dataTabla: Array<any> = [];
+  public dataH = new Object();
+  public res: Array<any> = [];
   constructor(private fb: FormBuilder,
               private procedimientoService: ProcedimientoService,
-              private odontologoService: OdontologoService) {
+              private odontologoService: OdontologoService,
+              private usuarioService: UsuarioService) {
     this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
       console.log(datasO);
       for (let i = 0; i < datasO.length ; i++) {
-        this.listaOdontologo.push(datasO[i].nombre);
+        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
       }
-      this.listaOdontologo.push('Todos');
+    });
+    let nombreCompleto = '';
+    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+      for (let i = 0; i < datap.length ; i++) {
+        nombreCompleto = datap[i].nombre + ' ' + datap[i].apellido;
+        this.listaPaciente.push(nombreCompleto);
+      }
+      const dataArr = new Set(this.listaPaciente);
+      this.listaUsuarios = [...dataArr];
     });
   }
 
   form: FormGroup | any;
-  formTabla: FormGroup | any;
-  public descripcion = '';
+  public paciente = '';
   public odontologo = '';
   count = 0;
+  public idet = 0;
+  public tipoidentificacion = '';
+  public nombre = '';
+  public apellido = '';
+  public email = '';
+  public celular = '';
+  public fechanacimiento = new Date();
+  public direccion = '';
+  public departamento = '';
+  public ciudad = '';
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -86,21 +114,38 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   }
   initEditForm(): void{
     this.form = this.fb.group({
-      descripcion: new FormControl(),
+      paciente: new FormControl(),
       odontologo: new FormControl(),
     });
   }
   private builForm(): void{
     this.form = this.fb.group({
-      descripcion: [''],
+      paciente: [''],
       odontologo: [''],
     });
   }
-  cargarData(): void{
+  cargarTabla(): void{
+    let nombreCompleto = '';
+    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+      for (let i = 0; i < datap.length ; i++) {
+        nombreCompleto = datap[i].nombre + ' ' + datap[i].apellido;
+        if (nombreCompleto === this.form.value.paciente && this.form.value.odontologo === datap[i].odontologo){
+          this.dataH = [{
+            date: String(datap[i].fechahora),
+            describe: String(datap[i].descripcion),
+            name: nombreCompleto,
+            parent: String(datap[i].odontologo)
+          }];
+          // this.res = this.dataH;
+          this.res.push(this.dataH);
+        }
+      }
+      this.lista.push(this.dataTabla);
+      console.log(this.res);
+    });
   }
   onContainerClick(event: MouseEvent): void {
   }
-
   setDescribedByIds(ids: string[]): void {
   }
 }

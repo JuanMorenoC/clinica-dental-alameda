@@ -11,6 +11,9 @@ export class ProcedimientoService {
     console.log('servicio procedimiento listo para usar');
     this.url = this.configuracion.configuracion;
   }
+  getAllProcedimiento(){
+    return this.httpClient.get(`${this.url}/procedimiento/`);
+  }
   getProcedimiento(id: string){
     return this.httpClient.get(`${this.url}/procedimiento/${id}`);
   }

@@ -1,24 +1,69 @@
 .reg-cita {
   top: 80px;
+  display: inline-flex;
+  left: 150px;
+}
+
+.buscar-general {
+  display: inline-block;
+}
+
+.buscar-paciente {
+  width: 800px;
+  left: 100px;
+}
+
+.buscar-historial {
+  width: 800px;
+  left: 100px;
+}
+
+.tabla {
+  width: 400px;
+  left: 100px;
 }
 
 .example-card {
   max-width: 800px;
-  left: 275px;
 }
 
-form .row .col .mat-form-field + .mat-form-field {
+.example-card-one {
+  max-width: 800px;
+}
+
+.example-card form .row .col .mat-form-field + .mat-form-field {
   margin-left: 10px;
   align-items: center;
 }
 
-form .row .boton {
-  max-width: 200px;
+.example-card-one form .row .col .mat-form-field + .mat-form-field {
+  margin-left: 10px;
   align-items: center;
-  left: 300px;
 }
 
-form .row .col .boton + .boton {
+.large-textarea {
+  font-family: Courier, sans-serif;
+  height: 10em;
+  width: 700px;
+}
+
+.row .col .boton {
+  width: 200px;
+  align-items: center;
+  left: 250px;
+}
+
+.row .col .botonb {
+  width: 200px;
+}
+
+.row .col .odonto {
+  width: 300px;
+  align-items: center;
+  left: 200px;
+}
+
+.example-card form .row .col .boton + .boton {
   margin-left: 8px;
   align-items: center;
 }
@@ -28,7 +73,7 @@ form .row .col .mat-form-field {
   color: #020202;
 }
 
-form table {
+.tabla table {
   font-weight: bold;
   color: #020202;
 }

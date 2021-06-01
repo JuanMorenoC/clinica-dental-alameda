@@ -64,6 +64,13 @@ import {DialogErrorRegistroSecretariaComponent} from './registro/registro-secret
 import { PqrsComponent } from './cita/pqrs/pqrs.component';
 import { HistorialPacienteComponent } from './paciente/historial-paciente/historial-paciente.component';
 import { DebounceClickDirective } from './directivas/debounce-click/debounce-click.directive';
+import {MatSortModule} from '@angular/material/sort';
+import {DialogBuscarPacienteComponent} from './paciente/buscar-paciente/buscar-paciente.component';
+import {DialogErrorRegistroCitaComponent} from './registro/registro-cita/registro-cita.component';
+import {DialogErrorBuscarPacienteComponent} from './paciente/buscar-paciente/buscar-paciente.component';
+import {DialogErrorActualizarPacienteComponent} from './paciente/actualizar-paciente/actualizar-paciente.component';
+import {DialogErrorCambiarEstadoComponent} from './cita/cambiar-estado/cambiar-estado.component';
+import {DialogErrorConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
 
 // @ts-ignore
 @NgModule({
@@ -108,7 +115,13 @@ import { DebounceClickDirective } from './directivas/debounce-click/debounce-cli
     DialogErrorRegistroSecretariaComponent,
     PqrsComponent,
     HistorialPacienteComponent,
-    DebounceClickDirective
+    DebounceClickDirective,
+    DialogBuscarPacienteComponent,
+    DialogErrorRegistroCitaComponent,
+    DialogErrorBuscarPacienteComponent,
+    DialogErrorActualizarPacienteComponent,
+    DialogErrorCambiarEstadoComponent,
+    DialogErrorConfirmarCitaComponent
   ],
     imports: [
         BrowserModule,
@@ -135,6 +148,7 @@ import { DebounceClickDirective } from './directivas/debounce-click/debounce-cli
         MatDialogModule,
         MatIconModule,
         MatTableModule,
+        MatSortModule,
     ],
   exports: [
     MatDatepickerModule,

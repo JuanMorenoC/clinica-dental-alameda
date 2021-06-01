@@ -1,93 +1,129 @@
 <div class="reg-cita">
-  <mat-card class="example-card">
-    <mat-card-header>
-      <mat-card-title>Buscar Paciente</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <br>
-      <form [formGroup]="form">
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Identificaci&oacute;n:</mat-label>
-              <input matInput formControlName="id" class="form-control" type="text"/>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Nombre:</mat-label>
-              <input matInput formControlName="nombre" class="form-control" type="text"/>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Apellido:</mat-label>
-              <input matInput formControlName="apellido" class="form-control" type="text"/>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col">
-            <button mat-raised-button appDebounceClick type="submit" color="primary" (click)="cargarData()" (debounceClick)="log()" [debounceTime]="500">Buscar</button>
-          </div>
-          <div class="col">
-            <button mat-raised-button type="submit" color="primary" (click)="borrarCampos()">Restaurar</button>
-          </div>
-        </div>
-        <!-- DATOS DEL PACIENTE -->
-        <br>
-        <br>
-        <table class="table table-hover">
-          <thead class="text-center">
-          <tr>
-            <th colspan="2">Datos Paciente</th>
-          </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Identificaci&oacute;n:</th>
-              <td>{{ listaPaciente[0] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Tipo de Identificaci&oacute;n:</th>
-              <td>{{ listaPaciente[1] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Nombre:</th>
-              <td>{{ listaPaciente[2] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Apellido:</th>
-              <td>{{ listaPaciente[3] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Email:</th>
-              <td>{{ listaPaciente[4] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Celular:</th>
-              <td>{{ listaPaciente[5] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Fecha de Nacimiento:</th>
-              <td>{{ listaPaciente[6] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Direcci&oacute;n:</th>
-              <td>{{ listaPaciente[7] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Departamento:</th>
-              <td>{{ listaPaciente[8] }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Ciudad:</th>
-              <td>{{ listaPaciente[9] }}</td>
-            </tr>
-          </tbody>
-        </table>
+  <div class="tabla">
+    <table class="table table-hover">
+      <thead class="text-center">
+      <tr>
+        <th colspan="2">Datos Paciente</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <th scope="row">Identificaci&oacute;n:</th>
+        <td>{{ listaPaciente[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Tipo de Identificaci&oacute;n:</th>
+        <td>{{ listaPaciente[1] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Nombre:</th>
+        <td>{{ listaPaciente[2] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Apellido:</th>
+        <td>{{ listaPaciente[3] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Email:</th>
+        <td>{{ listaPaciente[4] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Celular:</th>
+        <td>{{ listaPaciente[5] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Fecha de Nacimiento:</th>
+        <td>{{ listaPaciente[6] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Direcci&oacute;n:</th>
+        <td>{{ listaPaciente[7] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Departamento:</th>
+        <td>{{ listaPaciente[8] }}</td>
+      </tr>
+      <tr>
+        <th scope="row">Ciudad:</th>
+        <td>{{ listaPaciente[9] }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="buscar-general">
+    <div class="buscar-paciente">
+      <form [formGroup]="formBuscar">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>Buscar Paciente</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <br>
+            <div class="row">
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Identificaci&oacute;n:</mat-label>
+                  <input matInput formControlName="id" class="form-control" type="text"/>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Nombre:</mat-label>
+                  <input matInput formControlName="nombre" class="form-control" type="text"/>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field>
+                  <mat-label>Apellido:</mat-label>
+                  <input matInput formControlName="apellido" class="form-control" type="text"/>
+                </mat-form-field>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col">
+                <button mat-raised-button appDebounceClick class="botonb" type="button" color="primary" (click)="cargarData()"
+                        (debounceClick)="log()" [debounceTime]="500">Buscar
+                </button>
+              </div>
+              <div class="col">
+                <button mat-raised-button class="botonb" type="button" color="primary" (click)="borrarCampos()">Resetear</button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+    <div class="buscar-historial">
+      <form [formGroup]="formHistorial">
+        <mat-card class="example-card-one">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="large-textarea" appearance="fill">
+                  <mat-label>Descripci&oacute;n</mat-label>
+                  <textarea matInput formControlName="descripcion" required></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="odonto" appearance="fill">
+                  <mat-label>Odontologo</mat-label>
+                  <mat-select formControlName="odontologo" required>
+                    <mat-option value="{{concepto}}" *ngFor="let concepto of listaOdontologo;">{{concepto}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button mat-raised-button class="boton" type="submit" color="primary" (click)="guardarHistorial()">Guardar</button>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+  </div>
 </div>

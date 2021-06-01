@@ -82,12 +82,9 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field appearance="fill">
+            <mat-form-field>
               <mat-label>Hora de la Cita:</mat-label>
-              <mat-select formControlName="hora" required>
-                <mat-option value="07:30">07:30</mat-option>
-                <mat-option value="11:00">11:00</mat-option>
-              </mat-select>
+              <input matInput type="text" formControlName="hora" class="form-control" required/>
               <mat-error *ngIf="form.get('hora').hasError('required')">
                 La Hora es requerida.
               </mat-error>

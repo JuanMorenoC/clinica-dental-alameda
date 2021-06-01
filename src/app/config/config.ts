@@ -14,6 +14,7 @@ export class AppConfig{
 
   private initConfiguracion(): void{
     this._configuracion = 'http://localhost:3000';
+    // this._configuracion = 'jdbc:mysql://localhost:3306/clinica?serverTimezone=UTC';
   }
 
 

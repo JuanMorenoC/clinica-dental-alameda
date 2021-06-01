@@ -16,6 +16,7 @@ import { AgendaService } from '../../Service/agenda/agenda.service';
 import {OdontologoService} from '../../Service/odontologo/odontologo.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogErrorBuscarPacienteComponent} from '../../paciente/buscar-paciente/buscar-paciente.component';
 
 /** Data structure for cita. */
 export class Cita {
@@ -52,7 +53,7 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
     this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
       console.log(datasO);
       for (let i = 0; i < datasO.length ; i++) {
-        this.listaOdontologo.push(datasO[i].nombre);
+        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
       }
       this.listaOdontologo.push('Ninguno');
     });
@@ -133,50 +134,84 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
     console.log(typeof this.form);
   }
   cargarData(): void{
-    this.citaService.getCita(this.form.value.id).subscribe( data => {
-      console.log(data);
-      this.data = data;
-      console.log(this.data);
-      this.form.patchValue({
-        nombre: this.data.nombre,
-        apellido: this.data.apellido,
-        email: this.data.email,
-        tipoespecialidad: this.data.tipoespecialidad,
-        fechacita: this.data.fechacita,
-        hora: this.data.hora,
-      });
-    });
-    this.agendaService.getAgenda().subscribe((datas: any) => {
-      for (let i = 0 ; i < datas.length; i++){
-        if (datas[i].idusuario === Number(this.form.value.id)){
-          this.form.patchValue({
-            estado: datas[i].estado,
-            odontologo: datas[i].odontologo,
-          });
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
         }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorCambiarEstadoComponent);
+      } else {
+        let id = '';
+        this.citaService.getAllCita().subscribe( (dataAll: any) => {
+          for (let i = 0; i < dataAll.length; i++) {
+            if (this.form.value.id === dataAll[i].idusuario){
+              id = String(dataAll[i].id);
+            }
+          }
+          this.citaService.getCita(id).subscribe( data => {
+            console.log(data);
+            this.data = data;
+            console.log(this.data);
+            this.form.patchValue({
+              nombre: this.data.nombre,
+              apellido: this.data.apellido,
+              email: this.data.email,
+              tipoespecialidad: this.data.tipoespecialidad,
+              fechacita: this.data.fechacita,
+              hora: this.data.hora,
+            });
+          });
+          this.agendaService.getAgenda().subscribe((datas: any) => {
+            for (let i = 0 ; i < datas.length; i++){
+              if (datas[i].idusuario === this.form.value.id){
+                this.form.patchValue({
+                  estado: datas[i].estado,
+                  odontologo: datas[i].odontologo,
+                });
+              }
+            }
+          });
+        });
       }
     });
   }
   actualizarEstado(): void {
-    let dataAgenda = {};
-    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
-      for (let n = 0 ; n < dataAgendaAll.length ; n++){
-        if (dataAgendaAll[n].idusuario === Number(this.form.value.id)){
-          dataAgenda = {
-            id: dataAgendaAll[n].id,
-            idusuario: dataAgendaAll[n].idusuario,
-            hora: dataAgendaAll[n].hora,
-            nombre: dataAgendaAll[n].nombre,
-            estado: this.form.value.estado,
-            fechacita: dataAgendaAll[n].fechacita,
-            odontologo: this.form.value.odontologo,
-          };
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
         }
       }
-      this.agendaService.updateAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
-        this.dialog.open(DialogCambiarEstadoComponent);
-      });
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorCambiarEstadoComponent);
+      } else {
+        let dataAgenda = {};
+        this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
+          for (let n = 0 ; n < dataAgendaAll.length ; n++){
+            if (dataAgendaAll[n].idusuario === this.form.value.id){
+              dataAgenda = {
+                id: dataAgendaAll[n].id,
+                idusuario: dataAgendaAll[n].idusuario,
+                hora: dataAgendaAll[n].hora,
+                nombre: dataAgendaAll[n].nombre,
+                estado: this.form.value.estado,
+                fechacita: dataAgendaAll[n].fechacita,
+                odontologo: this.form.value.odontologo,
+              };
+            }
+          }
+          this.agendaService.updateAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
+            console.log(dataAgendaAgregar);
+            this.dialog.open(DialogCambiarEstadoComponent);
+          });
+        });
+      }
     });
   }
   confirmarCita(): void{
@@ -193,3 +228,9 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
   templateUrl: 'dialog-cambiar-estado.html',
 })
 export class DialogCambiarEstadoComponent {}
+
+@Component({
+  selector: 'app-dialog-error-cambiar-estado',
+  templateUrl: 'dialog-error-cambiar-estado.html',
+})
+export class DialogErrorCambiarEstadoComponent {}

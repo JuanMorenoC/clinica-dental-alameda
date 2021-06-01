@@ -41,35 +41,126 @@
       "ciudad": "Alto Jahuel",
       "seudonimo": "michelli",
       "clave": "michelli5"
+    },
+    {
+      "id": "27465-2",
+      "tipoidentificacion": "RUN",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "celular": "318399282",
+      "fechanacimiento": "1969-07-09T05:00:00.000Z",
+      "direccion": "cll 384kfk",
+      "departamento": "Coquimbo",
+      "ciudad": "Frutillar",
+      "seudonimo": "wen",
+      "clave": "wen123"
+    },
+    {
+      "id": "18351-k",
+      "tipoidentificacion": "RUN",
+      "nombre": "Laura",
+      "apellido": "Montoya",
+      "email": "lauramontoya@gmail.com",
+      "celular": "3193743",
+      "fechanacimiento": "1996-12-17T05:00:00.000Z",
+      "direccion": "cll 334 dbfsd",
+      "departamento": "Los Rios",
+      "ciudad": "La Florida",
+      "seudonimo": "lau3",
+      "clave": "lau3421"
     }
   ],
   "cita": [
     {
-      "id": "1",
+      "id": 1,
+      "idusuario": "1",
       "nombre": "Juan",
       "apellido": "Moreno",
       "email": "juanmoreno@gmail.com",
-      "tipo_especialidad": "Higiene Oral",
-      "fecha_cita": "2021-05-06T05:00:00.000Z",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-06T05:00:00.000Z",
       "hora": "14:00"
     },
     {
-      "id": "2",
+      "id": 2,
+      "idusuario": "2",
       "nombre": "Valeria",
       "apellido": "Rodriguez",
       "email": "valerodri@gmail.com",
-      "tipo_especialidad": "Higiene Oral",
-      "fecha_cita": "2021-05-07T05:00:00.000Z",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-07T05:00:00.000Z",
       "hora": "11:30"
     },
     {
-      "id": "13",
+      "id": 3,
+      "idusuario": "13",
       "nombre": "Michelli",
       "apellido": "Brito",
       "email": "michellibrito@gmail.com",
       "tipoespecialidad": "Higiene Oral",
       "fechacita": "2021-05-21T05:00:00.000Z",
       "hora": "11:00"
+    },
+    {
+      "id": 4,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-28T05:00:00.000Z",
+      "hora": "11:00"
+    },
+    {
+      "id": 5,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-02T05:00:00.000Z",
+      "hora": "08:00"
+    },
+    {
+      "id": 6,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-06-02T05:00:00.000Z",
+      "hora": "15:00"
+    },
+    {
+      "id": 7,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-06-08T05:00:00.000Z",
+      "hora": "11:30"
+    },
+    {
+      "id": 8,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "email": "wendyramirez@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-06-08T05:00:00.000Z",
+      "hora": "11:00"
+    },
+    {
+      "id": 9,
+      "idusuario": "18351-k",
+      "nombre": "Laura",
+      "apellido": "Montoya",
+      "email": "lauramontoya@gmail.com",
+      "tipoespecialidad": "Higiene Oral",
+      "fechacita": "2021-05-28T05:00:00.000Z",
+      "hora": "16:00"
     }
   ],
   "administrador": [
@@ -92,15 +183,6 @@
       "email": "juandavidmoreno@gmail.com",
       "seudonimo": "juanmorenoc",
       "clave": "jm123"
-    },
-    {
-      "id": "18",
-      "tipoidentificacion": "CI",
-      "nombre": "Andres",
-      "apellido": "Valencia",
-      "email": "andresvalencia@hotmail.com",
-      "seudonimo": "andresv",
-      "clave": "andres5"
     }
   ],
   "odontologo": [
@@ -141,35 +223,118 @@
       "email": "tatianamoraacosta@gmail.com",
       "seudonimo": "tatiana",
       "clave": "tm123"
-    },
-    {
-      "id": "55",
-      "tipoidentificacion": "CI",
-      "nombre": "Lina",
-      "apellido": "Moreno",
-      "email": "linamoreno@hotmail.com",
-      "seudonimo": "linam",
-      "clave": "lina5"
     }
   ],
   "agenda": [
     {
       "id": 1,
-      "idusuario": 1,
+      "idusuario": "1",
       "hora": "08:30",
-      "nombre": "Juan",
+      "nombre": "Juan Moreno",
       "estado": "Cancelado",
       "fechacita": "2021-05-10T05:00:00.000Z",
       "odontologo": "Juan Carlos Acosta"
     },
     {
       "id": 2,
-      "idusuario": 13,
+      "idusuario": "13",
       "hora": "11:00",
-      "nombre": "Michelli",
+      "nombre": "Michelli Brito",
       "estado": "Esta en el Box",
       "fechacita": "2021-05-21T05:00:00.000Z",
-      "odontologo": "Sara"
+      "odontologo": "Sara Smith"
+    },
+    {
+      "id": 3,
+      "idusuario": "27465-2",
+      "hora": "11:00",
+      "nombre": "Wendy Ramirez",
+      "estado": "Sala espera",
+      "fechacita": "2021-05-28T05:00:00.000Z",
+      "odontologo": "Sara Smith"
+    },
+    {
+      "id": 4,
+      "idusuario": "18351-k",
+      "hora": "16:00",
+      "nombre": "Laura Montoya",
+      "estado": "Pendiente",
+      "fechacita": "2021-05-28T05:00:00.000Z",
+      "odontologo": "Ninguno"
+    }
+  ],
+  "procedimiento": [
+    {
+      "id": 1,
+      "idusuario": "1",
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "fechahora": "2021-05-10T05:00:00.000Z",
+      "descripcion": "Cancelado",
+      "odontologo": "Juan Carlos Acosta"
+    },
+    {
+      "id": 2,
+      "idusuario": "2",
+      "nombre": "Valeria",
+      "apellido": "Rodriguez",
+      "fechahora": "2021-05-26 20:23",
+      "descripcion": "prueba valeria ",
+      "odontologo": "Sara Smith"
+    },
+    {
+      "id": 3,
+      "idusuario": "13",
+      "nombre": "Michelli",
+      "apellido": "Brito",
+      "fechahora": "2021-05-26 20:26",
+      "descripcion": "miche prueba f",
+      "odontologo": "Sara Smith"
+    },
+    {
+      "id": 4,
+      "idusuario": "1",
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "fechahora": "2021-05-26 21:22",
+      "descripcion": "prueba juan nnn",
+      "odontologo": "Hans Ramirez"
+    },
+    {
+      "id": 5,
+      "idusuario": "1",
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "fechahora": "2021-05-26 21:35",
+      "descripcion": "prueba moreno 889",
+      "odontologo": "Juan Carlos Acosta"
+    },
+    {
+      "id": 6,
+      "idusuario": "1",
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "fechahora": "2021-05-26 15:35",
+      "descripcion": "prueba tercer descripcion",
+      "odontologo": "Juan Carlos Acosta"
+    },
+    {
+      "id": 7,
+      "idusuario": "27465-2",
+      "nombre": "Wendy",
+      "apellido": "Ramirez",
+      "fechahora": "2021-05-27 9:49",
+      "descripcion": "prueba descripcion conn RUN",
+      "odontologo": "Sara Smith"
+    },
+    {
+      "id": 8,
+      "idusuario": "1",
+      "nombre": "Juan",
+      "apellido": "Moreno",
+      "fechahora": "2021-05-28 18:44",
+      "descripcion": "pruebsajkjzdv gooo",
+      "odontologo": "Juan Carlos Acosta"
     }
   ]
 }

@@ -15,6 +15,7 @@ import { CitaService } from '../../Service/cita/cita.service';
 import { AgendaService } from '../../Service/agenda/agenda.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogErrorBuscarPacienteComponent} from '../../paciente/buscar-paciente/buscar-paciente.component';
 
 /** Data structure for cita. */
 export class Cita {
@@ -120,49 +121,83 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
     console.log(typeof this.form);
   }
   cargarData(): void{
-    this.citaService.getCita(this.form.value.id).subscribe( data => {
-      console.log(data);
-      this.data = data;
-      console.log(this.data);
-      this.form.patchValue({
-        nombre: this.data.nombre,
-        apellido: this.data.apellido,
-        email: this.data.email,
-        tipoespecialidad: this.data.tipoespecialidad,
-        fechacita: this.data.fechacita,
-        hora: this.data.hora,
-      });
-    });
-    this.agendaService.getAgenda().subscribe((datas: any) => {
-      for (let i = 0 ; i < datas.length; i++){
-        if (datas[i].idusuario === Number(this.form.value.id)){
-          this.form.patchValue({
-            estado: datas[i].estado,
-          });
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
         }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorConfirmarCitaComponent);
+      } else {
+        let id = '';
+        this.citaService.getAllCita().subscribe( (dataAll: any) => {
+          for (let i = 0; i < dataAll.length; i++) {
+            if (this.form.value.id === dataAll[i].idusuario){
+              id = String(dataAll[i].id);
+            }
+          }
+          this.citaService.getCita(id).subscribe( data => {
+            console.log(data);
+            this.data = data;
+            console.log(this.data);
+            this.form.patchValue({
+              nombre: this.data.nombre,
+              apellido: this.data.apellido,
+              email: this.data.email,
+              tipoespecialidad: this.data.tipoespecialidad,
+              fechacita: this.data.fechacita,
+              hora: this.data.hora,
+            });
+          });
+          this.agendaService.getAgenda().subscribe((datas: any) => {
+            for (let i = 0 ; i < datas.length; i++){
+              if (datas[i].idusuario === this.form.value.id){
+                this.form.patchValue({
+                  estado: datas[i].estado,
+                });
+              }
+            }
+          });
+        });
       }
     });
   }
   actualizarEstadoConfirmado(): void {
-    let dataAgenda = {};
-    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
-      for (let n = 0 ; n < dataAgendaAll.length ; n++){
-        if (dataAgendaAll[n].idusuario === Number(this.form.value.id)){
-          dataAgenda = {
-            id: dataAgendaAll[n].id,
-            idusuario: dataAgendaAll[n].idusuario,
-            hora: dataAgendaAll[n].hora,
-            nombre: dataAgendaAll[n].nombre,
-            estado: this.form.value.estado,
-            fechacita: dataAgendaAll[n].fechacita,
-            odontologo: dataAgendaAll[n].odontologo,
-          };
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
         }
       }
-      this.agendaService.updateAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
-        this.dialog.open(DialogConfirmarCitaComponent);
-      });
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorConfirmarCitaComponent);
+      } else {
+        let dataAgenda = {};
+        this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
+          for (let n = 0 ; n < dataAgendaAll.length ; n++){
+            if (dataAgendaAll[n].idusuario === this.form.value.id){
+              dataAgenda = {
+                id: dataAgendaAll[n].id,
+                idusuario: dataAgendaAll[n].idusuario,
+                hora: dataAgendaAll[n].hora,
+                nombre: dataAgendaAll[n].nombre,
+                estado: this.form.value.estado,
+                fechacita: dataAgendaAll[n].fechacita,
+                odontologo: dataAgendaAll[n].odontologo,
+              };
+            }
+          }
+          this.agendaService.updateAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
+            console.log(dataAgendaAgregar);
+            this.dialog.open(DialogConfirmarCitaComponent);
+          });
+        });
+      }
     });
   }
   confirmarCita(): void{
@@ -179,3 +214,9 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   templateUrl: 'dialog-confirmar-cita.html',
 })
 export class DialogConfirmarCitaComponent {}
+
+@Component({
+  selector: 'app-dialog-error-confirmar-cita',
+  templateUrl: 'dialog-error-confirmar-cita.html',
+})
+export class DialogErrorConfirmarCitaComponent {}

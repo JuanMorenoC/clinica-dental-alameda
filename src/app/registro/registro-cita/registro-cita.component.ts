@@ -15,6 +15,8 @@ import { CitaService } from '../../Service/cita/cita.service';
 import { AgendaService } from '../../Service/agenda/agenda.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogErrorRegistroPacienteComponent} from '../registro-paciente/registro-paciente.component';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 
 /** Data structure for cita. */
 export class Cita {
@@ -37,11 +39,39 @@ export class Cita {
   providers: [{ provide: MatFormFieldControl, useExisting: RegistroCitaComponent }]
 })
 export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
+  public listahoras: Array<any> = [];
+  public horas: string[] = ['08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+    '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+    '16:00', '16:30'];
+  public horasMostrar: string[] = ['08:00 a.m.', '08:30 a.m.', '09:00 a.m.', '09:30 a.m.',
+    '10:00 a.m.', '10:30 a.m.', '11:00 a.m.', '11:30 a.m.', '12:00 p.m.', '12:30 p.m.',
+    '13:00 p.m.', '13:30 p.m.', '14:00 p.m.', '14:30 p.m.', '15:00 p.m.', '15:30 p.m.',
+    '16:00 p.m.', '16:30 p.m.'];
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private citaService: CitaService,
               private agendaService: AgendaService,
               public dialog: MatDialog) {
+    /*
+    let fechaactual = '';
+    let fechacita = '';
+    let encontro = 0;
+    this.citaService.getAllCita().subscribe((data: any) => {
+      for(let i = 0 ; i < this.horas.length ; i++){
+        for (let j = 0; j < data.length; j++) {
+          fechaactual = String(new Date(this.form.value.fechacita).toISOString().replace(/T.*$/, ''));
+          fechacita = String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, ''));
+          if(this.horas[i] === data[j].hora && fechaactual === fechacita){
+            encontro = 1;
+          }
+        }
+        if (encontro === 0){
+          this.listahoras.push(this.horasMostrar[i]);
+        }
+      }
+
+    });
+     */
   }
   private currentYear = new Date().getFullYear();
   private currentDate = new Date();
@@ -111,27 +141,67 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
     console.log(typeof this.form);
   }
   cargarData(): void{
-    this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-      console.log(data);
-      this.data = data;
-      console.log(this.data);
-      this.form.patchValue({
-        nombre: this.data.nombre,
-        apellido: this.data.apellido,
-        email: this.data.email,
-      });
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
+        }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorRegistroCitaComponent);
+      } else {
+        this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
+          console.log(data);
+          this.data = data;
+          console.log(this.data);
+          this.form.patchValue({
+            nombre: this.data.nombre,
+            apellido: this.data.apellido,
+            email: this.data.email,
+          });
+        });
+      }
     });
   }
   crearData(): void {
-    this.mostrar = true;
-    console.log('creardata');
-    console.log(this.form.value.fechacita.getFullYear());
-    console.log(typeof this.form.value);
-    this.citaService.addCita(this.form.value).subscribe( (data: any) => {
-      console.log(data);
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
+        }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorRegistroCitaComponent);
+      } else {
+        this.mostrar = true;
+        console.log('creardata');
+        console.log(this.form.value.fechacita.getFullYear());
+        console.log(typeof this.form.value);
+        let cantidadCita = 0;
+        this.citaService.getAllCita().subscribe( (dataAll: any) => {
+          cantidadCita = dataAll.length;
+          let dataCita = {
+            id: cantidadCita + 1,
+            idusuario: this.form.value.id,
+            nombre: this.form.value.nombre,
+            apellido: this.form.value.apellido,
+            email: this.form.value.email,
+            tipoespecialidad: this.form.value.tipoespecialidad,
+            fechacita: this.form.value.fechacita,
+            hora: this.form.value.hora,
+          };
+          this.citaService.addCita(dataCita).subscribe( (data: any) => {
+            console.log(data);
+          });
+          this.crearDataAgenda();
+          this.dialog.open(DialogRegistroCitaComponent);
+        });
+      }
     });
-    this.crearDataAgenda();
-    this.dialog.open(DialogRegistroCitaComponent);
   }
   crearDataAgenda(): void{
     let cantidadAgenda = 0;
@@ -143,9 +213,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       console.log(cantidadAgenda);
       let dataAgenda = {
         id: cantidadAgenda + 1,
-        idusuario: Number(this.form.value.id),
+        idusuario: this.form.value.id,
         hora: this.form.value.hora,
-        nombre: this.form.value.nombre,
+        nombre: this.form.value.nombre + ' ' + this.form.value.apellido,
         estado: 'Pendiente',
         fechacita: this.form.value.fechacita,
         odontologo: 'Ninguno'
@@ -156,8 +226,57 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
     });
   }
   actualizarData(): void{
-    this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
-      console.log(data);
+    let cantidadCita = 0;
+    let id = 0;
+    this.citaService.getAllCita().subscribe( (dataAll: any) => {
+      for (let i = 0; i < dataAll.length ; i++) {
+        if (this.form.value.id === dataAll[i].idusuario){
+          id = dataAll[i].id;
+        }
+      }
+      cantidadCita = dataAll.length;
+      let dataCitaAct = {
+        id: id,
+        idusuario: this.form.value.id,
+        nombre: this.form.value.nombre,
+        apellido: this.form.value.apellido,
+        email: this.form.value.email,
+        tipoespecialidad: this.form.value.tipoespecialidad,
+        fechacita: this.form.value.fechacita,
+        hora: this.form.value.hora,
+      };
+      this.usuarioService.updateUsuario(dataCitaAct).subscribe( (data: any) => {
+        console.log(data);
+      });
+    });
+  }
+  capturar(): void {
+    console.log('ENTRO A CAPTURAR');
+    this.listahoras = [];
+    let fechaactual = '';
+    let fechacita = '';
+    this.citaService.getAllCita().subscribe((data: any) => {
+      for (let i = 0 ; i < this.horas.length ; i++){
+        let encontro = 0;
+        for (let j = 0; j < data.length; j++) {
+          fechaactual = String(new Date(this.form.value.fechacita).toISOString().replace(/T.*$/, '')) + 'T' + '00:00:00';
+          console.log(fechaactual);
+          console.log(data[j].fechacita);
+          console.log(typeof data[j].fechacita);
+          fechacita = String(new Date(data[j].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + '00:00:00';
+          console.log(fechacita);
+          console.log(data[j].hora);
+          console.log(typeof data[j].hora);
+          if (this.horas[i] === data[j].hora && fechaactual.substr(0, 10) === fechacita.substr(0, 10)){
+            encontro = 1;
+            console.log('ENTRO ULTIMO' + i);
+          }
+        }
+        if (encontro === 0){
+          this.listahoras.push(this.horasMostrar[i]);
+        }
+      }
+
     });
   }
 
@@ -173,3 +292,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
   templateUrl: 'dialog-registro-cita.html',
 })
 export class DialogRegistroCitaComponent {}
+
+@Component({
+  selector: 'app-dialog-error-registro-cita',
+  templateUrl: 'dialog-error-registro-cita.html',
+})
+export class DialogErrorRegistroCitaComponent {}

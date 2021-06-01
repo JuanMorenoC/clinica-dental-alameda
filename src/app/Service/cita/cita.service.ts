@@ -11,6 +11,9 @@ export class CitaService {
     console.log('servicio cita listo para usar');
     this.url = this.configuracion.configuracion;
   }
+  getAllCita(){
+    return this.httpClient.get(`${this.url}/cita/`);
+  }
   getCita(id: string){
     return this.httpClient.get(`${this.url}/cita/${id}`);
   }

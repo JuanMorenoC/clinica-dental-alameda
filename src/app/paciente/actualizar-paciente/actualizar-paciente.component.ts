@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogErrorBuscarPacienteComponent} from '../buscar-paciente/buscar-paciente.component';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -163,24 +164,37 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
   }
 
   cargarData(): void {
-    this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-      console.log(data);
-      this.data = data;
-      console.log(this.data);
-      this.form.patchValue({
-        tipoidentificacion: this.data.tipoidentificacion,
-        nombre: this.data.nombre,
-        apellido: this.data.apellido,
-        email: this.data.email,
-        celular: this.data.celular,
-        // fechanacimiento: String(new Date(this.data.fechanacimiento).toISOString().replace(/T.*$/, '')),
-        fechanacimiento: this.data.fechanacimiento,
-        direccion: this.data.direccion,
-        departamento: this.data.departamento,
-        ciudad: this.data.ciudad,
-        seudonimo: this.data.seudonimo,
-        clave: this.data.clave,
-      });
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.form.value.id === datoId[i].id){
+          idencontrado = true;
+          break;
+        }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorActualizarPacienteComponent);
+      } else {
+        this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
+          console.log(data);
+          this.data = data;
+          console.log(this.data);
+          this.form.patchValue({
+            tipoidentificacion: this.data.tipoidentificacion,
+            nombre: this.data.nombre,
+            apellido: this.data.apellido,
+            email: this.data.email,
+            celular: this.data.celular,
+            // fechanacimiento: String(new Date(this.data.fechanacimiento).toISOString().replace(/T.*$/, '')),
+            fechanacimiento: this.data.fechanacimiento,
+            direccion: this.data.direccion,
+            departamento: this.data.departamento,
+            ciudad: this.data.ciudad,
+            seudonimo: this.data.seudonimo,
+            clave: this.data.clave,
+          });
+        });
+      }
     });
   }
   private _filter(value: string): string[] {
@@ -199,3 +213,9 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
   templateUrl: 'dialog-actualizar-paciente.html',
 })
 export class DialogActualizarPacienteComponent {}
+
+@Component({
+  selector: 'app-dialog-error-actualizar-paciente',
+  templateUrl: 'dialog-error-actualizar-paciente.html',
+})
+export class DialogErrorActualizarPacienteComponent {}

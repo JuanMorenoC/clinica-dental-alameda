@@ -2,13 +2,9 @@
   top: 80px;
 }
 
-.example-card-one {
+.example-card {
   max-width: 800px;
   left: 275px;
-}
-
-.example-card-two {
-  width: 100%;
 }
 
 .row .col .mat-form-field + .mat-form-field {
@@ -17,9 +13,9 @@
 }
 
 .row .col .boton {
-  max-width: 100px;
+  width: 200px;
   align-items: center;
-  left: 300px;
+  left: 250px;
 }
 
 table thead {

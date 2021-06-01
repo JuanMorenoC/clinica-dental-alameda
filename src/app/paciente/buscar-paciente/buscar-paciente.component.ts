@@ -3,7 +3,10 @@ import {FormBuilder, FormControl, FormGroup, NgControl, Validators} from '@angul
 import {UsuarioService} from '../../Service/usuario/usuario.service';
 import {MatFormFieldControl} from '@angular/material/form-field';
 import {Observable} from 'rxjs';
-import {Cita} from '../../registro/registro-cita/registro-cita.component';
+import {Cita, DialogErrorRegistroCitaComponent} from '../../registro/registro-cita/registro-cita.component';
+import {ProcedimientoService} from '../../Service/procedimiento/procedimiento.service';
+import {OdontologoService} from '../../Service/odontologo/odontologo.service';
+import {MatDialog} from '@angular/material/dialog';
 
 /** Data structure for usuario. */
 export class Usuario {
@@ -22,11 +25,23 @@ export class Usuario {
 export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usuario> {
   data: any = [];
   public listaPaciente: Array<any> = [];
+  public listaOdontologo: Array<any> = [];
   constructor(private fb: FormBuilder,
-              private usuarioService: UsuarioService) { }
+              private usuarioService: UsuarioService,
+              private procedimientoService: ProcedimientoService,
+              private odontologoService: OdontologoService,
+              private dialog: MatDialog) {
+    this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
+      console.log(datasO);
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < datasO.length ; i++) {
+        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
+      }
+    });
+  }
 
-  form: FormGroup | any;
-  public listaUsuario: any[] = [];
+  formBuscar: FormGroup | any;
+  formHistorial: FormGroup | any;
   public datosF = {};
   count = 0;
   public listaTitulo: Array<any> = [ 'Identificacion',
@@ -73,7 +88,8 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   value: Cita | null | undefined;
 
   ngOnInit(): void {
-    this.builForm();
+    this.builFormB();
+    this.builFormH();
   }
 
   log(): void {
@@ -81,47 +97,86 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     console.log('Clicked!');
   }
 
-  initEditForm(): void{
-    this.form = this.fb.group({
+  initEditFormB(): void{
+    this.formBuscar = this.fb.group({
       id: new FormControl(),
       ident: new FormControl(),
-      tipoidentificacion: new FormControl(),
       nombre: new FormControl(),
       apellido: new FormControl(),
-      email: new FormControl(),
-      celular: new FormControl(),
-      fechanacimiento: new FormControl(),
-      direccion: new FormControl(),
-      departamento: new FormControl(),
-      ciudad: new FormControl(),
     });
   }
 
-  private builForm(): void{
-    this.form = this.fb.group({
+  private builFormB(): void{
+    this.formBuscar = this.fb.group({
       id: [''],
       ident: [''],
-      tipoidentificacion: [''],
       nombre: [''],
       apellido: [''],
-      email: [''],
-      celular: [''],
-      fechanacimiento: [''],
-      direccion: [''],
-      departamento: [''],
-      ciudad: [''],
+    });
+  }
+
+  initEditFormH(): void{
+    this.formHistorial = this.fb.group({
+      descripcion: new FormControl(),
+      odontologo: new FormControl(),
+    });
+  }
+
+  private builFormH(): void{
+    this.formHistorial = this.fb.group({
+      descripcion: ['', [Validators.required]],
+      odontologo: ['', [Validators.required]],
     });
   }
 
   cargarData(): void {
-    if (this.form.value.apellido === '' && this.form.value.nombre === ''){
-      this.cargarDataporId();
+    if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
+      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+        let idencontrado = false;
+        for (let i = 0 ; i < datoId.length ; i ++){
+          if (this.formBuscar.value.id === datoId[i].id){
+            idencontrado = true;
+            break;
+          }
+        }
+        if (idencontrado === false){
+          this.dialog.open(DialogErrorBuscarPacienteComponent);
+        } else {
+          this.cargarDataporId();
+        }
+      });
     }
-    if (this.form.value.id === '' && this.form.value.apellido === ''){
-      this.cargarDataporNombre();
+    if (this.formBuscar.value.id === '' && this.formBuscar.value.apellido === ''){
+      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+        let idencontrado = false;
+        for (let i = 0 ; i < datoId.length ; i ++){
+          if (this.formBuscar.value.nombre === datoId[i].nombre){
+            idencontrado = true;
+            break;
+          }
+        }
+        if (idencontrado === false){
+          this.dialog.open(DialogErrorBuscarPacienteComponent);
+        } else {
+          this.cargarDataporNombre();
+        }
+      });
     }
-    if (this.form.value.id === '' && this.form.value.nombre === ''){
-      this.cargarDataporApellido();
+    if (this.formBuscar.value.id === '' && this.formBuscar.value.nombre === ''){
+      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+        let idencontrado = false;
+        for (let i = 0 ; i < datoId.length ; i ++){
+          if (this.formBuscar.value.apellido === datoId[i].apellido){
+            idencontrado = true;
+            break;
+          }
+        }
+        if (idencontrado === false){
+          this.dialog.open(DialogErrorBuscarPacienteComponent);
+        } else {
+          this.cargarDataporApellido();
+        }
+      });
     }
   }
 
@@ -139,7 +194,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       let ciu = '';
       console.log(data);
       for (let i = 0; i < data.length; i++) {
-        if (this.form.value.id === data[i].id) {
+        if (this.formBuscar.value.id === data[i].id) {
           ident = data[i].id;
           this.listaPaciente.push(ident);
           tipo = data[i].tipoidentificacion;
@@ -179,7 +234,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       let ciu = '';
       console.log(data);
       for (let i = 0; i < data.length; i++) {
-        if (this.form.value.nombre.toLowerCase() === data[i].nombre.toLowerCase()) {
+        if (this.formBuscar.value.nombre.toLowerCase() === data[i].nombre.toLowerCase()) {
           ident = data[i].id;
           this.listaPaciente.push(ident);
           tipo = data[i].tipoidentificacion;
@@ -219,7 +274,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       let ciu = '';
       console.log(data);
       for (let i = 0; i < data.length; i++) {
-        if (this.form.value.apellido.toLowerCase() === data[i].apellido.toLowerCase()) {
+        if (this.formBuscar.value.apellido.toLowerCase() === data[i].apellido.toLowerCase()) {
           ident = data[i].id;
           this.listaPaciente.push(ident);
           tipo = data[i].tipoidentificacion;
@@ -246,7 +301,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   }
 
   borrarCampos(): void {
-    this.form.patchValue({
+    this.formBuscar.patchValue({
       id: '',
       nombre: '',
       apellido: ''
@@ -255,9 +310,134 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     this.listaPaciente.splice(0);
   }
 
+  guardarHistorial(): void {
+    if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
+      this.guardarDataporId();
+    }
+    if (this.formBuscar.value.id === '' && this.formBuscar.value.apellido === ''){
+      this.guardarDataporNombre();
+    }
+    if (this.formBuscar.value.id === '' && this.formBuscar.value.nombre === ''){
+      this.guardarDataporApellido();
+    }
+  }
+
+  guardarDataporId(): void {
+    let fecha = '';
+    let hora = '';
+    let countIde = 0;
+    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+      countIde = datap.length;
+      this.usuarioService.getUsuario(this.formBuscar.value.id).subscribe((datau: any) => {
+        fecha = String(new Date().toISOString().replace(/T.*$/, ''));
+        hora = String(new Date().getHours()) + ':' + String(new Date().getMinutes());
+        const dataProcedimiento = {
+          id: countIde + 1,
+          idusuario: this.formBuscar.value.id,
+          nombre: datau.nombre,
+          apellido: datau.apellido,
+          fechahora: fecha + ' ' + hora,
+          descripcion: this.formHistorial.value.descripcion,
+          odontologo: this.formHistorial.value.odontologo
+        };
+        console.log(dataProcedimiento);
+        this.procedimientoService.addProcedimiento(dataProcedimiento).subscribe((data: any) => {
+          console.log(data);
+          this.dialog.open(DialogBuscarPacienteComponent);
+        });
+      });
+    });
+  }
+  guardarDataporNombre(): void {
+    let iden = '';
+    let nomb = '';
+    let apel = '';
+    let fecha = '';
+    let hora = '';
+    let countIde = 0;
+    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+      countIde = datap.length;
+      this.usuarioService.getAllUsuario().subscribe((datau: any) => {
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < datau.length ; i++) {
+          if (this.formBuscar.value.nombre.toLowerCase() === datau[i].nombre.toLowerCase()){
+            iden = datau[i].id;
+            nomb = datau[i].nombre;
+            apel = datau[i].apellido;
+          }
+        }
+        fecha = String(new Date().toISOString().replace(/T.*$/, ''));
+        hora = String(new Date().getHours()) + ':' + String(new Date().getMinutes());
+        const dataProcedimiento = {
+          id: countIde + 1,
+          idusuario: iden,
+          nombre: nomb,
+          apellido: apel,
+          fechahora: fecha + ' ' + hora,
+          descripcion: this.formHistorial.value.descripcion,
+          odontologo: this.formHistorial.value.odontologo
+        };
+        console.log(dataProcedimiento);
+        this.procedimientoService.addProcedimiento(dataProcedimiento).subscribe((data: any) => {
+          console.log(data);
+          this.dialog.open(DialogBuscarPacienteComponent);
+        });
+      });
+    });
+  }
+  guardarDataporApellido(): void {
+    let iden = '';
+    let nomb = '';
+    let apel = '';
+    let fecha = '';
+    let hora = '';
+    let countIde = 0;
+    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+      countIde = datap.length;
+      this.usuarioService.getAllUsuario().subscribe((datau: any) => {
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < datau.length ; i++) {
+          if (this.formBuscar.value.apellido.toLowerCase() === datau[i].apellido.toLowerCase()){
+            iden = datau[i].id;
+            nomb = datau[i].nombre;
+            apel = datau[i].apellido;
+          }
+        }
+        fecha = String(new Date().toISOString().replace(/T.*$/, ''));
+        hora = String(new Date().getHours()) + ':' + String(new Date().getMinutes());
+        const dataProcedimiento = {
+          id: countIde + 1,
+          idusuario: iden,
+          nombre: nomb,
+          apellido: apel,
+          fechahora: fecha + ' ' + hora,
+          descripcion: this.formHistorial.value.descripcion,
+          odontologo: this.formHistorial.value.odontologo
+        };
+        console.log(dataProcedimiento);
+        this.procedimientoService.addProcedimiento(dataProcedimiento).subscribe((data: any) => {
+          console.log(data);
+          this.dialog.open(DialogBuscarPacienteComponent);
+        });
+      });
+    });
+  }
+
   onContainerClick(event: MouseEvent): void {
   }
 
   setDescribedByIds(ids: string[]): void {
   }
 }
+
+@Component({
+  selector: 'app-dialog-buscar-paciente',
+  templateUrl: 'dialog-buscar-paciente.html',
+})
+export class DialogBuscarPacienteComponent {}
+
+@Component({
+  selector: 'app-dialog-error-buscar-paciente',
+  templateUrl: 'dialog-error-buscar-paciente.html',
+})
+export class DialogErrorBuscarPacienteComponent {}

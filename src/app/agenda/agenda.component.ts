@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild,
   TemplateRef, Input, ViewEncapsulation } from '@angular/core';
 import { AgendaService } from '../Service/agenda/agenda.service';
 import { UsuarioService } from '../Service/usuario/usuario.service';
+import { OdontologoService } from '../Service/odontologo/odontologo.service';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -20,6 +21,11 @@ import {
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup, NgControl
+} from '@angular/forms';
 
 const colors: any = {
   red: {
@@ -88,6 +94,8 @@ export class AgendaComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
+  form: FormGroup | any;
+  public listaOdontologo: Array<any> = [];
   public listaAgenda: any[] = [];
   events: CalendarEvent[] = [];
 
@@ -100,8 +108,31 @@ export class AgendaComponent implements OnInit {
 
   activeDayIsOpen = true;
 
-  constructor(private modal: NgbModal, private agendaService: AgendaService, private usuarioService: UsuarioService) {
-    this.cargarData();
+  constructor(private modal: NgbModal,
+              private agendaService: AgendaService,
+              private usuarioService: UsuarioService,
+              private odontologoService: OdontologoService,
+              private fb: FormBuilder) {
+    this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
+      console.log(datasO);
+      for (let i = 0; i < datasO.length ; i++) {
+        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
+      }
+      this.listaOdontologo.push('Todos');
+      this.listaOdontologo.push('Ninguno');
+    });
+    this.builForm();
+    // this.cargarData();
+  }
+  initEditForm(): void{
+    this.form = this.fb.group({
+      odontologo: new FormControl(),
+    });
+  }
+  private builForm(): void{
+    this.form = this.fb.group({
+      odontologo: [''],
+    });
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -172,10 +203,23 @@ export class AgendaComponent implements OnInit {
   ngOnInit(): void {
   }
   cargarData(): void{
+    if (this.form.value.odontologo === '' || this.form.value.odontologo === 'Todos') {
+      console.log('ENTRO CARGAR DATA');
+      this.cargarAllData();
+    } else {
+      if (this.form.value.odontologo === 'Ninguno') {
+        this.cargarNingunoData();
+      } else {
+        this.cargarDataOdontologo();
+      }
+    }
     let id: any[] = [];
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       id.push(data.id);
     });
+  }
+  cargarAllData(): void {
+    this.events = [];
     this.agendaService.getAgenda().subscribe((data: any) => {
       console.log(data);
       for (let i = 0; i < data.length; i++) {
@@ -193,6 +237,72 @@ export class AgendaComponent implements OnInit {
         };
         this.listaAgenda.push(datosEventos);
         this.events.push(datosEventos);
+        console.log(this.events);
+        console.log(this.listaAgenda);
+        console.log('HORA');
+        console.log(data[i].hora);
+        console.log(typeof data[i].hora);
+        console.log(data[i].hora);
+        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 15) + ':00');
+        console.log(this.obtenerEnd(data, i));
+        console.log('END HORA');
+      }
+    });
+  }
+  cargarNingunoData(): void {
+    this.events = [];
+    this.agendaService.getAgenda().subscribe((data: any) => {
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].odontologo === 'Ninguno'){
+          const datosEventos = {
+            start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
+            end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
+            title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
+            color: this.obtenerColor(data, i),
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            draggable: true,
+            cssClass: 'my-custom-class',
+          };
+          this.listaAgenda.push(datosEventos);
+          this.events.push(datosEventos);
+        }
+        console.log(this.events);
+        console.log(this.listaAgenda);
+        console.log('HORA');
+        console.log(data[i].hora);
+        console.log(typeof data[i].hora);
+        console.log(data[i].hora);
+        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 15) + ':00');
+        console.log(this.obtenerEnd(data, i));
+        console.log('END HORA');
+      }
+    });
+  }
+  cargarDataOdontologo(): void {
+    this.events = [];
+    this.agendaService.getAgenda().subscribe((data: any) => {
+      console.log(data);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].odontologo === this.form.value.odontologo){
+          const datosEventos = {
+            start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
+            end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
+            title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
+            color: this.obtenerColor(data, i),
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            draggable: true,
+            cssClass: 'my-custom-class',
+          };
+          this.listaAgenda.push(datosEventos);
+          this.events.push(datosEventos);
+        }
         console.log(this.events);
         console.log(this.listaAgenda);
         console.log('HORA');
