@@ -4,10 +4,10 @@
   position: relative;
   width: 100%;
   z-index: 100;
-  top: 90px;
+  top: 130px;
   left: 0px;
   right: 0px;
-  height: 30px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   background: #015798;
@@ -27,14 +27,14 @@
 }
 .informacion {
   position: relative;
-  top: 120px;
+  top: 90px;
   background: #015798;
 }
 .container{
   width: 100%;
   max-width: 700px;
   margin: auto;
-  margin-top: 175px;
+  margin-top: 0px;
   text-align: center;
 }
 .lbl-menu{

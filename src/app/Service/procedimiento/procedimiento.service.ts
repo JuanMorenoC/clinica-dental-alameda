@@ -7,24 +7,26 @@ import { AppConfig } from '../../config/config';
 })
 export class ProcedimientoService {
   private url: string;
+  private path: string;
   constructor( private httpClient: HttpClient, private configuracion: AppConfig) {
     console.log('servicio procedimiento listo para usar');
-    this.url = this.configuracion.configuracion;
+    this.url = this.configuracion.configuracion.Url;
+    this.path = this.configuracion.configuracion.Patch;
   }
   getAllProcedimiento(){
-    return this.httpClient.get(`${this.url}/procedimiento/`);
+    return this.httpClient.get(`${this.url}${this.path}/procedimientos/`);
   }
   getProcedimiento(id: string){
-    return this.httpClient.get(`${this.url}/procedimiento/${id}`);
+    return this.httpClient.get(`${this.url}${this.path}/procedimiento/${id}`);
   }
   addProcedimiento(procedimiento: any){
     // console.log(procedimiento);
-    return this.httpClient.post(`${this.url}/procedimiento/`, procedimiento);
+    return this.httpClient.post(`${this.url}${this.path}/procedimiento/`, procedimiento);
   }
   updateProcedimiento(procedimiento: any){
-    return this.httpClient.put(`${this.url}/procedimiento/${procedimiento.id}`, procedimiento);
+    return this.httpClient.put(`${this.url}${this.path}/procedimiento/${procedimiento.id}`, procedimiento);
   }
   deleteProcedimiento(id: string) {
-    return this.httpClient.delete(`${this.url}/procedimiento/${id}`);
+    return this.httpClient.delete(`${this.url}${this.path}/procedimiento/${id}`);
   }
 }

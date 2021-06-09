@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgControl, Validators} from '@angular/forms';
 import {UsuarioService} from '../../Service/usuario/usuario.service';
+import {PaisService} from '../../Service/pais/pais.service';
+import {DepartamentoService} from '../../Service/departamento/departamento.service';
+import {CiudadService} from '../../Service/ciudad/ciudad.service';
 import {MatFormFieldControl} from '@angular/material/form-field';
 import {Observable} from 'rxjs';
 import {Cita, DialogErrorRegistroCitaComponent} from '../../registro/registro-cita/registro-cita.component';
@@ -30,6 +33,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
               private usuarioService: UsuarioService,
               private procedimientoService: ProcedimientoService,
               private odontologoService: OdontologoService,
+              private ciudadSerice: CiudadService,
+              private departamentoSerice: DepartamentoService,
+              private paisSerice: PaisService,
               private dialog: MatDialog) {
     this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
       console.log(datasO);
@@ -209,8 +215,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           this.listaPaciente.push(cel);
           fecha = String(new Date(data[i].fechanacimiento).toISOString().replace(/T.*$/, ''));
           this.listaPaciente.push(fecha);
-          dire = data[i].direccion;
-          this.listaPaciente.push(dire);
           depa = data[i].departamento;
           this.listaPaciente.push(depa);
           ciu = data[i].ciudad;
@@ -249,8 +253,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           this.listaPaciente.push(cel);
           fecha = String(new Date(data[i].fechanacimiento).toISOString().replace(/T.*$/, ''));
           this.listaPaciente.push(fecha);
-          dire = data[i].direccion;
-          this.listaPaciente.push(dire);
           depa = data[i].departamento;
           this.listaPaciente.push(depa);
           ciu = data[i].ciudad;
@@ -269,7 +271,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       let ema = '';
       let cel = '';
       let fecha = '';
-      let dire = '';
       let depa = '';
       let ciu = '';
       console.log(data);
@@ -289,8 +290,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           this.listaPaciente.push(cel);
           fecha = String(new Date(data[i].fechanacimiento).toISOString().replace(/T.*$/, ''));
           this.listaPaciente.push(fecha);
-          dire = data[i].direccion;
-          this.listaPaciente.push(dire);
           depa = data[i].departamento;
           this.listaPaciente.push(depa);
           ciu = data[i].ciudad;

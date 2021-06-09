@@ -1,7 +1,7 @@
 <div class="reg-cita">
   <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title>Registro de Odontologo</mat-card-title>
+      <mat-card-title>Registro de Odontologos</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form">
@@ -22,6 +22,8 @@
                 <mat-option value="RUT">RUT</mat-option>
                 <mat-option value="RUN">RUN</mat-option>
                 <mat-option value="CI">CI</mat-option>
+                <mat-option value="Pasaporte">Pasaporte</mat-option>
+                <mat-option value="Cedula Extranjera">Cedula Extranjera</mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('tipoidentificacion').hasError('required')">
                 El Tipo de Identificaci&oacute;n es requerida.
@@ -58,6 +60,95 @@
               <input matInput type="email" formControlName="email" class="form-control" required/>
               <mat-error *ngIf="form.get('email').hasError('required')">
                 El Email es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Celular:</mat-label>
+              <input matInput type="text" formControlName="celular" class="form-control" required/>
+              <mat-error *ngIf="form.get('celular').hasError('required')">
+                El celular es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="especial" appearance="fill">
+              <mat-label>Fecha de nacimiento:</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechanacimiento" required/>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="form.get('fechanacimiento').hasError('required')">
+                La Fecha de nacimiento es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Pais</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Pais"
+                     matInput
+                     formControlName="pais"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsPais | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('pais').hasError('required')">
+                El pais es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="departa" appearance="fill">
+              <mat-label>Comuna:</mat-label>
+              <mat-select formControlName="departamento" required>
+                <mat-option value="Tarapaca">Tarapac&aacute;</mat-option>
+                <mat-option value="Antofagasta">Antofagasta</mat-option>
+                <mat-option value="Atacama">Atacama</mat-option>
+                <mat-option value="Coquimbo">Coquimbo</mat-option>
+                <mat-option value="La Aracaunia">La Aracaun&iacute;a</mat-option>
+                <mat-option value="Region Metropolitana de Santiago">Regi&oacute;n Metropolitana de Santiago</mat-option>
+                <mat-option value="Valparaiso">Valpara&iacute;so</mat-option>
+                <mat-option value="Libertador General Bernardo O Higgins">Libertador General Bernardo O'Higgins</mat-option>
+                <mat-option value="Maule">Maule</mat-option>
+                <mat-option value="Bio-Bio">B&iacute;o-B&iacute;o</mat-option>
+                <mat-option value="Los Lagos">Los Lagos</mat-option>
+                <mat-option value="Aysen del General Carlos Ibanez del Campo">Aysen del General Carlos Ib&aacute;&ntilde;ez del Campo</mat-option>
+                <mat-option value="Magallanes y de La Antartica Chilena">Magallanes y de La Ant&aacute;rtica Chilena</mat-option>
+                <mat-option value="Los Rios">Los R&iacute;os</mat-option>
+                <mat-option value="Arica y Parinacota">Arica y Parinacota</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('departamento').hasError('required')">
+                El Departamento es requerida.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <mat-label>Ciudad</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Ciudad"
+                     matInput
+                     formControlName="ciudad"
+                     [matAutocomplete]="auto"/>
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('ciudad').hasError('required')">
+                La ciudad es requerida.
               </mat-error>
             </mat-form-field>
           </div>

@@ -1,6 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
+import {PaisService} from '../../Service/pais/pais.service';
+import {DepartamentoService} from '../../Service/departamento/departamento.service';
+import {CiudadService} from '../../Service/ciudad/ciudad.service';
+import {RoleService} from '../../Service/role/role.service';
 import { debounceTime } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -17,7 +21,7 @@ export class Usuario {
     public email: string,
     public celular: string,
     public fechanacimiento: Date,
-    public direccion: string,
+    public pais: string,
     public departamento: string,
     public ciudad: string,
     public seudonimo: string,
@@ -33,14 +37,24 @@ export class Usuario {
   providers: [{ provide: MatFormFieldControl, useExisting: RegistroPacienteComponent }]
 })
 export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, OnInit {
-  constructor(private fb: FormBuilder, private usuarioService: UsuarioService, public dialog: MatDialog) {
+  constructor(private fb: FormBuilder,
+              private usuarioService: UsuarioService,
+              private ciudadSerice: CiudadService,
+              private departamentoSerice: DepartamentoService,
+              private paisSerice: PaisService,
+              private roleService: RoleService,
+              public dialog: MatDialog) {
   }
   form: FormGroup | any;
   data = [];
   mostrar: any = false;
   mensaje = '';
   hide = true;
-  options: string[] = ['Alerce', 'Algarrobo', 'Alto Hospicio', 'Alto Jahuel', 'Ancud', 'Andacollo',
+  contadorciudad = 0;
+  contadordepartamento = 0;
+  contadorpais = 0;
+  // CIUDADES
+  optionsCiudad: string[] = ['Alerce', 'Algarrobo', 'Alto Hospicio', 'Alto Jahuel', 'Ancud', 'Andacollo',
   'Andacollo', 'Antofagasta', 'Arauco', 'Arica', 'Batuco', 'Bollenar', 'Buin', 'Bulnes', 'Cabildo',
   'Cabrero', 'Cajón', 'Calama', 'Calbuco', 'Caldera', 'Calera de Tango', 'Calle Larga', 'Cañete',
   'Carahue', 'Cartagena', 'Casablanca', 'Castro', 'Catemu', 'Cauquenes', 'Cerrillos', 'Cerro Navia',
@@ -77,6 +91,34 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
   'Victoria', 'Vicuña', 'Vilcún', 'Villa Alegre', 'Villa Alemana', 'Villarrica', 'Viña del Mar',
   'Vitacura', 'Yumbel', 'Yungay'];
   public filteredOptions: Observable<string[]> = new Observable<string[]>();
+  // PAISES
+  optionPais: string[] = ['Chile', 'Afganistán', 'Albania', 'Alemania', 'Andorra', 'Angola', 'Antigua y Barbuda',
+    'Arabia Saudita', 'Argelia', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaiyán', 'Bahamas',
+    'Bangladés', 'Barbados', 'Baréin', 'Bélgica', 'Belice', 'Bielorrusia', 'Benín', 'Birmania / Myanmar', 'Bolivia',
+    'Bosnia y Herzegovina', 'Botsuana', 'Brasil', 'Brunéi', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Bután',
+    'Cabo Verde', 'Camboya', 'Camerún', 'Canadá', 'Catar', 'República Centroafricana', 'Chad', 'República Checa',
+    'China', 'Chipre', 'Colombia', 'Comoras', 'República del Congo', 'República Democrática del Congo',
+    'Corea del Norte', 'Corea del Sur', 'Costa de Marfil', 'Costa Rica', 'Croacia', 'Cuba', 'Dinamarca',
+    'Dominica', 'República Dominicana', 'Ecuador', 'Egipto', 'El Salvador', 'Emiratos Árabes Unidos', 'Eritrea',
+    'Eslovaquia', 'Eslovenia', 'España', 'Estados Unidos', 'Estonia', 'Etiopía', 'Filipinas', 'Finlandia',
+    'Fiyi', 'Francia', 'Gabón', 'Gambia', 'Georgia', 'Ghana', 'Granada', 'Grecia',
+    'Guatemala', 'Guinea', 'Guinea-Bisáu', 'Guinea Ecuatorial', 'Guyana', 'Haití', 'Honduras', 'Hungría', 'India',
+    'Indonesia', 'Irak', 'Irán', 'Irlanda', 'Islandia', 'Israel', 'Italia', 'Jamaica',
+    'Japón', 'Jordania', 'Kazajistán', 'Kenia', 'Kirguistán', 'Kiribati', 'Kuwait',
+    'Laos', 'Lesoto', 'Letonia', 'Líbano', 'Liberia', 'Libia', 'Liechtenstein', 'Lituania',
+    'Luxemburgo', 'Macedonia del Norte', 'Madagascar', 'Malasia', 'Malaui', 'Maldivas', 'Malí', 'Malta',
+    'Marruecos', 'Islas Marshall', 'Mauricio', 'Mauritania', 'México', 'Micronesia', 'Moldavia', 'Mónaco',
+    'Mongolia', 'Montenegro', 'Mozambique', 'Namibia', 'Nauru', 'Nepal', 'Nicaragua',
+    'Níger', 'Nigeria', 'Noruega', 'Nueva Zelanda', 'Omán', 'Países Bajos', 'Pakistán', 'Palaos',
+    'Palestina', 'Panamá', 'Papúa Nueva Guinea', 'Paraguay', 'Perú', 'Polonia', 'Portugal', 'Reino Unido',
+    'Ruanda', 'Rumania', 'Rusia', 'Islas Salomón', 'Samoa', 'San Cristóbal y Nieves', 'San Marino',
+    'San Vicente y las Granadinas', 'Santa Lucía', 'Santo Tomé y Príncipe', 'Senegal', 'Serbia', 'Seychelles',
+    'Sierra Leona', 'Singapur', 'Siria', 'Somalia', 'Sri Lanka', 'Suazilandia', 'Sudáfrica', 'Sudán',
+    'Sudán del Sur', 'Suecia', 'Suiza', 'Surinam', 'Tailandia', 'Tanzania',
+    'Tayikistán', 'Timor Oriental', 'Togo', 'Tonga', 'Trinidad y Tobago', 'Túnez', 'Turkmenistán',
+    'Turquía', 'Tuvalu', 'Ucrania', 'Uganda', 'Uruguay', 'Uzbekistán', 'Vanuatu',
+    'Ciudad del Vaticano', 'Venezuela', 'Vietnam', 'Yemen', 'Yibuti', 'Zambia', 'Zimbabue'];
+  public filteredOptionsPais: Observable<string[]> = new Observable<string[]>();
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -108,8 +150,12 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
     this.builForm();
     this.filteredOptions = this.form.get('ciudad').valueChanges.pipe(
         startWith(''),
-        map((value: string) => this._filter(value))
+        map((value: string) => this._filterCiudad(value))
       );
+    this.filteredOptionsPais = this.form.get('pais').valueChanges.pipe(
+      startWith(''),
+      map((value: string) => this._filterPais(value))
+    );
   }
   initEditForm(): void{
     this.form = this.fb.group({
@@ -120,7 +166,7 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
       email: new FormControl(),
       celular: new FormControl(),
       fechanacimiento: new FormControl(),
-      direccion: new FormControl(),
+      pais: new FormControl(),
       departamento: new FormControl(),
       ciudad: new FormControl(),
       seudonimo: new FormControl(),
@@ -136,7 +182,7 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
       email: ['', [Validators.required, Validators.email]],
       celular: ['', [Validators.required]],
       fechanacimiento: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
+      pais: ['', [Validators.required]],
       departamento: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
       seudonimo: ['', [Validators.required]],
@@ -150,7 +196,7 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
     this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
       let idencontrado = false;
       for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].id){
+        if (this.form.value.id === datoId[i].cedula){
           idencontrado = true;
           break;
         }
@@ -161,20 +207,88 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
         console.log(this.mensaje);
         this.dialog.open(DialogErrorRegistroPacienteComponent);
       } else {
-        this.usuarioService.addUsuario(this.form.value).subscribe( (data: any) => {
-          console.log('agregado');
-          console.log(data);
-          this.mensaje = 'El registro ha sido exitoso';
-          this.mostrar = true;
-          console.log(this.mensaje);
-          this.dialog.open(DialogRegistroPacienteComponent);
+        console.log('ENTRO A AGREGAR');
+        let datarol = {
+          nombre: 'paciente'
+        };
+        this.roleService.addRol(datarol).subscribe();
+        this.paisSerice.getAllPais().subscribe((datagp: any) => {
+          this.contadorpais = datagp.length;
+          let datapais = {
+            pais_id: this.contadorpais + 1,
+            nombre: this.form.value.pais
+          };
+          this.paisSerice.addPais(datapais).subscribe( (datapa: any) => {
+            console.log('agregado');
+            console.log(datapa);
+            this.paisSerice.getAllPais().subscribe((dataallpais: any) => {
+              const conteopais = dataallpais.length - 1;
+              // AGREGAR
+              this.departamentoSerice.getAllDepartamento().subscribe((datagd: any) => {
+                this.contadordepartamento = datagd.length;
+                let datadepartamento = {
+                  departamento_id: this.contadordepartamento + 1,
+                  nombre: this.form.value.departamento,
+                  pais_id: conteopais,
+                };
+                this.departamentoSerice.addDepartamento(datadepartamento).subscribe( (datad: any) => {
+                  console.log('agregado');
+                  console.log(datad);
+                  this.departamentoSerice.getAllDepartamento().subscribe((dataalldepart: any) => {
+                    const conteodepart = dataalldepart.length - 1;
+                    // AGREGAR
+                    this.ciudadSerice.getAllCiudad().subscribe((datagc: any) => {
+                      this.contadorciudad = datagc.length;
+                      let dataciudad = {
+                        ciudad_id: this.contadorciudad + 1,
+                        nombre: this.form.value.ciudad,
+                        departamento_id: conteodepart,
+                      };
+                      this.ciudadSerice.addCiudad(dataciudad).subscribe( (datac: any) => {
+                        console.log('agregado');
+                        console.log(datac);
+                        this.ciudadSerice.getAllCiudad().subscribe((dataallciudad: any) => {
+                          const conteociudad = dataallciudad.length - 1;
+                          // AGREGAR
+                          let datapersona = {
+                            cedula: this.form.value.id,
+                            apellido: this.form.value.apellido,
+                            celular: this.form.value.celular,
+                            clave: this.form.value.clave,
+                            correo: this.form.value.email,
+                            fechanacimiento: this.form.value.fechanacimiento,
+                            nombre: this.form.value.nombre,
+                            seudonimo: this.form.value.seudonimo,
+                            tipoidentificacion: this.form.value.tipoidentificacion,
+                            ciudad_id: conteociudad
+                          };
+                          this.usuarioService.addUsuario(datapersona).subscribe( (datau: any) => {
+                            console.log('agregado');
+                            console.log(datau);
+                            this.mensaje = 'El registro ha sido exitoso';
+                            this.mostrar = true;
+                            console.log(this.mensaje);
+                            this.dialog.open(DialogRegistroPacienteComponent);
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
         });
       }
     });
   }
-  private _filter(value: string): string[] {
+  private _filterCiudad(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.optionsCiudad.filter(option => option.toLowerCase().includes(filterValue));
+  }
+  private _filterPais(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.optionPais.filter(option => option.toLowerCase().includes(filterValue));
   }
   onContainerClick(event: MouseEvent): void {
   }

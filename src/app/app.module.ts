@@ -71,6 +71,9 @@ import {DialogErrorBuscarPacienteComponent} from './paciente/buscar-paciente/bus
 import {DialogErrorActualizarPacienteComponent} from './paciente/actualizar-paciente/actualizar-paciente.component';
 import {DialogErrorCambiarEstadoComponent} from './cita/cambiar-estado/cambiar-estado.component';
 import {DialogErrorConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
+import { BannerComponent } from './banner-admin/banner/banner.component';
+import { BannerPersonalComponent } from './banner-admin/banner-personal/banner-personal.component';
+import {AppConfigJS} from './config/configJS';
 
 // @ts-ignore
 @NgModule({
@@ -121,7 +124,9 @@ import {DialogErrorConfirmarCitaComponent} from './cita/confirmar-cita/confirmar
     DialogErrorBuscarPacienteComponent,
     DialogErrorActualizarPacienteComponent,
     DialogErrorCambiarEstadoComponent,
-    DialogErrorConfirmarCitaComponent
+    DialogErrorConfirmarCitaComponent,
+    BannerComponent,
+    BannerPersonalComponent
   ],
     imports: [
         BrowserModule,
@@ -164,7 +169,7 @@ import {DialogErrorConfirmarCitaComponent} from './cita/confirmar-cita/confirmar
     MatIconModule,
     MatTableModule,
   ],
-  providers: [ UsuarioService, AppConfig ],
+  providers: [ UsuarioService, AppConfig, AppConfigJS ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

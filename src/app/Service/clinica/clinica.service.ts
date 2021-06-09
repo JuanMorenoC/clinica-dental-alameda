@@ -1,27 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppConfig } from '../../config/config';
+import { AppConfigJS } from '../../config/configJS';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClinicaService {
   private url: string;
-  constructor( private httpClient: HttpClient, private configuracion: AppConfig) {
-    console.log('servicio clinica listo para usar');
+  constructor( private httpClient: HttpClient, private configuracion: AppConfigJS) {
+    console.log('servicio imagen listo para usar');
     this.url = this.configuracion.configuracion;
   }
+  getAllClinica(){
+    return this.httpClient.get(`${this.url}/imagen/`);
+  }
   getClinica(id: string){
-    return this.httpClient.get(`${this.url}/clinica/${id}`);
+    return this.httpClient.get(`${this.url}/imagen/${id}`);
   }
-  addClinica(clinica: any){
+  addClinica(imagen: any){
     // console.log(clinica);
-    return this.httpClient.post(`${this.url}/clinica/`, clinica);
+    return this.httpClient.post(`${this.url}/imagen/`, imagen);
   }
-  updateClinica(clinica: any){
-    return this.httpClient.put(`${this.url}/clinica/${clinica.id}`, clinica);
+  updateClinica(imagen: any){
+    return this.httpClient.put(`${this.url}/imagen/${imagen.id}`, imagen);
   }
   deleteClinica(id: string) {
-    return this.httpClient.delete(`${this.url}/clinica/${id}`);
+    return this.httpClient.delete(`${this.url}/imagen/${id}`);
   }
 }

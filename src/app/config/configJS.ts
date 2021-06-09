@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 
 
 @Injectable()
-export class AppConfig{
+export class AppConfigJS{
 
-  private configuracionj = '';
   private _configuracion: any;
   private path: any;
 
@@ -15,11 +14,7 @@ export class AppConfig{
 
 
   private initConfiguracion(): void{
-    // this.configuracionj = 'http://localhost:3000';
-    this._configuracion = {
-      Url: 'http://localhost:8080',
-      Patch: '/api'
-    };
+    this._configuracion = 'http://localhost:3000';
   }
 
   public get configuracion(): any{

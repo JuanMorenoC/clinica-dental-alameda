@@ -22,6 +22,8 @@
                 <mat-option value="RUT">RUT</mat-option>
                 <mat-option value="RUN">RUN</mat-option>
                 <mat-option value="CI">CI</mat-option>
+                <mat-option value="Pasaporte">Pasaporte</mat-option>
+                <mat-option value="Cedula Extranjera">Cedula Extranjera</mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('tipoidentificacion').hasError('required')">
                 El Tipo de Identificaci&oacute;n es requerida.
@@ -86,10 +88,20 @@
           </div>
           <div class="col">
             <mat-form-field>
-              <mat-label>Direcci&oacute;n:</mat-label>
-              <input matInput type="text" formControlName="direccion" class="form-control" required/>
-              <mat-error *ngIf="form.get('direccion').hasError('required')">
-                La direcci&oacute;n es requerida.
+              <mat-label>Pais</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Pais"
+                     matInput
+                     formControlName="pais"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsPais | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="form.get('pais').hasError('required')">
+                El pais es requerida.
               </mat-error>
             </mat-form-field>
           </div>
@@ -98,7 +110,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="departa" appearance="fill">
-              <mat-label>Departamento:</mat-label>
+              <mat-label>Comuna:</mat-label>
               <mat-select formControlName="departamento" required>
                 <mat-option value="Tarapaca">Tarapac&aacute;</mat-option>
                 <mat-option value="Antofagasta">Antofagasta</mat-option>
