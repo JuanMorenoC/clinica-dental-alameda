@@ -16,12 +16,12 @@ export class DepartamentoService {
   getAllDepartamento(){
     return this.httpClient.get(`${this.url}${this.path}/departamentos/`);
   }
-  getDepartamento(id: string){
+  getDepartamento(id: number){
     return this.httpClient.get(`${this.url}${this.path}/departamento/${id}`);
   }
   addDepartamento(departamento: any){
     // console.log(usuario);
-    return this.httpClient.post(`${this.url}${this.path}/departamento/`, departamento);
+    return this.httpClient.post(`${this.url}${this.path}/departamento`, departamento);
   }
   updateDepartamento(departamento: any){
     return this.httpClient.put(`${this.url}${this.path}/departamento/${departamento.id}`, departamento);

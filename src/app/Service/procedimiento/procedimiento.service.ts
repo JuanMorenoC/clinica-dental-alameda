@@ -14,19 +14,19 @@ export class ProcedimientoService {
     this.path = this.configuracion.configuracion.Patch;
   }
   getAllProcedimiento(){
-    return this.httpClient.get(`${this.url}${this.path}/procedimientos/`);
+    return this.httpClient.get(`${this.url}${this.path}/tipoprocedimiento`);
   }
-  getProcedimiento(id: string){
-    return this.httpClient.get(`${this.url}${this.path}/procedimiento/${id}`);
+  getProcedimiento(id: number){
+    return this.httpClient.get(`${this.url}${this.path}/tipoprocedimiento/${id}`);
   }
   addProcedimiento(procedimiento: any){
     // console.log(procedimiento);
-    return this.httpClient.post(`${this.url}${this.path}/procedimiento/`, procedimiento);
+    return this.httpClient.post(`${this.url}${this.path}/tipoprocedimiento`, procedimiento);
   }
-  updateProcedimiento(procedimiento: any){
-    return this.httpClient.put(`${this.url}${this.path}/procedimiento/${procedimiento.id}`, procedimiento);
+  updateProcedimiento(procedimiento: any, idProcedimiento: number){
+    return this.httpClient.put(`${this.url}${this.path}/tipoprocedimiento/${idProcedimiento}`, procedimiento);
   }
-  deleteProcedimiento(id: string) {
-    return this.httpClient.delete(`${this.url}${this.path}/procedimiento/${id}`);
+  deleteProcedimiento(id: number) {
+    return this.httpClient.delete(`${this.url}${this.path}/tipoprocedimiento/${id}`);
   }
 }

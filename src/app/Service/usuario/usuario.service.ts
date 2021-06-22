@@ -14,7 +14,7 @@ export class UsuarioService {
     this.path = this.configuracion.configuracion.Patch;
   }
   getAllUsuario(){
-    return this.httpClient.get(`${this.url}${this.path}/personas`);
+    return this.httpClient.get(`${this.url}${this.path}/persona`);
   }
   getUsuario(id: string){
     return this.httpClient.get(`${this.url}${this.path}/persona/${id}`);
@@ -23,8 +23,8 @@ export class UsuarioService {
     // console.log(usuario);
     return this.httpClient.post(`${this.url}${this.path}/persona`, usuario);
   }
-  updateUsuario(usuario: any){
-    return this.httpClient.put(`${this.url}${this.path}/persona/${usuario.id}`, usuario);
+  updateUsuario(usuario: any, cedula: string){
+    return this.httpClient.put(`${this.url}${this.path}/persona/${cedula}`, usuario);
   }
   deleteUsuario(id: string) {
     return this.httpClient.delete(`${this.url}${this.path}/persona/${id}`);

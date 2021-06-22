@@ -9,6 +9,7 @@ nav {
   background: #015798;
   color: white;
   font-weight: 600;
+  font-family: sans-serif;
 }
 
 form {
@@ -22,5 +23,11 @@ form {
   background: #015798;
   color: white;
   font-weight: 600;
+}
+
+.clinica {
+  margin-left: 275px;
+  margin-top: 20px;
+  display: flex;
 }
 

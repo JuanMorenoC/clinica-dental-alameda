@@ -2,7 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewChild,
   TemplateRef, Input, ViewEncapsulation } from '@angular/core';
 import { AgendaService } from '../Service/agenda/agenda.service';
 import { UsuarioService } from '../Service/usuario/usuario.service';
-import { OdontologoService } from '../Service/odontologo/odontologo.service';
+import {RoleService} from '../Service/role/role.service';
+import {CitaService} from '../Service/cita/cita.service';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -95,8 +96,9 @@ export class AgendaComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
   form: FormGroup | any;
-  public listaOdontologo: Array<any> = [];
+  public listaOdontologo: any[] = [];
   public listaAgenda: any[] = [];
+  public dataUsuario: any = [];
   events: CalendarEvent[] = [];
 
   @Input() hourSegmentHeight: number = 30;
@@ -111,15 +113,28 @@ export class AgendaComponent implements OnInit {
   constructor(private modal: NgbModal,
               private agendaService: AgendaService,
               private usuarioService: UsuarioService,
-              private odontologoService: OdontologoService,
+              private rolService: RoleService,
+              private citaService: CitaService,
               private fb: FormBuilder) {
-    this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
-      console.log(datasO);
-      for (let i = 0; i < datasO.length ; i++) {
-        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
-      }
-      this.listaOdontologo.push('Todos');
-      this.listaOdontologo.push('Ninguno');
+    this.rolService.getAllRol().subscribe((datar: any) => {
+      console.log('ENTRO ROL');
+      this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
+        console.log('ENTRO USUARIO');
+        for (let j = 0; j < datar.length; j++) {
+          console.log('ROL 1');
+          for (const item of datasO) {
+            console.log('USER 1');
+            if (datar[j].cedula === item.cedula && datar[j].nombre === 'odontologo'){
+              this.listaOdontologo.push(item.nombre + ' ' + item.apellido);
+              console.log(this.listaOdontologo);
+            }
+          }
+        }
+        this.listaOdontologo.push('Todos');
+        this.listaOdontologo.push('Ninguno');
+        console.log(this.listaOdontologo);
+        console.log(datasO);
+      });
     });
     this.builForm();
     // this.cargarData();
@@ -203,63 +218,35 @@ export class AgendaComponent implements OnInit {
   ngOnInit(): void {
   }
   cargarData(): void{
+    // this.cargarDataOdontologo();
+    // this.cargarPrueba();
     if (this.form.value.odontologo === '' || this.form.value.odontologo === 'Todos') {
       console.log('ENTRO CARGAR DATA');
       this.cargarAllData();
     } else {
-      if (this.form.value.odontologo === 'Ninguno') {
-        this.cargarNingunoData();
-      } else {
-        this.cargarDataOdontologo();
-      }
+      console.log('cargar data kdjfksdjfjks');
+      // this.cargarDataOdontologo();
+      this.cargarPrueba();
     }
+    /*
     let id: any[] = [];
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       id.push(data.id);
     });
+     */
   }
   cargarAllData(): void {
     this.events = [];
-    this.agendaService.getAgenda().subscribe((data: any) => {
+    console.log('cargar data');
+    this.citaService.getAllCita().subscribe((data: any) => {
       console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        const datosEventos = {
-          start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
-          end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
-          title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
-          color: this.obtenerColor(data, i),
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
-          },
-          draggable: true,
-          cssClass: 'my-custom-class',
-        };
-        this.listaAgenda.push(datosEventos);
-        this.events.push(datosEventos);
-        console.log(this.events);
-        console.log(this.listaAgenda);
-        console.log('HORA');
-        console.log(data[i].hora);
-        console.log(typeof data[i].hora);
-        console.log(data[i].hora);
-        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 15) + ':00');
-        console.log(this.obtenerEnd(data, i));
-        console.log('END HORA');
-      }
-    });
-  }
-  cargarNingunoData(): void {
-    this.events = [];
-    this.agendaService.getAgenda().subscribe((data: any) => {
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].odontologo === 'Ninguno'){
+      console.log('cedula paciente cita');
+      for (const i of data) {
           const datosEventos = {
-            start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
-            end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
-            title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
-            color: this.obtenerColor(data, i),
+            start: new Date(String(new Date(i.fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + String(i.hora) + ':00'),
+            end: new Date(String(new Date(i.fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEndPrueba(i)),
+            title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
+            color: this.obtenerColorPrueba(i),
             resizable: {
               beforeStart: true,
               afterEnd: true,
@@ -269,80 +256,72 @@ export class AgendaComponent implements OnInit {
           };
           this.listaAgenda.push(datosEventos);
           this.events.push(datosEventos);
-        }
+        debugger;
         console.log(this.events);
         console.log(this.listaAgenda);
-        console.log('HORA');
-        console.log(data[i].hora);
-        console.log(typeof data[i].hora);
-        console.log(data[i].hora);
-        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 15) + ':00');
-        console.log(this.obtenerEnd(data, i));
-        console.log('END HORA');
-      }
-    });
-  }
-  cargarDataOdontologo(): void {
-    this.events = [];
-    this.agendaService.getAgenda().subscribe((data: any) => {
-      console.log(data);
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].odontologo === this.form.value.odontologo){
-          const datosEventos = {
-            start: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + String(data[i].hora) + ':00'),
-            end: new Date(String(new Date(data[i].fechacita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEnd(data, i)),
-            title: 'Paciente: ' + data[i].nombre + ' - Numero de Identificacion: ' + data[i].idusuario,
-            color: this.obtenerColor(data, i),
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            },
-            draggable: true,
-            cssClass: 'my-custom-class',
-          };
-          this.listaAgenda.push(datosEventos);
-          this.events.push(datosEventos);
-        }
-        console.log(this.events);
-        console.log(this.listaAgenda);
-        console.log('HORA');
-        console.log(data[i].hora);
-        console.log(typeof data[i].hora);
-        console.log(data[i].hora);
-        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 15) + ':00');
-        console.log(this.obtenerEnd(data, i));
         console.log('END HORA');
       }
     });
   }
 
-  obtenerColor(data: any, i: number): any {
+  cargarPrueba(): void {
+    this.events = [];
+    console.log('cargar data');
+    this.citaService.getAllCita().subscribe((data: any) => {
+      console.log(data);
+      console.log('cedula paciente cita');
+      for (const i of data) {
+        let odontologo = String(i.odontologo.nombre + ' ' + i.odontologo.apellido);
+        if (odontologo === this.form.value.odontologo){
+          const datosEventos = {
+            start: new Date(String(new Date(i.fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + String(i.hora) + ':00'),
+            end: new Date(String(new Date(i.fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + this.obtenerEndPrueba(i)),
+            title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
+            color: this.obtenerColorPrueba(i),
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+            draggable: true,
+            cssClass: 'my-custom-class',
+          };
+          this.listaAgenda.push(datosEventos);
+          this.events.push(datosEventos);
+        }
+        console.log(this.events);
+        console.log(this.listaAgenda);
+        console.log('END HORA');
+      }
+    });
+  }
+
+  obtenerColorPrueba(i: any): any {
     let color = '';
-    if (data[i].estado === 'Sala espera'){
+    if (i.estado === 'sala espera'){
       return colors.yellow;
     }
-    if (data[i].estado === 'Cancelado'){
+    if (i.estado === 'cancelado'){
       return colors.gray;
     }
-    if (data[i].estado === 'Pendiente'){
+    if (i.estado === 'pendiente'){
       return colors.red;
     }
-    if (data[i].estado === 'Confirmado'){
+    if (i.estado === 'confirmado'){
       return colors.purple;
     }
-    if (data[i].estado === 'Esta en el Box'){
+    if (i.estado === 'esta en el box'){
       return colors.green;
     }
     return color;
 
   }
 
-  obtenerEnd(data: any, i: number): string {
+  obtenerEndPrueba(i: any): string {
     console.log('HORA END EN OBTENER');
-    let minuto = Number(data[i].hora.substr(3,4)) + 30;
+    let minuto = Number(i.hora.substr(3,4)) + 30;
     let hora = 0;
     if (minuto === 60){
-      hora = Number(data[i].hora.substr(0,2)) + 1;
+      hora = Number(i.hora.substr(0,2)) + 1;
       if (hora < 10){
         console.log(hora + ':' + '00' + ':00');
         return '0' + hora + ':' + '00' + ':00';
@@ -351,12 +330,12 @@ export class AgendaComponent implements OnInit {
         return hora + ':' + '00' + ':00';
       }
     } else {
-      if (Number(data[i].hora.substr(0,2)) < 10){
-        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 30) + ':00');
-        return '0' + data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 30) + ':00';
+      if (Number(i.hora.substr(0,2)) < 10){
+        console.log(i.hora.substr(0,2) + ':' + String(Number(i.hora.substr(3,4)) + 30) + ':00');
+        return i.hora.substr(0,2) + ':' + String(Number(i.hora.substr(3,4)) + 30) + ':00';
       } else {
-        console.log(data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 30) + ':00');
-        return data[i].hora.substr(0,2) + ':' + String(Number(data[i].hora.substr(3,4)) + 30) + ':00';
+        console.log(i.hora.substr(0,2) + ':' + String(Number(i.hora.substr(3,4)) + 30) + ':00');
+        return i.hora.substr(0,2) + ':' + String(Number(i.hora.substr(3,4)) + 30) + ':00';
       }
     }
   }

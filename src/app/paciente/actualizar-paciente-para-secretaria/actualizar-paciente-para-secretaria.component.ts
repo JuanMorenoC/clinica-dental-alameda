@@ -37,6 +37,7 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
   }
   form: FormGroup | any;
   mostrar: any = false;
+  datapersona: any;
   mensaje = '';
   hide = true;
   public ident = 0;
@@ -116,10 +117,6 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
   value: Usuario | null | undefined;
   ngOnInit(): void {
     this.builForm();
-    this.filteredOptions = this.form.get('ciudad').valueChanges.pipe(
-      startWith(''),
-      map((value: string) => this._filter(value))
-    );
   }
   initEditForm(): void{
     this.form = this.fb.group({
@@ -130,7 +127,7 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
       email: new FormControl(),
       celular: new FormControl(),
       fechanacimiento: new FormControl(),
-      direccion: new FormControl(),
+      pais: new FormControl(),
       departamento: new FormControl(),
       ciudad: new FormControl(),
     });
@@ -144,29 +141,49 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
       email: ['', [Validators.required, Validators.email]],
       celular: ['', [Validators.required]],
       fechanacimiento: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
+      pais: ['', [Validators.required]],
       departamento: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
     });
   }
 
   actualizarUsuario(): void {
-    this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
-      console.log('actualizado');
-      console.log(data);
-      this.dialog.open(DialogActualizarPacienteParaSecretariaComponent);
+    this.usuarioService.getAllUsuario().subscribe((datauall: any) => {
+      for (let i = 0 ; i < datauall.length ; i ++){
+        if (this.form.value.id === datauall[i].cedula){
+          this.datapersona = {
+            cedula: datauall[i].cedula,
+            nombre: this.form.value.nombre,
+            apellido: this.form.value.apellido,
+            seudonimo: datauall[i].seudonimo,
+            tipo_identificacion: this.form.value.tipoidentificacion,
+            correo: this.form.value.email,
+            clave: datauall[i].clave,
+            fecha_nacimiento: this.form.value.fechanacimiento,
+            celular: this.form.value.celular,
+            ciudad: this.form.value.ciudad,
+            departamento: this.form.value.departamento,
+            pais: this.form.value.pais
+          };
+        }
+      }
+      this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
+        console.log('actualizado');
+        console.log(data);
+        this.dialog.open(DialogActualizarPacienteParaSecretariaComponent);
+      });
     });
   }
 
   cargarData(): void {
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
-      let error = false;
+      let error = true;
       for (let i = 0 ; i < data.length ; i++){
-        if (data[i].id === this.form.value.id){
-          error = true;
+        if (data[i].cedula === this.form.value.id){
+          error = false;
         }
       }
-      if (!error){
+      if (error === true){
         this.dialog.open(DialogErrorActualizarPacienteParaSecretariaComponent);
       } else  {
         this.usuarioService.getUsuario(this.form.value.id).subscribe( datas => {
@@ -174,14 +191,14 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
           this.data = datas;
           console.log(this.data);
           this.form.patchValue({
-            tipoidentificacion: this.data.tipoidentificacion,
+            tipoidentificacion: this.data.tipo_identificacion,
             nombre: this.data.nombre,
             apellido: this.data.apellido,
-            email: this.data.email,
+            email: this.data.correo,
             celular: this.data.celular,
             // fechanacimiento: String(new Date(this.data.fechanacimiento).toISOString().replace(/T.*$/, '')),
-            fechanacimiento: this.data.fechanacimiento,
-            direccion: this.data.direccion,
+            fechanacimiento: this.data.fecha_nacimiento,
+            pais: this.data.pais,
             departamento: this.data.departamento,
             ciudad: this.data.ciudad,
           });

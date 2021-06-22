@@ -16,12 +16,12 @@ export class CiudadService {
   getAllCiudad(){
     return this.httpClient.get(`${this.url}${this.path}/ciudades/`);
   }
-  getCiudad(id: string){
+  getCiudad(id: number){
     return this.httpClient.get(`${this.url}${this.path}/ciudad/${id}`);
   }
   addCiudad(ciudad: any){
     // console.log(usuario);
-    return this.httpClient.post(`${this.url}${this.path}/ciudad/`, ciudad);
+    return this.httpClient.post(`${this.url}${this.path}/ciudad`, ciudad);
   }
   updateCiudad(ciudad: any){
     return this.httpClient.put(`${this.url}${this.path}/ciudad/${ciudad.id}`, ciudad);

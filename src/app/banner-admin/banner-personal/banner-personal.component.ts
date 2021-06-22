@@ -106,10 +106,13 @@ export class BannerPersonalComponent implements OnInit {
     console.log('IMAGENES');
     console.log(typeof event.target.files[0].name);
     console.log(event.target.files[0].name);
+    console.log(event.target.files[0].name.length);
     console.log(event.target.files);
     this.clinica.getAllClinica().subscribe((data: any) => {
       for (let i = 0; i < data.length; i++) {
-        this.clinica.deleteClinica(data[i].id).subscribe();
+        let id = data[i].idImagen;
+        console.log(id);
+        this.clinica.deleteClinica(id).subscribe();
       }
       for (const element of event.target.files){
         const archivoCapturado = element;
@@ -121,6 +124,7 @@ export class BannerPersonalComponent implements OnInit {
           console.log(typeof imagen);
           console.log(imagen.base);
           console.log(typeof imagen.base);
+          console.log(imagen.base.length);
           this.cargar(imagen.base);
         });
       }
@@ -169,7 +173,12 @@ export class BannerPersonalComponent implements OnInit {
         url: imagen
       };
       // this.data.push(datosi);
-      this.clinica.addClinica(datosi).subscribe();
+      this.clinica.addClinica(datosi).subscribe((dataadd: any) => {
+        window.location.reload();
+      });
     }
+  }
+
+  deleteFile(file: any): void{
   }
 }

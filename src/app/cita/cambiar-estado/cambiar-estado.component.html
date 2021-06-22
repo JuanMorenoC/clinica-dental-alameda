@@ -59,8 +59,16 @@
             <mat-form-field class="especial" appearance="fill">
               <mat-label>Tipo de Especialidad:</mat-label>
               <mat-select formControlName="tipoespecialidad" required>
-                <mat-option value="Higiene Oral">Higiene Oral</mat-option>
-                <mat-option value="especialidad">Especialidad 1</mat-option>
+                <mat-option value="Odontología General">Odontología General</mat-option>
+                <mat-option value="Ortodoncia">Ortodoncia</mat-option>
+                <mat-option value="Implantología">Implantología</mat-option>
+                <mat-option value="Rehabilitación Oral">Rehabilitación Oral</mat-option>
+                <mat-option value="Periodoncia">Periodoncia</mat-option>
+                <mat-option value="Endodoncia">Endodoncia</mat-option>
+                <mat-option value="Cirugía Oral">Cirugía Oral</mat-option>
+                <mat-option value="Odontopediatría">Odontopediatría</mat-option>
+                <mat-option value="Estética Dental">Estética Dental</mat-option>
+                <mat-option value="Oclusión / Bruxismo y Trastornos Temporomandibulares (TTM)">Oclusión / Bruxismo y Trastornos Temporomandibulares (TTM)</mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('tipoespecialidad').hasError('required')">
                 El Tipo de Especialidad es requerida.
@@ -97,11 +105,9 @@
             <mat-form-field class="especial" appearance="fill">
               <mat-label>Estado:</mat-label>
               <mat-select formControlName="estado" required>
-                <mat-option value="Confirmado">Confirmado</mat-option>
-                <mat-option value="Pendiente">Pendiente</mat-option>
-                <mat-option value="Sala espera">Sala espera</mat-option>
-                <mat-option value="Cancelado">Cancelado</mat-option>
-                <mat-option value="Esta en el Box">Esta en el Box</mat-option>
+                <mat-option value="sala espera">Sala espera</mat-option>
+                <mat-option value="cancelado">Cancelado</mat-option>
+                <mat-option value="esta en el box">Esta en el Box</mat-option>
               </mat-select>
               <mat-error *ngIf="form.get('estado').hasError('required')">
                 El estado nuevo es requerido.

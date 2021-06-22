@@ -17,15 +17,15 @@ export class RoleService {
     return this.httpClient.get(`${this.url}${this.path}/roles`);
   }
   getRol(id: number){
-    return this.httpClient.get(`${this.url}${this.path}/rol/${id}`);
+    return this.httpClient.get(`${this.url}${this.path}/roles/${id}`);
   }
   addRol(rol: any){
-    return this.httpClient.post(`${this.url}${this.path}/rol`, rol);
+    return this.httpClient.post(`${this.url}${this.path}/roles`, rol);
   }
-  updateRol(rol: any){
-    return this.httpClient.put(`${this.url}${this.path}/rol/${rol.id}`, rol);
+  updateRol(rol: any, id: number){
+    return this.httpClient.put(`${this.url}${this.path}/roles/${id}`, rol);
   }
   deleteRol(id: number) {
-    return this.httpClient.delete(`${this.url}${this.path}/rol/${id}`);
+    return this.httpClient.delete(`${this.url}${this.path}/roles/${id}`);
   }
 }

@@ -1,19 +1,18 @@
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <form class="container-fluid justify-content-start">
-    <div class="col-4 m-2">
-      <button class="btn btn-sm btn-light me-4" type="button" routerLink="/home" routerLinkActive="active">Home</button>
-      <!--<button class="btn btn-sm btn-light me-4" type="button" routerLink="/agenda" routerLinkActive="active">Agenda</button>-->
-      <!--<button class="btn btn-sm btn-light me-4" type="button" routerLink="/registro/registro-home" routerLinkActive="active">Registro</button>-->
-      <button class="btn btn-sm btn-light me-4" type="button" routerLink="/login" routerLinkActive="active">Login</button>
-      <!--<button class="btn btn-sm btn-light me-4" type="button" routerLink="/odontologo" routerLinkActive="active">Odontologo</button>-->
-      <!--<button class="btn btn-sm btn-light me-4" type="button" routerLink="/secretaria" routerLinkActive="active">Secretaria</button>-->
-      <button class="btn btn-sm btn-light me-4" type="button" routerLink="/registro/registro-home" routerLinkActive="active">Usuario</button>
-    </div>
-    <div class="col-5">
-      <span class="text-center m-2 p-3 w-100 float-right">Clinica Dental Alameda</span>
-    </div>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active m-2 p-3  blockquote" aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link m-2 p-3  blockquote" routerLink="/login" routerLinkActive="active">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link m-2 p-3  blockquote" routerLink="/registro/registro-home" routerLinkActive="active">Usuario</a>
+      </li>
+    </ul>
+    <span class="clinica blockquote">Clinica Dental Alameda</span>
   </form>
 </nav>
-
 
 <router-outlet></router-outlet>

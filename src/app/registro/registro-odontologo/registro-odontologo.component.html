@@ -1,7 +1,7 @@
 <div class="reg-cita">
   <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title>Registro de Odontologos</mat-card-title>
+      <mat-card-title>Registro de Odontologo</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form">
@@ -34,7 +34,7 @@
         <br>
         <div class="row">
           <div class="col">
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Nombre:</mat-label>
               <input matInput type="text" formControlName="nombre" class="form-control" required/>
               <mat-error *ngIf="form.get('nombre').hasError('required')">
@@ -43,7 +43,7 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Apellido:</mat-label>
               <input matInput type="text" formControlName="apellido" class="form-control" required/>
               <mat-error *ngIf="form.get('apellido').hasError('required')">
@@ -55,7 +55,7 @@
         <br>
         <div class="row">
           <div class="col">
-            <mat-form-field class="colemail">
+            <mat-form-field class="colemail" appearance="fill">
               <mat-label>Email:</mat-label>
               <input matInput type="email" formControlName="email" class="form-control" required/>
               <mat-error *ngIf="form.get('email').hasError('required')">
@@ -64,7 +64,7 @@
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Celular:</mat-label>
               <input matInput type="text" formControlName="celular" class="form-control" required/>
               <mat-error *ngIf="form.get('celular').hasError('required')">
@@ -87,6 +87,7 @@
             </mat-form-field>
           </div>
           <div class="col">
+            <!--
             <mat-form-field>
               <mat-label>Pais</mat-label>
               <input type="text"
@@ -104,6 +105,24 @@
                 El pais es requerida.
               </mat-error>
             </mat-form-field>
+            -->
+            <mat-form-field appearance="fill">
+              <mat-label>Pais:</mat-label>
+              <mat-select formControlName="pais" required>
+                <mat-option value="Chile">Chile</mat-option>
+                <mat-option value="Colombia">Colombia</mat-option>
+                <mat-option value="Argentina">Argentina</mat-option>
+                <mat-option value="Brasil">Brasil</mat-option>
+                <mat-option value="Peru">Peru</mat-option>
+                <mat-option value="Paraguay">Paraguay</mat-option>
+                <mat-option value="Bolivia">Bolivia</mat-option>
+                <mat-option value="Uruguay">Uruguay</mat-option>
+                <mat-option value="Ecuador">Ecuador</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.get('pais').hasError('required')">
+                El pais es requerida.
+              </mat-error>
+            </mat-form-field>
           </div>
         </div>
         <br>
@@ -111,42 +130,16 @@
           <div class="col">
             <mat-form-field class="departa" appearance="fill">
               <mat-label>Comuna:</mat-label>
-              <mat-select formControlName="departamento" required>
-                <mat-option value="Tarapaca">Tarapac&aacute;</mat-option>
-                <mat-option value="Antofagasta">Antofagasta</mat-option>
-                <mat-option value="Atacama">Atacama</mat-option>
-                <mat-option value="Coquimbo">Coquimbo</mat-option>
-                <mat-option value="La Aracaunia">La Aracaun&iacute;a</mat-option>
-                <mat-option value="Region Metropolitana de Santiago">Regi&oacute;n Metropolitana de Santiago</mat-option>
-                <mat-option value="Valparaiso">Valpara&iacute;so</mat-option>
-                <mat-option value="Libertador General Bernardo O Higgins">Libertador General Bernardo O'Higgins</mat-option>
-                <mat-option value="Maule">Maule</mat-option>
-                <mat-option value="Bio-Bio">B&iacute;o-B&iacute;o</mat-option>
-                <mat-option value="Los Lagos">Los Lagos</mat-option>
-                <mat-option value="Aysen del General Carlos Ibanez del Campo">Aysen del General Carlos Ib&aacute;&ntilde;ez del Campo</mat-option>
-                <mat-option value="Magallanes y de La Antartica Chilena">Magallanes y de La Ant&aacute;rtica Chilena</mat-option>
-                <mat-option value="Los Rios">Los R&iacute;os</mat-option>
-                <mat-option value="Arica y Parinacota">Arica y Parinacota</mat-option>
-              </mat-select>
+              <input matInput type="text" formControlName="departamento" class="form-control" required/>
               <mat-error *ngIf="form.get('departamento').hasError('required')">
                 El Departamento es requerida.
               </mat-error>
             </mat-form-field>
           </div>
           <div class="col">
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Ciudad</mat-label>
-              <input type="text"
-                     placeholder="Pick one"
-                     aria-label="Ciudad"
-                     matInput
-                     formControlName="ciudad"
-                     [matAutocomplete]="auto"/>
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
+              <input matInput type="text" formControlName="ciudad" class="form-control" required/>
               <mat-error *ngIf="form.get('ciudad').hasError('required')">
                 La ciudad es requerida.
               </mat-error>
@@ -156,7 +149,7 @@
         <br>
         <div class="row">
           <div class="col">
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label>Seudonimo:</mat-label>
               <input matInput type="text" formControlName="seudonimo" class="form-control" required/>
               <mat-error *ngIf="form.get('seudonimo').hasError('required')">

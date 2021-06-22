@@ -7,24 +7,26 @@ import { AppConfig } from '../../config/config';
 })
 export class CitaService {
   private url: string;
+  private path: string;
   constructor( private httpClient: HttpClient, private configuracion: AppConfig) {
     console.log('servicio cita listo para usar');
-    this.url = this.configuracion.configuracion;
+    this.url = this.configuracion.configuracion.Url;
+    this.path = this.configuracion.configuracion.Patch;
   }
   getAllCita(){
-    return this.httpClient.get(`${this.url}/cita/`);
+    return this.httpClient.get(`${this.url}${this.path}/cita`);
   }
-  getCita(id: string){
-    return this.httpClient.get(`${this.url}/cita/${id}`);
+  getCita(id: number){
+    return this.httpClient.get(`${this.url}${this.path}/cita/${id}`);
   }
   addCita(cita: any){
     // console.log(cita);
-    return this.httpClient.post(`${this.url}/cita/`, cita);
+    return this.httpClient.post(`${this.url}${this.path}/cita`, cita);
   }
-  updateCita(cita: any){
-    return this.httpClient.put(`${this.url}/cita/${cita.id}`, cita);
+  updateCita(cita: any, idCita: number){
+    return this.httpClient.put(`${this.url}${this.path}/cita/${idCita}`, cita);
   }
-  deleteCita(id: string) {
-    return this.httpClient.delete(`${this.url}/cita/${id}`);
+  deleteCita(id: number) {
+    return this.httpClient.delete(`${this.url}${this.path}/cita/${id}`);
   }
 }

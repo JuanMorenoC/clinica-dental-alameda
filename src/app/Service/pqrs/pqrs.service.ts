@@ -14,7 +14,7 @@ export class PqrsService {
     this.path = this.configuracion.configuracion.Patch;
   }
   getAllPqrs(){
-    return this.httpClient.get(`${this.url}${this.path}/pqrss`);
+    return this.httpClient.get(`${this.url}${this.path}/pqrs`);
   }
   getPqrs(id: number){
     return this.httpClient.get(`${this.url}${this.path}/pqrs/${id}`);
@@ -22,8 +22,8 @@ export class PqrsService {
   addPqrs(pqrs: any){
     return this.httpClient.post(`${this.url}${this.path}/pqrs`, pqrs);
   }
-  updatePqrs(pqrs: any){
-    return this.httpClient.put(`${this.url}${this.path}/pqrs/${pqrs.id}`, pqrs);
+  updatePqrs(pqrs: any, idPQRS: number){
+    return this.httpClient.put(`${this.url}${this.path}/pqrs/${idPQRS}`, pqrs);
   }
   deletePqrs(id: number) {
     return this.httpClient.delete(`${this.url}${this.path}/pqrs/${id}`);

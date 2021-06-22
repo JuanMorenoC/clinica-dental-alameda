@@ -14,18 +14,18 @@ export class TipopqrsService {
     this.path = this.configuracion.configuracion.Patch;
   }
   getAllTipoPqrs(){
-    return this.httpClient.get(`${this.url}${this.path}/tpqrs`);
+    return this.httpClient.get(`${this.url}${this.path}/tipopqrs`);
   }
   getTipoPqrs(id: number){
-    return this.httpClient.get(`${this.url}${this.path}/tpqrs/${id}`);
+    return this.httpClient.get(`${this.url}${this.path}/tipopqrs/${id}`);
   }
   addTipoPqrs(tipoPqrs: any){
-    return this.httpClient.post(`${this.url}${this.path}/tpqrs`, tipoPqrs);
+    return this.httpClient.post(`${this.url}${this.path}/tipopqrs`, tipoPqrs);
   }
-  updateTipoPqrs(tipoPqrs: any){
-    return this.httpClient.put(`${this.url}${this.path}/tpqrs/${tipoPqrs.id}`, tipoPqrs);
+  updateTipoPqrs(tipoPqrs: any, idPQRS: number){
+    return this.httpClient.put(`${this.url}${this.path}/tipopqrs/${idPQRS}`, tipoPqrs);
   }
   deleteTipoPqrs(id: number) {
-    return this.httpClient.delete(`${this.url}${this.path}/tpqrs/${id}`);
+    return this.httpClient.delete(`${this.url}${this.path}/tipopqrs/${id}`);
   }
 }

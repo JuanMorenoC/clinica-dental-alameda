@@ -74,6 +74,12 @@ import {DialogErrorConfirmarCitaComponent} from './cita/confirmar-cita/confirmar
 import { BannerComponent } from './banner-admin/banner/banner.component';
 import { BannerPersonalComponent } from './banner-admin/banner-personal/banner-personal.component';
 import {AppConfigJS} from './config/configJS';
+import {DialogErrorCitaRegistroCitaComponent} from './registro/registro-cita/registro-cita.component';
+import {DialogCancelarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
+import { PqrsPacienteComponent } from './cita/pqrs-paciente/pqrs-paciente.component';
+import {DialogPqrsPacienteComponent} from './cita/pqrs-paciente/pqrs-paciente.component';
+import {DialogErrorPqrsPacienteComponent} from './cita/pqrs-paciente/pqrs-paciente.component';
+import {DialogPqrsComponent} from './cita/pqrs/pqrs.component';
 
 // @ts-ignore
 @NgModule({
@@ -126,7 +132,13 @@ import {AppConfigJS} from './config/configJS';
     DialogErrorCambiarEstadoComponent,
     DialogErrorConfirmarCitaComponent,
     BannerComponent,
-    BannerPersonalComponent
+    BannerPersonalComponent,
+    DialogErrorCitaRegistroCitaComponent,
+    DialogCancelarCitaComponent,
+    PqrsPacienteComponent,
+    DialogPqrsPacienteComponent,
+    DialogErrorPqrsPacienteComponent,
+    DialogPqrsComponent
   ],
     imports: [
         BrowserModule,

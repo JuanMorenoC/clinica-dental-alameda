@@ -82,11 +82,11 @@ export class BorrarPacienteComponent implements MatFormFieldControl<Usuario>, On
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       let error = false;
       for (let i = 0 ; i < data.length ; i++){
-        if (data[i].id === this.form.value.id){
+        if (data[i].cedula === this.form.value.id){
           error = true;
         }
       }
-      if (!error){
+      if (error === false){
         this.dialog.open(DialogErrorBorrarPacienteComponent);
       } else  {
         this.usuarioService.deleteUsuario(this.form.value.id).subscribe( (datas: any) => {

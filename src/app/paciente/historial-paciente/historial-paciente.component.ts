@@ -9,8 +9,8 @@ import {
   FormGroup, NgControl
 } from '@angular/forms';
 import { MatFormFieldControl} from '@angular/material/form-field';
-import { ProcedimientoService } from '../../Service/procedimiento/procedimiento.service';
-import {OdontologoService} from '../../Service/odontologo/odontologo.service';
+import { CitaService } from '../../Service/cita/cita.service';
+import {RoleService} from '../../Service/role/role.service';
 import {Observable} from 'rxjs';
 import {UsuarioService} from '../../Service/usuario/usuario.service';
 import {map, startWith} from 'rxjs/operators';
@@ -34,6 +34,7 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   data: any = [];
   public listaOdontologo: Array<any> = [];
   public listaUsuarios: Array<any> = [];
+  public listaUsuariosPorOdontologo: Array<any> = [];
   public listaPaciente: Array<any> = [];
   public listaFecha: Array<any> = [];
   public listaDescripcion: Array<any> = [];
@@ -43,23 +44,21 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   public dataH = new Object();
   public res: Array<any> = [];
   constructor(private fb: FormBuilder,
-              private procedimientoService: ProcedimientoService,
-              private odontologoService: OdontologoService,
+              private citaService: CitaService,
+              private rolService: RoleService,
               private usuarioService: UsuarioService) {
-    this.odontologoService.getAllOdontologo().subscribe((datasO: any) => {
-      console.log(datasO);
-      for (let i = 0; i < datasO.length ; i++) {
-        this.listaOdontologo.push(datasO[i].nombre + ' ' + datasO[i].apellido);
-      }
-    });
-    let nombreCompleto = '';
-    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
-      for (let i = 0; i < datap.length ; i++) {
-        nombreCompleto = datap[i].nombre + ' ' + datap[i].apellido;
-        this.listaPaciente.push(nombreCompleto);
-      }
-      const dataArr = new Set(this.listaPaciente);
-      this.listaUsuarios = [...dataArr];
+    this.rolService.getAllRol().subscribe((datar: any) => {
+      this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
+        console.log(datasO);
+        for (let i = 0 ; i < datar.length ; i++){
+          for (let j = 0; j < datasO.length ; j++) {
+            if (datar[i].cedula === datasO[j].cedula && datar[i].nombre === 'odontologo'){
+              this.listaOdontologo.push(datasO[j].nombre + ' ' + datasO[j].apellido);
+            }
+          }
+        }
+        // this.listaOdontologo.push('Ninguno');
+      });
     });
   }
 
@@ -126,15 +125,17 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   }
   cargarTabla(): void{
     let nombreCompleto = '';
-    this.procedimientoService.getAllProcedimiento().subscribe((datap: any) => {
+    let nombrePaciente = '';
+    this.citaService.getAllCita().subscribe((datap: any) => {
       for (let i = 0; i < datap.length ; i++) {
-        nombreCompleto = datap[i].nombre + ' ' + datap[i].apellido;
-        if (nombreCompleto === this.form.value.paciente && this.form.value.odontologo === datap[i].odontologo){
+        nombrePaciente = datap[i].paciente.nombre + ' ' + datap[i].paciente.apellido;
+        if (nombrePaciente === this.form.value.paciente){
+          nombreCompleto = datap[i].odontologo.nombre + ' ' + datap[i].odontologo.apellido;
           this.dataH = [{
-            date: String(datap[i].fechahora),
+            date: String(new Date(datap[i].fecha_cita).toLocaleDateString()),
             describe: String(datap[i].descripcion),
-            name: nombreCompleto,
-            parent: String(datap[i].odontologo)
+            name: String(this.form.value.paciente),
+            parent: String(nombreCompleto)
           }];
           // this.res = this.dataH;
           this.res.push(this.dataH);
@@ -142,6 +143,21 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
       }
       this.lista.push(this.dataTabla);
       console.log(this.res);
+    });
+  }
+  cargarPacientes(): void{
+    this.citaService.getAllCita().subscribe((data: any) => {
+      let nombreOdonto = '';
+      let nombrePaciente = '';
+      for (let i = 0; i < data.length; i++) {
+        nombreOdonto = data[i].odontologo.nombre + ' ' + data[i].odontologo.apellido;
+        if (nombreOdonto === this.form.value.odontologo){
+          if (data[i].estado === 'esta en el box'){
+            nombrePaciente = data[i].paciente.nombre + ' ' + data[i].paciente.apellido;
+            this.listaUsuariosPorOdontologo.push(nombrePaciente);
+          }
+        }
+      }
     });
   }
   onContainerClick(event: MouseEvent): void {

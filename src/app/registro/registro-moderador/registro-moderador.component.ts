@@ -47,12 +47,18 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
   }
   form: FormGroup | any;
   data = [];
+  datarol: any;
+  datapais: any;
+  datadepartamento: any;
+  dataciudad: any;
+  datapersona: any;
   mostrar: any = false;
   mensaje = '';
   hide = true;
   contadorciudad = 0;
   contadordepartamento = 0;
   contadorpais = 0;
+  contadorrol = 0;
   // CIUDADES
   optionsCiudad: string[] = ['Alerce', 'Algarrobo', 'Alto Hospicio', 'Alto Jahuel', 'Ancud', 'Andacollo',
     'Andacollo', 'Antofagasta', 'Arauco', 'Arica', 'Batuco', 'Bollenar', 'Buin', 'Bulnes', 'Cabildo',
@@ -90,7 +96,7 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
     'Tocopilla', 'Tomé', 'Tongoy', 'Traiguén', 'Valdivia', 'Valle Grande', 'Vallenar', 'Valparaíso',
     'Victoria', 'Vicuña', 'Vilcún', 'Villa Alegre', 'Villa Alemana', 'Villarrica', 'Viña del Mar',
     'Vitacura', 'Yumbel', 'Yungay'];
-  public filteredOptions: Observable<string[]> = new Observable<string[]>();
+  public filteredOptionsCiudad: Observable<string[]> = new Observable<string[]>();
   // PAISES
   optionPais: string[] = ['Chile', 'Afganistán', 'Albania', 'Alemania', 'Andorra', 'Angola', 'Antigua y Barbuda',
     'Arabia Saudita', 'Argelia', 'Argentina', 'Armenia', 'Australia', 'Austria', 'Azerbaiyán', 'Bahamas',
@@ -148,13 +154,13 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
   value: Cita | null | undefined;
   ngOnInit(): void {
     this.builForm();
-    this.filteredOptions = this.form.get('ciudad').valueChanges.pipe(
+    this.filteredOptionsCiudad = this.form.get('ciudad').valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterCiudad(value))
+      map((valuec: string) => this._filterCiudad(valuec))
     );
     this.filteredOptionsPais = this.form.get('pais').valueChanges.pipe(
       startWith(''),
-      map((value: string) => this._filterPais(value))
+      map((valuep: string) => this._filterPais(valuep))
     );
   }
   initEditForm(): void{
@@ -208,75 +214,43 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
         this.dialog.open(DialogErrorRegistroModeradorComponent);
       } else {
         console.log('ENTRO A AGREGAR');
-        let datarol = {
-          nombre: 'paciente'
-        };
-        this.roleService.addRol(datarol).subscribe();
-        this.paisSerice.getAllPais().subscribe((datagp: any) => {
-          this.contadorpais = datagp.length;
-          let datapais = {
-            pais_id: this.contadorpais + 1,
-            nombre: this.form.value.pais
+        this.roleService.getAllRol().subscribe((datar: any) => {
+          this.contadorrol = datar.length + 1;
+          this.datarol = {
+            id: datar.length + 1,
+            cedula: this.form.value.id,
+            nombre: 'moderador'
           };
-          this.paisSerice.addPais(datapais).subscribe( (datapa: any) => {
-            console.log('agregado');
-            console.log(datapa);
-            this.paisSerice.getAllPais().subscribe((dataallpais: any) => {
-              const conteopais = dataallpais.length - 1;
-              // AGREGAR
-              this.departamentoSerice.getAllDepartamento().subscribe((datagd: any) => {
-                this.contadordepartamento = datagd.length;
-                let datadepartamento = {
-                  departamento_id: this.contadordepartamento + 1,
-                  nombre: this.form.value.departamento,
-                  pais_id: conteopais,
-                };
-                this.departamentoSerice.addDepartamento(datadepartamento).subscribe( (datad: any) => {
-                  console.log('agregado');
-                  console.log(datad);
-                  this.departamentoSerice.getAllDepartamento().subscribe((dataalldepart: any) => {
-                    const conteodepart = dataalldepart.length - 1;
-                    // AGREGAR
-                    this.ciudadSerice.getAllCiudad().subscribe((datagc: any) => {
-                      this.contadorciudad = datagc.length;
-                      let dataciudad = {
-                        ciudad_id: this.contadorciudad + 1,
-                        nombre: this.form.value.ciudad,
-                        departamento_id: conteodepart,
-                      };
-                      this.ciudadSerice.addCiudad(dataciudad).subscribe( (datac: any) => {
-                        console.log('agregado');
-                        console.log(datac);
-                        this.ciudadSerice.getAllCiudad().subscribe((dataallciudad: any) => {
-                          const conteociudad = dataallciudad.length - 1;
-                          // AGREGAR
-                          let datapersona = {
-                            cedula: this.form.value.id,
-                            apellido: this.form.value.apellido,
-                            celular: this.form.value.celular,
-                            clave: this.form.value.clave,
-                            correo: this.form.value.email,
-                            fechanacimiento: this.form.value.fechanacimiento,
-                            nombre: this.form.value.nombre,
-                            seudonimo: this.form.value.seudonimo,
-                            tipoidentificacion: this.form.value.tipoidentificacion,
-                            ciudad_id: conteociudad
-                          };
-                          this.usuarioService.addUsuario(datapersona).subscribe( (datau: any) => {
-                            console.log('agregado');
-                            console.log(datau);
-                            this.mensaje = 'El registro ha sido exitoso';
-                            this.mostrar = true;
-                            console.log(this.mensaje);
-                            this.dialog.open(DialogRegistroModeradorComponent);
-                          });
-                        });
-                      });
-                    });
-                  });
-                });
-              });
+          console.log(this.datarol);
+          this.roleService.addRol(this.datarol).subscribe((datara: any) => {
+            // AGREGAR
+
+            this.datapersona = {
+              cedula: this.form.value.id,
+              nombre: this.form.value.nombre,
+              apellido: this.form.value.apellido,
+              seudonimo: this.form.value.seudonimo,
+              tipo_identificacion: this.form.value.tipoidentificacion,
+              correo: this.form.value.email,
+              clave: this.form.value.clave,
+              fecha_nacimiento: this.form.value.fechanacimiento,
+              celular: this.form.value.celular,
+              ciudad: this.form.value.ciudad,
+              departamento: this.form.value.departamento,
+              pais: this.form.value.pais
+            };
+            console.log(this.datapersona);
+
+            this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
+              // console.log(datau.roles.id);
+              console.log('agregado usuario');
+              console.log(datau);
+              this.mensaje = 'El registro ha sido exitoso';
+              this.mostrar = true;
+              console.log(this.mensaje);
+              this.dialog.open(DialogRegistroModeradorComponent);
             });
+            // FIN DE PERSONA
           });
         });
       }

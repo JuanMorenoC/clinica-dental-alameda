@@ -1,7 +1,7 @@
 import {
   Component,
   ChangeDetectionStrategy,
-  OnInit
+  OnInit, ViewChild
 } from '@angular/core';
 import {
   FormBuilder,
@@ -12,10 +12,10 @@ import {
 import { MatFormFieldControl} from '@angular/material/form-field';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
 import { CitaService } from '../../Service/cita/cita.service';
-import { AgendaService } from '../../Service/agenda/agenda.service';
+import { RoleService } from '../../Service/role/role.service';
+import { EnvioCorreoService } from '../../Service/envioCorreo/envio-correo.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogErrorBuscarPacienteComponent} from '../../paciente/buscar-paciente/buscar-paciente.component';
 
 /** Data structure for cita. */
 export class Cita {
@@ -39,16 +39,25 @@ export class Cita {
   providers: [{ provide: MatFormFieldControl, useExisting: ConfirmarCitaComponent }]
 })
 export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit{
-  data: any = [];
+  data: any[] = [];
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private citaService: CitaService,
-              private agendaService: AgendaService,
+              private rolService: RoleService,
+              private envioCorreoService: EnvioCorreoService,
               public dialog: MatDialog) {
+    // this.cargar();
   }
 
+
   form: FormGroup | any;
+  public res: Array<any> = [];
+  public dataH = new Object();
+  public odontologos: any[] = [];
+  public paciente: any[] = [];
+  dataAgenda: any;
   mostrar: any = false;
+  count = 0;
   public ident = 0;
   public nombre = '';
   public apellido = '';
@@ -86,11 +95,12 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   // @ts-ignore
   value: Cita | null | undefined;
 
+  columnas: string[] = ['cedula', 'nombres', 'correo', 'especialidad', 'fecha_cita', 'hora',
+    'confirmar', 'cancelar'];
+
   ngOnInit(): void{
     this.builForm();
   }
-
-
   initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
@@ -120,87 +130,148 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
     console.log(typeof this.form.get('hora'));
     console.log(typeof this.form);
   }
-  cargarData(): void{
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].id){
-          idencontrado = true;
-          break;
+  log(): void {
+    this.count++;
+    console.log('Clicked!');
+  }
+  confirmarCita(j: number): void{
+    this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
+      for (let n = 0 ; n < dataAgendaAll.length ; n++){
+        if (dataAgendaAll[n].paciente.cedula === this.res[j][0].id){
+          this.dataAgenda = {
+            idCita: dataAgendaAll[n].idCita,
+            hora: dataAgendaAll[n].hora,
+            descripcion: dataAgendaAll[n].descripcion,
+            estado: 'confirmado',
+            fecha_cita: dataAgendaAll[n].fecha_cita,
+            paciente: {
+              cedula: dataAgendaAll[n].paciente.cedula,
+              nombre: dataAgendaAll[n].paciente.nombre,
+              apellido: dataAgendaAll[n].paciente.apellido,
+              seudonimo: dataAgendaAll[n].paciente.seudonimo,
+              tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
+              correo: dataAgendaAll[n].paciente.correo,
+              clave: dataAgendaAll[n].paciente.clave,
+              fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
+              celular: dataAgendaAll[n].paciente.celular,
+              ciudad: dataAgendaAll[n].paciente.ciudad,
+              departamento: dataAgendaAll[n].paciente.departamento,
+              pais: dataAgendaAll[n].paciente.pais
+            },
+            odontologo: {
+              cedula: dataAgendaAll[n].odontologo.cedula,
+              nombre: dataAgendaAll[n].odontologo.nombre,
+              apellido: dataAgendaAll[n].odontologo.apellido,
+              seudonimo: dataAgendaAll[n].odontologo.seudonimo,
+              tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
+              correo: dataAgendaAll[n].odontologo.correo,
+              clave: dataAgendaAll[n].odontologo.clave,
+              fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
+              celular: dataAgendaAll[n].odontologo.celular,
+              ciudad: dataAgendaAll[n].odontologo.ciudad,
+              departamento: dataAgendaAll[n].odontologo.departamento,
+              pais: dataAgendaAll[n].odontologo.pais
+            },
+            procedimiento: {
+              idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
+              tipo: dataAgendaAll[n].procedimiento.tipo
+            }
+          };
         }
       }
-      if (idencontrado === false){
-        this.dialog.open(DialogErrorConfirmarCitaComponent);
-      } else {
-        let id = '';
-        this.citaService.getAllCita().subscribe( (dataAll: any) => {
-          for (let i = 0; i < dataAll.length; i++) {
-            if (this.form.value.id === dataAll[i].idusuario){
-              id = String(dataAll[i].id);
-            }
-          }
-          this.citaService.getCita(id).subscribe( data => {
-            console.log(data);
-            this.data = data;
-            console.log(this.data);
-            this.form.patchValue({
-              nombre: this.data.nombre,
-              apellido: this.data.apellido,
-              email: this.data.email,
-              tipoespecialidad: this.data.tipoespecialidad,
-              fechacita: this.data.fechacita,
-              hora: this.data.hora,
-            });
-          });
-          this.agendaService.getAgenda().subscribe((datas: any) => {
-            for (let i = 0 ; i < datas.length; i++){
-              if (datas[i].idusuario === this.form.value.id){
-                this.form.patchValue({
-                  estado: datas[i].estado,
-                });
-              }
-            }
-          });
+      this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
+        console.log(dataAgendaAgregar);
+        console.log(this.dataAgenda.paciente.correo);
+        this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
+          console.log(datae);
+          this.dialog.open(DialogConfirmarCitaComponent);
+          window.location.reload();
         });
-      }
+      });
     });
   }
-  actualizarEstadoConfirmado(): void {
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].id){
-          idencontrado = true;
-          break;
+  cancelarCita(j: number): void{
+    this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
+      for (let n = 0 ; n < dataAgendaAll.length ; n++){
+        if (dataAgendaAll[n].paciente.cedula === this.res[j][0].id){
+          this.dataAgenda = {
+            idCita: dataAgendaAll[n].idCita,
+            hora: dataAgendaAll[n].hora,
+            descripcion: dataAgendaAll[n].descripcion,
+            estado: 'cancelado',
+            fecha_cita: dataAgendaAll[n].fecha_cita,
+            paciente: {
+              cedula: dataAgendaAll[n].paciente.cedula,
+              nombre: dataAgendaAll[n].paciente.nombre,
+              apellido: dataAgendaAll[n].paciente.apellido,
+              seudonimo: dataAgendaAll[n].paciente.seudonimo,
+              tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
+              correo: dataAgendaAll[n].paciente.correo,
+              clave: dataAgendaAll[n].paciente.clave,
+              fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
+              celular: dataAgendaAll[n].paciente.celular,
+              ciudad: dataAgendaAll[n].paciente.ciudad,
+              departamento: dataAgendaAll[n].paciente.departamento,
+              pais: dataAgendaAll[n].paciente.pais
+            },
+            odontologo: {
+              cedula: dataAgendaAll[n].odontologo.cedula,
+              nombre: dataAgendaAll[n].odontologo.nombre,
+              apellido: dataAgendaAll[n].odontologo.apellido,
+              seudonimo: dataAgendaAll[n].odontologo.seudonimo,
+              tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
+              correo: dataAgendaAll[n].odontologo.correo,
+              clave: dataAgendaAll[n].odontologo.clave,
+              fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
+              celular: dataAgendaAll[n].odontologo.celular,
+              ciudad: dataAgendaAll[n].odontologo.ciudad,
+              departamento: dataAgendaAll[n].odontologo.departamento,
+              pais: dataAgendaAll[n].odontologo.pais
+            },
+            procedimiento: {
+              idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
+              tipo: dataAgendaAll[n].procedimiento.tipo
+            }
+          };
         }
       }
-      if (idencontrado === false){
-        this.dialog.open(DialogErrorConfirmarCitaComponent);
-      } else {
-        let dataAgenda = {};
-        this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
-          for (let n = 0 ; n < dataAgendaAll.length ; n++){
-            if (dataAgendaAll[n].idusuario === this.form.value.id){
-              dataAgenda = {
-                id: dataAgendaAll[n].id,
-                idusuario: dataAgendaAll[n].idusuario,
-                hora: dataAgendaAll[n].hora,
-                nombre: dataAgendaAll[n].nombre,
-                estado: this.form.value.estado,
-                fechacita: dataAgendaAll[n].fechacita,
-                odontologo: dataAgendaAll[n].odontologo,
-              };
-            }
-          }
-          this.agendaService.updateAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
-            console.log(dataAgendaAgregar);
-            this.dialog.open(DialogConfirmarCitaComponent);
+      this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
+        console.log(dataAgendaAgregar);
+        console.log(this.dataAgenda.paciente.correo);
+        this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
+          console.log(datae);
+          this.citaService.deleteCita(Number(this.dataAgenda.idCita)).subscribe((datad: any) => {
+            this.dialog.open(DialogCancelarCitaComponent);
+            window.location.reload();
           });
         });
-      }
+      });
     });
   }
-  confirmarCita(): void{
+  cargar(): void{
+    this.citaService.getAllCita().subscribe( (data: any) => {
+      let nombreCompleto = '';
+      console.log('TABLA CITA');
+      console.log(data);
+      for (let i = 0; i < data.length ; i++) {
+        if (data[i].estado === 'pendiente'){
+          nombreCompleto = data[i].paciente.nombre + ' ' + data[i].paciente.apellido;
+          this.dataH = [{
+            id: String(data[i].paciente.cedula),
+            name: nombreCompleto,
+            list: String(data[i].paciente.correo),
+            describe: String(data[i].procedimiento.tipo),
+            date: String(new Date(data[i].fecha_cita).toLocaleDateString()),
+            parent: String(data[i].hora)
+          }];
+          console.log('DATOS DE TABLA CITA');
+          console.log(this.dataH );
+          this.res.push(this.dataH);
+        }
+      }
+      console.log('-----');
+      console.log(this.res );
+    });
   }
   onContainerClick(event: MouseEvent): void {
   }
@@ -214,6 +285,12 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   templateUrl: 'dialog-confirmar-cita.html',
 })
 export class DialogConfirmarCitaComponent {}
+
+@Component({
+  selector: 'app-dialog-cancelar-cita',
+  templateUrl: 'dialog-cancelar-cita.html',
+})
+export class DialogCancelarCitaComponent {}
 
 @Component({
   selector: 'app-dialog-error-confirmar-cita',

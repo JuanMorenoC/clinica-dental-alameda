@@ -1,12 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
-import { debounceTime } from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogErrorBuscarPacienteComponent} from '../buscar-paciente/buscar-paciente.component';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -36,8 +33,10 @@ export class Usuario {
 export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>, OnInit {
   data: any = [];
   constructor(private fb: FormBuilder, private usuarioService: UsuarioService, public dialog: MatDialog) {
+    console.log('ACTUALIZAR JJJJJ');
   }
   form: FormGroup | any;
+  datapersona: any;
   mostrar: any = false;
   mensaje = '';
   hide = true;  public ident = 0;
@@ -117,10 +116,6 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
   value: Usuario | null | undefined;
   ngOnInit(): void {
     this.builForm();
-    this.filteredOptions = this.form.get('ciudad').valueChanges.pipe(
-      startWith(''),
-      map((value: string) => this._filter(value))
-    );
   }
   initEditForm(): void{
     this.form = this.fb.group({
@@ -131,7 +126,7 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
       email: new FormControl(),
       celular: new FormControl(),
       fechanacimiento: new FormControl(),
-      direccion: new FormControl(),
+      pais: new FormControl(),
       departamento: new FormControl(),
       ciudad: new FormControl(),
       seudonimo: new FormControl(),
@@ -147,7 +142,7 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
       email: ['', [Validators.required, Validators.email]],
       celular: ['', [Validators.required]],
       fechanacimiento: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
+      pais: ['', [Validators.required]],
       departamento: ['', [Validators.required]],
       ciudad: ['', [Validators.required]],
       seudonimo: ['', [Validators.required]],
@@ -156,38 +151,57 @@ export class ActualizarPacienteComponent implements MatFormFieldControl<Usuario>
   }
 
   actualizarUsuario(): void {
-    this.usuarioService.updateUsuario(this.form.value).subscribe( (data: any) => {
-      console.log('actualizado');
-      console.log(data);
-      this.dialog.open(DialogActualizarPacienteComponent);
+    this.usuarioService.getAllUsuario().subscribe((datauall: any) => {
+      for (let i = 0 ; i < datauall.length ; i ++){
+        if (this.form.value.id === datauall[i].cedula){
+          this.datapersona = {
+            cedula: this.form.value.id,
+            nombre: this.form.value.nombre,
+            apellido: this.form.value.apellido,
+            seudonimo: this.form.value.seudonimo,
+            tipo_identificacion: this.form.value.tipoidentificacion,
+            correo: this.form.value.email,
+            clave: this.form.value.clave,
+            fecha_nacimiento: this.form.value.fechanacimiento,
+            celular: this.form.value.celular,
+            ciudad: this.form.value.ciudad,
+            departamento: this.form.value.departamento,
+            pais: this.form.value.pais
+          };
+        }
+      }
+      this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
+        console.log('actualizado');
+        console.log(data);
+        this.dialog.open(DialogActualizarPacienteComponent);
+      });
     });
   }
 
   cargarData(): void {
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].id){
-          idencontrado = true;
-          break;
+    this.usuarioService.getAllUsuario().subscribe((data: any) => {
+      let error = true;
+      for (let i = 0 ; i < data.length ; i++){
+        if (data[i].cedula === this.form.value.id){
+          error = false;
         }
       }
-      if (idencontrado === false){
+      if (error === true){
         this.dialog.open(DialogErrorActualizarPacienteComponent);
-      } else {
-        this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-          console.log(data);
-          this.data = data;
+      } else  {
+        this.usuarioService.getUsuario(this.form.value.id).subscribe( datas => {
+          console.log(datas);
+          this.data = datas;
           console.log(this.data);
           this.form.patchValue({
-            tipoidentificacion: this.data.tipoidentificacion,
+            tipoidentificacion: this.data.tipo_identificacion,
             nombre: this.data.nombre,
             apellido: this.data.apellido,
-            email: this.data.email,
+            email: this.data.correo,
             celular: this.data.celular,
             // fechanacimiento: String(new Date(this.data.fechanacimiento).toISOString().replace(/T.*$/, '')),
-            fechanacimiento: this.data.fechanacimiento,
-            direccion: this.data.direccion,
+            fechanacimiento: this.data.fecha_nacimiento,
+            pais: this.data.pais,
             departamento: this.data.departamento,
             ciudad: this.data.ciudad,
             seudonimo: this.data.seudonimo,

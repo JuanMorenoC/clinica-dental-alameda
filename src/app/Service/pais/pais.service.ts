@@ -16,12 +16,12 @@ export class PaisService {
   getAllPais(){
     return this.httpClient.get(`${this.url}${this.path}/paises/`);
   }
-  getPais(id: string){
+  getPais(id: number){
     return this.httpClient.get(`${this.url}${this.path}/pais/${id}`);
   }
   addPais(pais: any){
     // console.log(usuario);
-    return this.httpClient.post(`${this.url}${this.path}/pais/`, pais);
+    return this.httpClient.post(`${this.url}${this.path}/pais`, pais);
   }
   updatePais(pais: any){
     return this.httpClient.put(`${this.url}${this.path}/pais/${pais.id}`, pais);

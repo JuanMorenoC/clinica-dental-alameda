@@ -36,15 +36,15 @@
         <td>{{ listaPaciente[6] }}</td>
       </tr>
       <tr>
-        <th scope="row">Direcci&oacute;n:</th>
+        <th scope="row">Departamento:</th>
         <td>{{ listaPaciente[7] }}</td>
       </tr>
       <tr>
-        <th scope="row">Departamento:</th>
+        <th scope="row">Ciudad:</th>
         <td>{{ listaPaciente[8] }}</td>
       </tr>
       <tr>
-        <th scope="row">Ciudad:</th>
+        <th scope="row">Pa&iacute;s:</th>
         <td>{{ listaPaciente[9] }}</td>
       </tr>
       </tbody>
@@ -102,7 +102,9 @@
               <div class="col">
                 <mat-form-field class="large-textarea" appearance="fill">
                   <mat-label>Descripci&oacute;n</mat-label>
-                  <textarea matInput formControlName="descripcion" required></textarea>
+                  <textarea matInput formControlName="descripcion" #message maxlength="1000" required></textarea>
+                  <mat-hint align="start"><strong>Descripci&oacute;n breve y corta.</strong> </mat-hint>
+                  <mat-hint align="end">{{message.value.length}} / 1000</mat-hint>
                 </mat-form-field>
               </div>
             </div>

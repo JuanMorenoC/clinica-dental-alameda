@@ -10,7 +10,7 @@
           <div class="col">
             <mat-form-field appearance="fill">
               <mat-label>Odontologo</mat-label>
-              <mat-select formControlName="odontologo">
+              <mat-select formControlName="odontologo" (selectionChange)="cargarPacientes()">
                 <mat-option value="{{concepto}}" *ngFor="let concepto of listaOdontologo;">{{concepto}}</mat-option>
               </mat-select>
             </mat-form-field>
@@ -19,7 +19,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Paciente</mat-label>
               <mat-select formControlName="paciente">
-                <mat-option value="{{concepto}}" *ngFor="let concepto of listaUsuarios;">{{concepto}}</mat-option>
+                <mat-option value="{{concepto}}" *ngFor="let concepto of listaUsuariosPorOdontologo;">{{concepto}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -44,7 +44,7 @@
           <tbody>
           <tr *ngFor="let element of res;">
             <td>{{ element[0].date }}</td>
-            <td colspan="2">{{ element[0].describe }}</td>
+            <td colspan="2" align="justify">{{ element[0].describe }}</td>
             <td>{{ element[0].name }}</td>
             <td>{{ element[0].parent }}</td>
           </tr>
