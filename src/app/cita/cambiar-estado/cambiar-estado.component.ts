@@ -32,6 +32,9 @@ export class Cita {
   ) {}
 }
 
+/**
+ * Componente de cambiar el estado a la cita
+ */
 @Component({
   selector: 'app-cambiar-estado',
   templateUrl: './cambiar-estado.component.html',
@@ -41,8 +44,17 @@ export class Cita {
 })
 export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit{
   data: any = [];
-  // public listaOdontologo: any = [];
   public listaOdontologo: Array<any> = [];
+
+  /**
+   * LLena el array de odontologos solo con su nombre y apellido
+   * @param fb - formularios
+   * @param usuarioService - servicio de la entidad usuario
+   * @param citaService - servicio de la entidad cita
+   * @param rolService - servicio de la entidad rol
+   * @param procedimientoService - servicio de la entidad procedimiento
+   * @param dialog - mostrar ventana con mensajes
+   */
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private citaService: CitaService,
@@ -59,11 +71,13 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
             }
           }
         }
-        // this.listaOdontologo.push('Ninguno');
       });
     });
   }
 
+  /**
+   * Atributos utilizados
+   */
   form: FormGroup | any;
   mostrar: any = false;
   public odontologos: any[] = [];
@@ -79,6 +93,9 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
   public estado = '';
   public odontologo = '';
 
+  /**
+   * Atributos que los requiere MatFormControl cuando es utilizado
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -107,11 +124,16 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
   // @ts-ignore
   value: Cita | null | undefined;
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void{
     this.builForm();
   }
 
-
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
@@ -125,6 +147,11 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
       odontologo: new FormControl(),
     });
   }
+
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       id: ['', [Validators.required]],
@@ -137,10 +164,11 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
       estado: ['', [Validators.required]],
       odontologo: ['', [Validators.required]],
     });
-
-    console.log(typeof this.form.get('hora'));
-    console.log(typeof this.form);
   }
+
+  /**
+   * Llena algunos de los campos de informacion del paciente
+   */
   cargarData(): void{
     this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
       let idencontrado = false;
@@ -161,9 +189,7 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
             }
           }
           this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-            console.log(data);
             this.data = data;
-            console.log(this.data);
             this.form.patchValue({
               nombre: this.data.nombre,
               apellido: this.data.apellido,
@@ -171,9 +197,7 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
             });
           });
           this.citaService.getCita(Number(id)).subscribe( data => {
-            console.log(data);
             this.data = data;
-            console.log(this.data);
             this.form.patchValue({
               fechacita: this.data.fecha_cita,
               hora: this.data.hora,
@@ -185,6 +209,10 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
       }
     });
   }
+
+  /**
+   * Actualiza el estado de la cita
+   */
   actualizarEstado(): void {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datau: any) => {
@@ -268,7 +296,6 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
             }
           }
           this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-            console.log(dataAgendaAgregar);
             this.form.patchValue({
               id: '',
               nombre: '',
@@ -286,8 +313,7 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
       });
     });
   }
-  confirmarCita(): void{
-  }
+
   onContainerClick(event: MouseEvent): void {
   }
 
@@ -295,6 +321,9 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
   }
 }
 
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-cambiar-estado',
   templateUrl: 'dialog-cambiar-estado.html',

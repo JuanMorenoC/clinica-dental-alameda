@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {ClinicaService} from '../../Service/clinica/clinica.service';
 
+/**
+ * Componente del banner
+ */
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
@@ -9,15 +12,13 @@ import {ClinicaService} from '../../Service/clinica/clinica.service';
 })
 export class BannerComponent implements OnInit {
   images: any[] = [];
+
+  /**
+   * Se obtienen las imagenes desde el servicio de la base de datos para cargaralas en el home
+   * @param config - configuracion del carrusel
+   * @param clinica - servicio de la entidad imagen
+   */
   constructor(private config: NgbCarouselConfig, private clinica: ClinicaService) {
-    /*
-    this.images = [
-      {url: '../assets/img/im1.jpg'},
-      {url: '../assets/img/im2.jpg'},
-      {url: '../assets/img/im3.jpg'},
-      {url: '../assets/img/im4.jpg'}
-      ];
-     */
     this.clinica.getAllClinica().subscribe((Response: any) => {
       let archivo = '';
       for (let i = 0; i < Response.length; i++) {

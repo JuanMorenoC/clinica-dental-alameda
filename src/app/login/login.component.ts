@@ -4,15 +4,20 @@ import {UsuarioService} from '../Service/usuario/usuario.service';
 import {RoleService} from '../Service/role/role.service';
 import {Router} from '@angular/router';
 
+/**
+ * Componente del login
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
+
   // siteKey = '';
   loginForm: FormGroup | any;
   constructor(private fb: FormBuilder,
@@ -21,8 +26,11 @@ export class LoginComponent implements OnInit {
               private router: Router) {
     // this.siteKey = '6Lec7lgbAAAAAO9J6NhTu3gDipR4v8S48z3gQ1Pl';
   }
-  // rutae: string[] = ['/moderador', '/odontologo', '/secretaria', '/paciente/paciente-home'];
   ruta = '';
+
+  /**
+   * Inicializa los campos de texto
+   */
   initEditForm(): void{
     this.loginForm = this.fb.group({
       // recaptcha: new FormControl(),
@@ -30,6 +38,11 @@ export class LoginComponent implements OnInit {
       password: new FormControl(),
     });
   }
+
+  /**
+   * Valida que los campos sean requeridos
+   * @private
+   */
   private builForm(): void{
     this.loginForm = this.fb.group({
       // recaptcha: ['', [Validators.required]],
@@ -38,11 +51,17 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line:typedef
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(){
     this.builForm();
   }
 
+  /**
+   * Metodo que valida si se puede loguear o no
+   * @param form - formulario
+   */
   onLogin(form: any): void{
     this.roleService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datau: any) => {
@@ -66,6 +85,5 @@ export class LoginComponent implements OnInit {
         }
       });
     });
-    console.log('Form', form);
   }
 }

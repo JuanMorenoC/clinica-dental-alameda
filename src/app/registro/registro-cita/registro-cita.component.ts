@@ -31,6 +31,9 @@ export class Cita {
   ) {}
 }
 
+/**
+ * Componente registrar una cita
+ */
 @Component({
   selector: 'app-registro-cita',
   templateUrl: './registro-cita.component.html',
@@ -39,6 +42,10 @@ export class Cita {
   providers: [{ provide: MatFormFieldControl, useExisting: RegistroCitaComponent }]
 })
 export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
+
+  /**
+   * Atributos utilizados
+   */
   public listahoras: Array<any> = [];
   public odontologo: any[] = [];
   public paciente: any[] = [];
@@ -68,6 +75,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
   data: any = [];
   mostrar: any = false;
 
+  /**
+   * Atributos requeridos por MatFormControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -96,11 +106,16 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
   // @ts-ignore
   value: Cita | null | undefined;
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void{
     this.builForm();
   }
 
-
+  /**
+   * Inicializa los formControlname
+   */
     initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
@@ -112,6 +127,10 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       hora: new FormControl(),
     });
   }
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       id: ['', [Validators.required]],
@@ -122,10 +141,11 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       fechacita: ['', [Validators.required]],
       hora: ['', [Validators.required]],
     });
-
-    console.log(typeof this.form.get('hora'));
-    console.log(typeof this.form);
   }
+
+  /**
+   * PENDIENTE PARA BORRAR
+   */
   cargarData(): void{
     this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
       let idencontrado = false;
@@ -139,9 +159,7 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
         this.dialog.open(DialogErrorRegistroCitaComponent);
       } else {
         this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-          console.log(data);
           this.data = data;
-          console.log(this.data);
           this.form.patchValue({
             nombre: this.data.nombre,
             apellido: this.data.apellido,
@@ -151,6 +169,10 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       }
     });
   }
+
+  /**
+   * Crear la cita, se guarda
+   */
   crearData(): void {
     this.citaService.getAllCita().subscribe((datacall: any) => {
       let idencontrado = false;
@@ -194,9 +216,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
         this.dialog.open(DialogErrorCitaRegistroCitaComponent);
       } else {
         this.mostrar = true;
-        console.log('creardata');
-        console.log(this.form.value.fechacita.getFullYear());
-        console.log(typeof this.form.value);
         this.procedimientoService.getAllProcedimiento().subscribe((datapp: any) => {
           let procedimiento = {
             // idProcedimiento: datapp.length + 1,
@@ -204,7 +223,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
           };
           this.procedimientoService.addProcedimiento(procedimiento).subscribe((datap: any) => {
             this.procedimientoService.getAllProcedimiento().subscribe((datapall: any) => {
-              console.log('AGREGO PROCEDIMIENTO');
               this.rolService.getAllRol().subscribe((datar: any) => {
                 console.log('SANDWICH ROL USUARIO');
                 this.usuarioService.getAllUsuario().subscribe((datau: any) => {
@@ -228,11 +246,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
                         this.paciente.push(item.ciudad);
                         this.paciente.push(item.departamento);
                         this.paciente.push(item.pais);
-                        console.log('CEDULA U PACIENTE');
-                        console.log(item.cedula);
-                        console.log('CEDULA R PACIENTE');
-                        console.log(datar[i].cedula);
-                        console.log(this.paciente);
                       }
                       if (datar[i].cedula === item.cedula && datar[i].nombre === 'odontologo'){
                         this.odontologo.push(item.cedula);
@@ -247,17 +260,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
                         this.odontologo.push(item.ciudad);
                         this.odontologo.push(item.departamento);
                         this.odontologo.push(item.pais);
-                        console.log('CEDULA U ODONTOLOGO');
-                        console.log(item.cedula);
-                        console.log('CEDULA R ODONTOLOGO');
-                        console.log(datar[i].cedula);
-                        console.log(this.odontologo);
                       }
                     }
                   }
-                  console.log('ARRAY');
-                  console.log(this.paciente);
-                  console.log(this.odontologo);
                   this.citaService.getAllCita().subscribe( (dataAll: any) => {
                     let cantidadCita = 0;
                     cantidadCita = dataAll.length;
@@ -300,12 +305,7 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
                         tipo: this.form.value.tipoespecialidad
                       }
                     };
-                    console.log('OBJECT DATA CITA')
-                    console.log(dataCita);
-                    console.log('ANTES DE AÑADIR CITA');
                     this.citaService.addCita(dataCita).subscribe( (data: any) => {
-                      console.log('CITA AGREGARADA');
-                      console.log(data);
                       this.dialog.open(DialogRegistroCitaComponent);
                       window.location.reload();
                     });
@@ -319,28 +319,10 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       }
     });
   }
-  crearDataAgenda(): void{
-    let cantidadAgenda = 0;
-    this.agendaService.getAgenda().subscribe((dataAgendaAll: any) => {
-      cantidadAgenda = dataAgendaAll.length;
-      console.log('cantiad all agenda');
-      console.log(dataAgendaAll.length);
-      console.log('cantiad agenda');
-      console.log(cantidadAgenda);
-      let dataAgenda = {
-        id: cantidadAgenda + 1,
-        idusuario: this.form.value.id,
-        hora: this.form.value.hora,
-        nombre: this.form.value.nombre + ' ' + this.form.value.apellido,
-        estado: 'Pendiente',
-        fechacita: this.form.value.fechacita,
-        odontologo: 'Ninguno'
-      };
-      this.agendaService.addAgenda(dataAgenda).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
-      });
-    });
-  }
+
+  /**
+   * Al seleccionar la fecha muestra las horas disponibles
+   */
   capturar(): void {
     console.log('ENTRO A CAPTURAR');
     this.listahoras = [];
@@ -351,16 +333,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
         let encontro = 0;
         for (let j = 0; j < data.length; j++) {
           fechaactual = String(new Date(this.form.value.fechacita).toISOString().replace(/T.*$/, '')) + 'T' + '00:00:00';
-          console.log(fechaactual);
-          console.log(data[j].fecha_cita);
-          console.log(typeof data[j].fecha_cita);
           fechacita = String(new Date(data[j].fecha_cita).toISOString().replace(/T.*$/, '')) + 'T' + '00:00:00';
-          console.log(fechacita);
-          console.log(data[j].hora);
-          console.log(typeof data[j].hora);
           if (this.horas[i] === data[j].hora && fechaactual.substr(0, 10) === fechacita.substr(0, 10)){
             encontro = 1;
-            console.log('ENTRO ULTIMO' + i);
           }
         }
         if (encontro === 0){
@@ -377,7 +352,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
   setDescribedByIds(ids: string[]): void {
   }
 }
-
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-registro-cita',
   templateUrl: 'dialog-registro-cita.html',

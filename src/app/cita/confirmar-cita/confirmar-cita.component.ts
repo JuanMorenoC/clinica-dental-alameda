@@ -31,6 +31,9 @@ export class Cita {
   ) {}
 }
 
+/**
+ * Componente de confirmar la cita
+ */
 @Component({
   selector: 'app-confirmar-cita',
   templateUrl: './confirmar-cita.component.html',
@@ -46,10 +49,11 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               private rolService: RoleService,
               private envioCorreoService: EnvioCorreoService,
               public dialog: MatDialog) {
-    // this.cargar();
   }
 
-
+  /**
+   * Atributos utilizados
+   */
   form: FormGroup | any;
   public res: Array<any> = [];
   public dataH = new Object();
@@ -67,6 +71,9 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   public hora = '';
   public estado = '';
 
+  /**
+   * Atributos que son requeridos al utilizar MatFormControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -98,9 +105,16 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   columnas: string[] = ['cedula', 'nombres', 'correo', 'especialidad', 'fecha_cita', 'hora',
     'confirmar', 'cancelar'];
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void{
     this.builForm();
   }
+
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
@@ -114,6 +128,11 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
       estadonuevo: new FormControl(),
     });
   }
+
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       id: ['', [Validators.required]],
@@ -126,14 +145,19 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
       estado: ['', [Validators.required]],
       estadonuevo: ['', [Validators.required]],
     });
-
-    console.log(typeof this.form.get('hora'));
-    console.log(typeof this.form);
   }
+
+  /**
+   * Para controlar el doble click del boton ver tabla
+   */
   log(): void {
     this.count++;
-    console.log('Clicked!');
   }
+
+  /**
+   * Metodo para cambiar la cita a estado conformado
+   * @param j - es el numero de la fila de la tabla
+   */
   confirmarCita(j: number): void{
     this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
       for (let n = 0 ; n < dataAgendaAll.length ; n++){
@@ -180,16 +204,18 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
         }
       }
       this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
-        console.log(this.dataAgenda.paciente.correo);
         this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
-          console.log(datae);
           this.dialog.open(DialogConfirmarCitaComponent);
           window.location.reload();
         });
       });
     });
   }
+
+  /**
+   * Metodos para cambiar el estado de la cita a cancelado
+   * @param j - numero de la fila de la tabla
+   */
   cancelarCita(j: number): void{
     this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
       for (let n = 0 ; n < dataAgendaAll.length ; n++){
@@ -236,10 +262,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
         }
       }
       this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
-        console.log(this.dataAgenda.paciente.correo);
         this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
-          console.log(datae);
           this.citaService.deleteCita(Number(this.dataAgenda.idCita)).subscribe((datad: any) => {
             this.dialog.open(DialogCancelarCitaComponent);
             window.location.reload();
@@ -248,11 +271,13 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
       });
     });
   }
+
+  /**
+   * Cargar las citas en estado pendiente al arraylist para poder mostrarlas en la tabla de confirmar y cancelar
+   */
   cargar(): void{
     this.citaService.getAllCita().subscribe( (data: any) => {
       let nombreCompleto = '';
-      console.log('TABLA CITA');
-      console.log(data);
       for (let i = 0; i < data.length ; i++) {
         if (data[i].estado === 'pendiente'){
           nombreCompleto = data[i].paciente.nombre + ' ' + data[i].paciente.apellido;
@@ -264,13 +289,9 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
             date: String(new Date(data[i].fecha_cita).toLocaleDateString()),
             parent: String(data[i].hora)
           }];
-          console.log('DATOS DE TABLA CITA');
-          console.log(this.dataH );
           this.res.push(this.dataH);
         }
       }
-      console.log('-----');
-      console.log(this.res );
     });
   }
   onContainerClick(event: MouseEvent): void {
@@ -280,6 +301,9 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   }
 }
 
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-confirmar-cita',
   templateUrl: 'dialog-confirmar-cita.html',

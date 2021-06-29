@@ -21,6 +21,9 @@ export class PQRS {
   ) {}
 }
 
+/**
+ * Componente de el pqrs del paciente
+ */
 @Component({
   selector: 'app-pqrs-paciente',
   templateUrl: './pqrs-paciente.component.html',
@@ -29,6 +32,10 @@ export class PQRS {
   providers: [{ provide: MatFormFieldControl, useExisting: PqrsPacienteComponent }]
 })
 export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit {
+
+  /**
+   * Atributos requeridos por MatFormFieldControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -56,6 +63,10 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
   readonly userAriaDescribedBy: string | undefined;
   // @ts-ignore
   value: PQRS | null | undefined;
+
+  /**
+   * Atributos utilizados
+   */
   form: FormGroup | any;
   public listamoderador: Array<any> = [];
   public listausuario: Array<any> = [];
@@ -65,6 +76,7 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
   data: any;
   dataPqrs: any;
   lista: string[] = ['Peticion', 'Queja', 'Reclamo', 'Sugerencia'];
+
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private pqrsService: PqrsService,
@@ -73,9 +85,15 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
               public dialog: MatDialog) {
   }
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void {
     this.builForm();
   }
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void{
     this.form = this.fb.group({
       id: new FormControl(),
@@ -83,6 +101,10 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
       descripcion: new FormControl(),
     });
   }
+  /**
+   * Validar el campo
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       id: [''],
@@ -90,6 +112,10 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
       descripcion: [''],
     });
   }
+
+  /**
+   * Se guarda el pqrs sin responder
+   */
   envio(): void{
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datau: any) => {
@@ -185,9 +211,7 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
                     tipo: this.form.value.pqrs
                   }
                 };
-                console.log(this.dataPqrs);
-                this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {
-                  console.log(dataaddpqrs);
+                this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {-
                   this.dialog.open(DialogPqrsPacienteComponent);
                 });
               });
@@ -197,6 +221,10 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
       });
     });
   }
+
+  /**
+   * Se carga la tabla de los pqrs de cada persona asi esten respondidas o no
+   */
   cargarTabla(): void{
     this.pqrsService.getAllPqrs().subscribe((datap: any) => {
       for (let i = 0; i < datap.length; i++) {
@@ -211,6 +239,9 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
       }
     });
   }
+  /**
+   * Cuenta el click
+   */
   log(): void {
     this.count++;
     console.log('Clicked!');
@@ -218,6 +249,9 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
 
 }
 
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-pqrs-paciente',
   templateUrl: 'dialog-pqrs-paciente.html',

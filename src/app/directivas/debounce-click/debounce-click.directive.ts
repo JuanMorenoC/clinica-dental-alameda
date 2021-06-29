@@ -4,6 +4,9 @@ import { Subject } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
+/**
+ * Esta es la directiva la cual controla el doble click con los metodos log para los botones
+ */
 @Directive({
   selector: '[appDebounceClick]'
 })

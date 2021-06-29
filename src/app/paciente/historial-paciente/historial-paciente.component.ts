@@ -23,6 +23,9 @@ export class Procedimiento {
   ) {}
 }
 
+/**
+ * Componente para el historial del paciente
+ */
 @Component({
   selector: 'app-historial-paciente',
   templateUrl: './historial-paciente.component.html',
@@ -31,6 +34,10 @@ export class Procedimiento {
   providers: [{ provide: MatFormFieldControl, useExisting: HistorialPacienteComponent }]
 })
 export class HistorialPacienteComponent implements MatFormFieldControl<Procedimiento>, OnInit{
+
+  /**
+   * Atributos utilizados
+   */
   data: any = [];
   public listaOdontologo: Array<any> = [];
   public listaUsuarios: Array<any> = [];
@@ -43,13 +50,20 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   public dataTabla: Array<any> = [];
   public dataH = new Object();
   public res: Array<any> = [];
+
+  /**
+   * Se llena el array de odontologos solo con su nombre y apellido
+   * @param fb - formulario
+   * @param citaService - servicio de la entidad cita
+   * @param rolService - servicio de la entidad rol
+   * @param usuarioService - servicio de la entidad usuario
+   */
   constructor(private fb: FormBuilder,
               private citaService: CitaService,
               private rolService: RoleService,
               private usuarioService: UsuarioService) {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
-        console.log(datasO);
         for (let i = 0 ; i < datar.length ; i++){
           for (let j = 0; j < datasO.length ; j++) {
             if (datar[i].cedula === datasO[j].cedula && datar[i].nombre === 'odontologo'){
@@ -57,7 +71,6 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
             }
           }
         }
-        // this.listaOdontologo.push('Ninguno');
       });
     });
   }
@@ -76,6 +89,10 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   public direccion = '';
   public departamento = '';
   public ciudad = '';
+
+  /**
+   * Atributos requeridos por MatFormControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -104,25 +121,42 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
   // @ts-ignore
   value: Cita | null | undefined;
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void{
     this.builForm();
   }
+
+  /**
+   * Contar los click
+   */
   log(): void {
     this.count++;
-    console.log('Clicked!');
   }
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void{
     this.form = this.fb.group({
       paciente: new FormControl(),
       odontologo: new FormControl(),
     });
   }
+  /**
+   * Validar cada campo
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       paciente: [''],
       odontologo: [''],
     });
   }
+
+  /**
+   *  Carga la tabla con todos los procedimientos que se le han hecho a ese paciente
+   */
   cargarTabla(): void{
     let nombreCompleto = '';
     let nombrePaciente = '';
@@ -142,9 +176,12 @@ export class HistorialPacienteComponent implements MatFormFieldControl<Procedimi
         }
       }
       this.lista.push(this.dataTabla);
-      console.log(this.res);
     });
   }
+
+  /**
+   * Cargar todos los pacientes de un odontologo en especifico, en estado en el box
+   */
   cargarPacientes(): void{
     this.citaService.getAllCita().subscribe((data: any) => {
       let nombreOdonto = '';

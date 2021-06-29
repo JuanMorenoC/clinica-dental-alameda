@@ -7,6 +7,9 @@ import { Router, NavigationEnd } from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {ClinicaService} from '../../Service/clinica/clinica.service';
 
+/**
+ * Componente del banner controlado por el administrador
+ */
 @Component({
   selector: 'app-banner-personal',
   templateUrl: './banner-personal.component.html',
@@ -26,6 +29,14 @@ export class BannerPersonalComponent implements OnInit {
   public message = '';
   public imageName = '';
 
+  /**
+   * Se obtienen todas las imagenes de la base de datos
+   * @param fb - formulario
+   * @param config - configuracion del carrusel
+   * @param sanitizer - se utiliza en base64
+   * @param router - redirige a otras paginas
+   * @param clinica - servicio de la entidad imagen
+   */
   constructor(private fb: FormBuilder,
               private config: NgbCarouselConfig,
               private sanitizer: DomSanitizer,
@@ -37,81 +48,47 @@ export class BannerPersonalComponent implements OnInit {
         archivo = Response[i].url;
         this.images.push(archivo);
       }
-      console.log(this.images);
-      console.log(this.images[0]);
-      console.log(this.images[1]);
     });
     this.selectedFiles = [];
-    /*
-    this.images = ['../assets/img/im1.jpg',
-      '../assets/img/im2.jpg', '../assets/img/im3.jpg', '../assets/img/im4.jpg'
-    ];*/
-    /*
-    this.images = [
-      {url: '../assets/img/im1.jpg'},
-      {url: '../assets/img/im2.jpg'},
-      {url: '../assets/img/im3.jpg'},
-      {url: '../assets/img/im4.jpg'}
-    ];
-     */
     config.interval = 5000;
   }
 
   form: FormGroup | any;
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void {
     this.builForm();
   }
 
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void {
     this.form = this.fb.group({
       img: new FormControl(),
     });
   }
 
+  /**
+   * Configuracion de los formularios
+   * @private
+   */
   private builForm(): void {
     this.form = this.fb.group({
       img: [''],
     });
   }
 
-  guardarImagenes(event: any): void {
-    console.log('INTRO');
-    this.progressInfo = [];
-    event.target.files.length === 1 ? this.imageName = event.target.files[0].name : this.imageName = event.target.files.length +
-      ' archivos';
-    this.selectedFiles = event.target.files;
-    console.log(this.selectedFiles);
-    console.log('OUT');
-    // Anth
-  }
-  guardarUrlImagenes(event: any): void {
-    console.log('INTRO');
-    this.progressInfo = [];
-    event.target.files.length === 1 ? this.imageName = event.target.files[0].name : this.imageName = event.target.files.length +
-      ' archivos';
-    this.selectedFiles = event.target.files;
-    console.log(this.selectedFiles);
-    console.log('OUT');
-    // Anth
-    this.clinica.getAllClinica().subscribe((data: any) => {
-      console.log(data[0].url);
-      this.images.push(data[0].url);
-      console.log(data[1].url);
-      this.images.push(data[1].url);
-    });
-  }
-
+  /**
+   * Obtiene las imagenes que son seleccionadas de la carpeta de archivos del ordenador, tambien llama los demas metodos
+   * @param event
+   */
   capturarFile(event: any): void {
-    console.log('IMAGENES');
-    console.log(typeof event.target.files[0].name);
-    console.log(event.target.files[0].name);
-    console.log(event.target.files[0].name.length);
-    console.log(event.target.files);
     this.clinica.getAllClinica().subscribe((data: any) => {
       for (let i = 0; i < data.length; i++) {
         let id = data[i].idImagen;
-        console.log(id);
         this.clinica.deleteClinica(id).subscribe();
       }
       for (const element of event.target.files){
@@ -119,22 +96,16 @@ export class BannerPersonalComponent implements OnInit {
         this.extraerBase64(archivoCapturado).then((imagen: any) => {
           this.previsualizacion = imagen.base;
           this.images.push(imagen.base);
-          console.log('IMAGEN YA CON BASE');
-          console.log(imagen);
-          console.log(typeof imagen);
-          console.log(imagen.base);
-          console.log(typeof imagen.base);
-          console.log(imagen.base.length);
           this.cargar(imagen.base);
         });
       }
-      // this.archivos.push(archivoCapturado);
-      // this.images.push(event.target.files[0].name);
-      console.log(this.images.length);
-      console.log('IMAGEN SEGUNDA');
-      console.log(this.images[1]);
     });
   }
+
+  /**
+   * Convierte la url de la imagen en otra url compatible con el navegador, le cambia el formato
+   * @param $event
+   */
   extraerBase64 = async ($event: any) => new Promise((resolve, reject): any => {
     try {
       const unsafeImg = window.URL.createObjectURL($event);
@@ -156,6 +127,11 @@ export class BannerPersonalComponent implements OnInit {
       return null;
     }
   })
+
+  /**
+   * Sube la url de la imagen en base64 a la base de datos
+   * @param imagen
+   */
   cargar(imagen: any): void {
     const contador = this.images.length;
     console.log(this.images[0]);
@@ -165,20 +141,16 @@ export class BannerPersonalComponent implements OnInit {
         id: 1,
         url: imagen
       };
-      // this.data.push(datosi);
       this.clinica.addClinica(datosi).subscribe();
     } else {
       let datosi = {
         id: contador,
         url: imagen
       };
-      // this.data.push(datosi);
       this.clinica.addClinica(datosi).subscribe((dataadd: any) => {
         window.location.reload();
       });
     }
   }
 
-  deleteFile(file: any): void{
-  }
 }

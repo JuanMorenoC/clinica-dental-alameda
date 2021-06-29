@@ -21,6 +21,9 @@ export class PQRS {
   ) {}
 }
 
+/**
+ * Componente del pqrs
+ */
 @Component({
   selector: 'app-pqrs',
   templateUrl: './pqrs.component.html',
@@ -29,6 +32,10 @@ export class PQRS {
   providers: [{ provide: MatFormFieldControl, useExisting: PqrsComponent }]
 })
 export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
+
+  /**
+   * Atributos requeridos cuando se utiliza MatFormFieldControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -56,11 +63,16 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
   readonly userAriaDescribedBy: string | undefined;
   // @ts-ignore
   value: PQRS | null | undefined;
+
+  /**
+   * Atributos utilizados
+   */
   public res: Array<any> = [];
   data: any;
   dataPqrs: any;
   form: FormGroup | any;
   count = 0;
+
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private pqrsService: PqrsService,
@@ -68,19 +80,34 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
               private tipopqrsService: TipopqrsService,
               public dialog: MatDialog) { }
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void {
     this.builForm();
   }
+
+  /**
+   * Inicializa los formControlname
+   */
   initEditForm(): void{
     this.form = this.fb.group({
       respuesta: new FormControl(),
     });
   }
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builForm(): void{
     this.form = this.fb.group({
       respuesta: ['', [Validators.required]],
     });
   }
+
+  /**
+   * Carga el arraylist de pqrs sin responder para mostrarlas en la tabla del administrador
+   */
   cargar(): void{
     this.pqrsService.getAllPqrs().subscribe((datap: any) => {
       for (let i = 0; i < datap.length; i++) {
@@ -143,13 +170,19 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
       });
     });
   }
+
+  /**
+   * Cuenta el click
+   */
   log(): void {
     this.count++;
-    console.log('Clicked!');
   }
 
 }
 
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-pqrs',
   templateUrl: 'dialog-pqrs.html',

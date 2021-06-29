@@ -12,8 +12,10 @@ export class AppConfig{
     this.initConfiguracion();
   }
 
-
-
+  /**
+   * Trae la url del backend
+   * @private
+   */
   private initConfiguracion(): void{
     // this.configuracionj = 'http://localhost:3000';
     this._configuracion = {

@@ -14,7 +14,9 @@ export class Usuario {
     public ide: string
   ) {}
 }
-
+/**
+ * Componente de actualizar datos del odontologo
+ */
 @Component({
   selector: 'app-buscar-paciente',
   templateUrl: './buscar-paciente.component.html',
@@ -26,6 +28,15 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   data: any = [];
   public listaPaciente: Array<any> = [];
   public listaOdontologo: Array<any> = [];
+
+  /**
+   * Llena el array de odontologos solo con el nombre y el apellido
+   * @param fb - formulario
+   * @param usuarioService - servicio de la entidad usuario
+   * @param citaService - servicio de la entidad cita
+   * @param rolService - servicio de la entidad rol
+   * @param dialog - mensaje en ventana emergente
+   */
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private citaService: CitaService,
@@ -41,11 +52,13 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
             }
           }
         }
-        // this.listaOdontologo.push('Ninguno');
       });
     });
   }
 
+  /**
+   * Atributos utilizados
+   */
   formBuscar: FormGroup | any;
   formHistorial: FormGroup | any;
   public datosF = {};
@@ -66,6 +79,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   public departamento = '';
   public ciudad = '';
 
+  /**
+   * Atributos requeridos por MatFormControl
+   */
   readonly autofilled: boolean | undefined;
   readonly controlType: string | undefined;
   // @ts-ignore
@@ -94,16 +110,24 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   // @ts-ignore
   value: Cita | null | undefined;
 
+  /**
+   * Metodo inicializador que hace funcionar los demas metodos que no dependen de un boton
+   */
   ngOnInit(): void {
     this.builFormB();
     this.builFormH();
   }
 
+  /**
+   * Cuenta los doble click
+   */
   log(): void {
     this.count++;
-    console.log('Clicked!');
   }
 
+  /**
+   * Inicializa los formControlname
+   */
   initEditFormB(): void{
     this.formBuscar = this.fb.group({
       id: new FormControl(),
@@ -112,7 +136,10 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       apellido: new FormControl(),
     });
   }
-
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builFormB(): void{
     this.formBuscar = this.fb.group({
       id: [''],
@@ -121,14 +148,19 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       apellido: [''],
     });
   }
-
+  /**
+   * Inicializa los formControlname
+   */
   initEditFormH(): void{
     this.formHistorial = this.fb.group({
       descripcion: new FormControl(),
       odontologo: new FormControl(),
     });
   }
-
+  /**
+   * Validar que cada campo sea requerido
+   * @private
+   */
   private builFormH(): void{
     this.formHistorial = this.fb.group({
       descripcion: ['', [Validators.required]],
@@ -136,6 +168,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     });
   }
 
+  /**
+   * Cargar los datos del paciente que se esta buscando
+   */
   cargarData(): void {
     if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
       this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
@@ -187,6 +222,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     }
   }
 
+  /**
+   * Cargar los datos del paciente que es buscado por la cedula
+   */
   cargarDataporId(): void {
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       let ident = '';
@@ -227,6 +265,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     });
   }
 
+  /**
+   * Cargar los datos del paciente que es buscado por el nombre
+   */
   cargarDataporNombre(): void {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((data: any) => {
@@ -271,6 +312,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     });
   }
 
+  /**
+   * Cargar los datos del paciente que es buscado por el apellido
+   */
   cargarDataporApellido(): void {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((data: any) => {
@@ -284,7 +328,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         let pai = '';
         let depa = '';
         let ciu = '';
-        console.log(data);
         for (let j = 0; j < datar.length ; j++) {
           for (let i = 0; i < data.length; i++) {
             if (this.formBuscar.value.apellido.toLowerCase() === data[i].apellido.toLowerCase() && 'paciente' === datar[j].nombre && data[i].cedula === datar[j].cedula) {
@@ -315,6 +358,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     });
   }
 
+  /**
+   * Borra los campos de texto de cedula, nombre y apellido
+   */
   borrarCampos(): void {
     this.formBuscar.patchValue({
       id: '',
@@ -325,6 +371,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     this.listaPaciente.splice(0);
   }
 
+  /**
+   * Metodo para guardar el historial odontologico del paciente
+   */
   guardarHistorial(): void {
     if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
       this.guardarDataporId();
@@ -337,6 +386,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
     }
   }
 
+  /**
+   * Metodo para guardar el historial odontologico buscado por cedula
+   */
   guardarDataporId(): void {
     this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
       for (let n = 0 ; n < dataAgendaAll.length ; n++){
@@ -383,11 +435,14 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         }
       }
       this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-        console.log(dataAgendaAgregar);
         this.dialog.open(DialogBuscarPacienteComponent);
       });
     });
   }
+
+  /**
+   * Metodo para guardar el historial odontologico del paciente buscado por nombre
+   */
   guardarDataporNombre(): void {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
@@ -437,12 +492,14 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           }
         }
         this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-          console.log(dataAgendaAgregar);
           this.dialog.open(DialogBuscarPacienteComponent);
         });
       });
     });
   }
+  /**
+   * Metodo para guardar el historial odontologico del paciente buscado por apellido
+   */
   guardarDataporApellido(): void {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
@@ -492,7 +549,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           }
         }
         this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-          console.log(dataAgendaAgregar);
           this.dialog.open(DialogBuscarPacienteComponent);
         });
       });
@@ -505,7 +561,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   setDescribedByIds(ids: string[]): void {
   }
 }
-
+/**
+ * Se llaman los dialogos para mostrar los mensajes correspondientes
+ */
 @Component({
   selector: 'app-dialog-buscar-paciente',
   templateUrl: 'dialog-buscar-paciente.html',
