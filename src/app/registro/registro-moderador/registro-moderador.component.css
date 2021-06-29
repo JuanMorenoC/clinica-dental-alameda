@@ -1,10 +1,15 @@
-.reg-cita {
+.reg-paciente {
+  position: absolute;
   top: 80px;
 }
 
+p {
+  font-family: sans-serif;
+}
+
 .example-card {
-  max-width: 800px;
-  left: 275px;
+  width: 800px;
+  left: 300px;
 }
 
 .row .col .mat-form-field + .mat-form-field {

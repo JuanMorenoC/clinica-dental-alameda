@@ -32,6 +32,8 @@
     "angular-calendar": "^0.28.24",
     "bootstrap": "^4.6.0",
     "date-fns": "^2.21.3",
+    "ng-recaptcha": "^8.0.0",
+    "ngx-captcha": "^9.0.1",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-perfect-scrollbar": "^10.1.0",
     "ngx-scrollbar": "^7.5.4",

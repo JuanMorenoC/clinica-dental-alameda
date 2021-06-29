@@ -1,15 +1,15 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
-import { ModeradorService } from '../../Service/moderador/moderador.service';
+import { UsuarioService } from '../../Service/usuario/usuario.service';
+import {PaisService} from '../../Service/pais/pais.service';
+import {DepartamentoService} from '../../Service/departamento/departamento.service';
+import {CiudadService} from '../../Service/ciudad/ciudad.service';
+import {RoleService} from '../../Service/role/role.service';
+import { debounceTime } from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
-import {UsuarioService} from '../../Service/usuario/usuario.service';
-import {CiudadService} from '../../Service/ciudad/ciudad.service';
-import {DepartamentoService} from '../../Service/departamento/departamento.service';
-import {PaisService} from '../../Service/pais/pais.service';
-import {RoleService} from '../../Service/role/role.service';
-import {map, startWith} from 'rxjs/operators';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -54,6 +54,7 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
   datapersona: any;
   mostrar: any = false;
   mensaje = '';
+  mostrarmensaje = false;
   hide = true;
   contadorciudad = 0;
   contadordepartamento = 0;
@@ -196,7 +197,7 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
     });
   }
 
-  agregarModerador(): void {
+  agregarUsuario(): void {
     console.log(this.form.value.id);
     console.log(typeof this.form.value.id);
     this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
@@ -208,51 +209,53 @@ export class RegistroModeradorComponent implements MatFormFieldControl<Usuario>,
         }
       }
       if (idencontrado === true){
-        this.mensaje = 'El usuario ya esta registrado';
         this.mostrar = false;
-        console.log(this.mensaje);
+        console.log('El usuario ya esta registrado');
         this.dialog.open(DialogErrorRegistroModeradorComponent);
       } else {
-        console.log('ENTRO A AGREGAR');
-        this.roleService.getAllRol().subscribe((datar: any) => {
-          this.contadorrol = datar.length + 1;
-          this.datarol = {
-            id: datar.length + 1,
-            cedula: this.form.value.id,
-            nombre: 'moderador'
-          };
-          console.log(this.datarol);
-          this.roleService.addRol(this.datarol).subscribe((datara: any) => {
-            // AGREGAR
-
-            this.datapersona = {
+        if (this.form.value.clave.length > 7){
+          console.log('ENTRO A AGREGAR');
+          this.roleService.getAllRol().subscribe((datar: any) => {
+            this.contadorrol = datar.length + 1;
+            this.datarol = {
+              id: datar.length + 1,
               cedula: this.form.value.id,
-              nombre: this.form.value.nombre,
-              apellido: this.form.value.apellido,
-              seudonimo: this.form.value.seudonimo,
-              tipo_identificacion: this.form.value.tipoidentificacion,
-              correo: this.form.value.email,
-              clave: this.form.value.clave,
-              fecha_nacimiento: this.form.value.fechanacimiento,
-              celular: this.form.value.celular,
-              ciudad: this.form.value.ciudad,
-              departamento: this.form.value.departamento,
-              pais: this.form.value.pais
+              nombre: 'paciente'
             };
-            console.log(this.datapersona);
+            console.log(this.datarol);
+            this.roleService.addRol(this.datarol).subscribe((datara: any) => {
+              // AGREGAR
 
-            this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
-              // console.log(datau.roles.id);
-              console.log('agregado usuario');
-              console.log(datau);
-              this.mensaje = 'El registro ha sido exitoso';
-              this.mostrar = true;
-              console.log(this.mensaje);
-              this.dialog.open(DialogRegistroModeradorComponent);
+              this.datapersona = {
+                cedula: this.form.value.id,
+                nombre: this.form.value.nombre,
+                apellido: this.form.value.apellido,
+                seudonimo: this.form.value.seudonimo,
+                tipo_identificacion: this.form.value.tipoidentificacion,
+                correo: this.form.value.email,
+                clave: this.form.value.clave,
+                fecha_nacimiento: this.form.value.fechanacimiento,
+                celular: this.form.value.celular,
+                ciudad: this.form.value.ciudad,
+                departamento: this.form.value.departamento,
+                pais: this.form.value.pais
+              };
+              console.log(this.datapersona);
+              this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
+                // console.log(datau.roles.id);
+                console.log('agregado usuario');
+                console.log(datau);
+                this.mostrar = true;
+                console.log('El registro ha sido exitoso');
+                this.dialog.open(DialogRegistroModeradorComponent);
+              });
+              // FIN DE PERSONA
             });
-            // FIN DE PERSONA
           });
-        });
+        } else {
+          this.mostrarmensaje = true;
+          // this.mensaje = 'La contraseña debe ser minimo de 8 caracteres';
+        }
       }
     });
   }

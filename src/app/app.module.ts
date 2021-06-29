@@ -80,6 +80,15 @@ import { PqrsPacienteComponent } from './cita/pqrs-paciente/pqrs-paciente.compon
 import {DialogPqrsPacienteComponent} from './cita/pqrs-paciente/pqrs-paciente.component';
 import {DialogErrorPqrsPacienteComponent} from './cita/pqrs-paciente/pqrs-paciente.component';
 import {DialogPqrsComponent} from './cita/pqrs/pqrs.component';
+// import { NgxCaptchaModule } from 'ngx-captcha';
+import { RecaptchaModule } from 'ng-recaptcha';
+import { RecuperacionContrasenaComponent } from './recuperacion-contrasena/recuperacion-contrasena.component';
+import { ActualizarDatosOdontologoComponent } from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
+import { ActualizarDatosSecretariaComponent } from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
+import {DialogActualizarOdontologoComponent} from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
+import {DialogActualizarSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
+import {DialogErrorActualizarOdontologoComponent} from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
+import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
 
 // @ts-ignore
 @NgModule({
@@ -138,7 +147,14 @@ import {DialogPqrsComponent} from './cita/pqrs/pqrs.component';
     PqrsPacienteComponent,
     DialogPqrsPacienteComponent,
     DialogErrorPqrsPacienteComponent,
-    DialogPqrsComponent
+    DialogPqrsComponent,
+    RecuperacionContrasenaComponent,
+    ActualizarDatosOdontologoComponent,
+    ActualizarDatosSecretariaComponent,
+    DialogActualizarOdontologoComponent,
+    DialogActualizarSecretariaComponent,
+    DialogErrorActualizarOdontologoComponent,
+    DialogErrorActualizarSecretariaComponent
   ],
     imports: [
         BrowserModule,
@@ -166,6 +182,7 @@ import {DialogPqrsComponent} from './cita/pqrs/pqrs.component';
         MatIconModule,
         MatTableModule,
         MatSortModule,
+        RecaptchaModule
     ],
   exports: [
     MatDatepickerModule,

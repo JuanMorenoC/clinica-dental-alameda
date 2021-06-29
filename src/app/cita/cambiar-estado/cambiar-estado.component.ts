@@ -269,6 +269,17 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
           }
           this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
             console.log(dataAgendaAgregar);
+            this.form.patchValue({
+              id: '',
+              nombre: '',
+              apellido: '',
+              email: '',
+              tipoespecialidad: '',
+              fechacita: '',
+              hora: '',
+              estado: '',
+              odontologo: '',
+            });
             this.dialog.open(DialogCambiarEstadoComponent);
           });
         });

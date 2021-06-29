@@ -6,7 +6,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
       <p>
         <mat-form-field>
-          <input type="text" matInput placeholder="Usuario" formControlName="email"/>
+          <input type="email" matInput placeholder="Usuario" formControlName="email"/>
         </mat-form-field>
       </p>
       <p>
@@ -14,7 +14,29 @@
           <input type="password" matInput placeholder="Contraseña" formControlName="password"/>
         </mat-form-field>
       </p>
+      <p align="right"><a routerLink="/recuperacion-contrasena" routerLinkActive="active">¿Olvido la Contraseña?</a></p>
+      <p>
+        <!--
+        <ngx-recaptcha2 #captchaElem
+                        [siteKey]="siteKey"
+                        formControlName="recaptcha">
+        </ngx-recaptcha2>
+        -->
+        <!--
+        <re-captcha
+          (resolved)="resolved($event)"
+          siteKey="6LfqeGEbAAAAAEK80_-_72UwT5c5xvd864BpfMHk"
+        ></re-captcha>
+        -->
+      </p>
+      <!--<div class="g-recaptcha" data-sitekey="6LfqeGEbAAAAAEK80_-_72UwT5c5xvd864BpfMHk" data-callback="enabledSubmit"></div>-->
+      <br>
       <button class="btn" type="submit" mat-raised-button color="primary">Login</button>
+      <br>
+      <br>
+      <hr>
+      <br>
+      <p>¿No tienes una cuenta? <span><a routerLink="/registro/registro-moderador" routerLinkActive="active">Registrese ahora</a></span></p>
     </form>
   </mat-card-content>
 </mat-card>

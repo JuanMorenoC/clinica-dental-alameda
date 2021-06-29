@@ -1,4 +1,4 @@
-.reg-paciente {
+.reg-cita {
   top: 80px;
 }
 
@@ -25,10 +25,5 @@
 
 .row .colemail {
   max-width: 250px;
-  align-items: center;
-}
-
-.row .departa {
-  max-width: 300px;
   align-items: center;
 }

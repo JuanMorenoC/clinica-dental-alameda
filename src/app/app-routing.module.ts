@@ -18,6 +18,9 @@ import {PacienteHomeComponent} from './paciente/paciente-home/paciente-home.comp
 import {ConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
 import {AdministradorComponent} from './administrador/administrador.component';
 import {ModeradorComponent} from './moderador/moderador.component';
+import {RecuperacionContrasenaComponent} from './recuperacion-contrasena/recuperacion-contrasena.component';
+import {ActualizarDatosOdontologoComponent} from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
+import {ActualizarDatosSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
 
 const routes: Routes = [
   {
@@ -87,6 +90,18 @@ const routes: Routes = [
   {
     path: 'cita/confirmar-cita',
     component: ConfirmarCitaComponent, // another child route component that the router renders
+  },
+  {
+    path: 'recuperacion-contrasena',
+    component: RecuperacionContrasenaComponent, // another child route component that the router renders
+  },
+  {
+    path: 'secretaria/actualizar-datos-secretaria',
+    component: ActualizarDatosSecretariaComponent, // another child route component that the router renders
+  },
+  {
+    path: 'odontologo/actualizar-datos-odontologo',
+    component: ActualizarDatosOdontologoComponent, // another child route component that the router renders
   },
   {
     path: '',
