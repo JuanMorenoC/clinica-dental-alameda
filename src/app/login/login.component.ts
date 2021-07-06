@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {UsuarioService} from '../Service/usuario/usuario.service';
 import {RoleService} from '../Service/role/role.service';
+import {LoginService} from '../Service/login/login.service';
 import {Router} from '@angular/router';
 
 /**
@@ -13,7 +14,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  sesionIniciada = false;
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response: ${captchaResponse}`);
   }
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private roleService: RoleService,
+              private loginService: LoginService,
               private router: Router) {
     // this.siteKey = '6Lec7lgbAAAAAO9J6NhTu3gDipR4v8S48z3gQ1Pl';
   }
@@ -69,6 +71,13 @@ export class LoginComponent implements OnInit {
           for (let j = 0 ; j < datau.length ; j++ ){
             if (datau[j].correo === this.loginForm.value.email && datau[j].clave === this.loginForm.value.password){
               if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'paciente'){
+                /*
+                let data = {
+                  email: this.loginForm.value.email,
+                  password: this.loginForm.value.password
+                };
+                this.loginService.setUser(data);
+                 */
                 this.router.navigate(['/paciente/paciente-home']);
               }
               if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'administrador'){
@@ -85,5 +94,8 @@ export class LoginComponent implements OnInit {
         }
       });
     });
+  }
+  public get onSesionIniciada(): any{
+    return this.sesionIniciada;
   }
 }

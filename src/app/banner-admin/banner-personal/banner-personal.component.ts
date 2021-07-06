@@ -5,7 +5,7 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {DomSanitizer} from '@angular/platform-browser';
 import { Router, NavigationEnd } from '@angular/router';
 import {filter} from 'rxjs/operators';
-import {ClinicaService} from '../../Service/clinica/clinica.service';
+import {ImagenService} from '../../Service/imagen/imagen.service';
 
 /**
  * Componente del banner controlado por el administrador
@@ -41,8 +41,8 @@ export class BannerPersonalComponent implements OnInit {
               private config: NgbCarouselConfig,
               private sanitizer: DomSanitizer,
               private router: Router,
-              private clinica: ClinicaService) {
-    this.clinica.getAllClinica().subscribe((Response: any) => {
+              private imagenService: ImagenService) {
+    this.imagenService.getAllClinica().subscribe((Response: any) => {
       let archivo = '';
       for (let i = 0; i < Response.length; i++) {
         archivo = Response[i].url;
@@ -86,10 +86,10 @@ export class BannerPersonalComponent implements OnInit {
    * @param event
    */
   capturarFile(event: any): void {
-    this.clinica.getAllClinica().subscribe((data: any) => {
+    this.imagenService.getAllClinica().subscribe((data: any) => {
       for (let i = 0; i < data.length; i++) {
         let id = data[i].idImagen;
-        this.clinica.deleteClinica(id).subscribe();
+        this.imagenService.deleteClinica(id).subscribe();
       }
       for (const element of event.target.files){
         const archivoCapturado = element;
@@ -141,13 +141,13 @@ export class BannerPersonalComponent implements OnInit {
         id: 1,
         url: imagen
       };
-      this.clinica.addClinica(datosi).subscribe();
+      this.imagenService.addClinica(datosi).subscribe();
     } else {
       let datosi = {
         id: contador,
         url: imagen
       };
-      this.clinica.addClinica(datosi).subscribe((dataadd: any) => {
+      this.imagenService.addClinica(datosi).subscribe((dataadd: any) => {
         window.location.reload();
       });
     }

@@ -69,6 +69,7 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
    */
   public res: Array<any> = [];
   data: any;
+  idpqrsUpdate = 0;
   dataPqrs: any;
   form: FormGroup | any;
   count = 0;
@@ -125,7 +126,8 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
   enviopqrs(j: number): void{
     this.pqrsService.getAllPqrs().subscribe((datap: any) => {
       for (let i = 0; i < datap.length; i++) {
-        if (datap[i].tipopqrs.idPQRS === this.res[j][0].id){
+        if (datap[i].idPQRS === this.res[j][0].id){
+          this.idpqrsUpdate = datap[i].idPQRS;
           this.dataPqrs = {
             idPQRS: datap[i].idPQRS,
             descripcion: datap[i].descripcion,
@@ -165,7 +167,9 @@ export class PqrsComponent implements MatFormFieldControl<PQRS>, OnInit {
           };
         }
       }
-      this.pqrsService.updatePqrs(this.dataPqrs, this.dataPqrs.idPQRS).subscribe((datapu: any) => {
+      this.pqrsService.updatePqrs(this.dataPqrs, this.idpqrsUpdate).subscribe((datapu: any) => {
+        this.cargar();
+        window.location.reload();
         this.dialog.open(DialogPqrsComponent);
       });
     });

@@ -1,9 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import {UsuarioService} from '../../Service/usuario/usuario.service';
-import {CiudadService} from '../../Service/ciudad/ciudad.service';
-import {DepartamentoService} from '../../Service/departamento/departamento.service';
-import {PaisService} from '../../Service/pais/pais.service';
 import {RoleService} from '../../Service/role/role.service';
 import {Observable} from 'rxjs';
 import { MatFormFieldControl} from '@angular/material/form-field';
@@ -40,9 +37,6 @@ export class Usuario {
 export class RegistroSecretariaComponent implements MatFormFieldControl<Usuario>, OnInit {
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
-              private ciudadSerice: CiudadService,
-              private departamentoSerice: DepartamentoService,
-              private paisSerice: PaisService,
               private roleService: RoleService,
               public dialog: MatDialog) {
   }
@@ -189,6 +183,7 @@ export class RegistroSecretariaComponent implements MatFormFieldControl<Usuario>
             this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
               this.mensaje = 'El registro ha sido exitoso';
               this.mostrar = true;
+              window.location.reload();
               this.dialog.open(DialogRegistroSecretariaComponent);
             });
           });

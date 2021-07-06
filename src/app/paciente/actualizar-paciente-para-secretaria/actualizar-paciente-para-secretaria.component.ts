@@ -6,7 +6,6 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogBorrarPacienteComponent, DialogErrorBorrarPacienteComponent} from '../borrar-paciente/borrar-paciente.component';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -157,6 +156,7 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
         }
       }
       this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
+        window.location.reload();
         this.dialog.open(DialogActualizarPacienteParaSecretariaComponent);
       });
     });

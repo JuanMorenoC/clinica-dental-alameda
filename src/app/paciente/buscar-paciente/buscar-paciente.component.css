@@ -1,7 +1,21 @@
-.reg-cita {
+.fichapaciente {
+  left: 200px;
+  display: inline-block;
+}
+
+.fichaone {
   top: 80px;
   display: inline-flex;
   left: 150px;
+}
+
+.tablahistorial {
+  width: 800px;
+  left: 200px;
+  margin: 0 auto;
+}
+h3 {
+
 }
 
 .buscar-general {

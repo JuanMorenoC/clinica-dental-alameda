@@ -156,6 +156,7 @@ export class ActualizarDatosSecretariaComponent implements OnInit {
         }
       }
       this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
+        window.location.reload();
         this.dialog.open(DialogActualizarSecretariaComponent);
       });
     });

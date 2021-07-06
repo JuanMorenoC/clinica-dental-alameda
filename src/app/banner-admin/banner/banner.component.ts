@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
-import {ClinicaService} from '../../Service/clinica/clinica.service';
+import {ImagenService} from '../../Service/imagen/imagen.service';
 
 /**
  * Componente del banner
@@ -18,8 +18,8 @@ export class BannerComponent implements OnInit {
    * @param config - configuracion del carrusel
    * @param clinica - servicio de la entidad imagen
    */
-  constructor(private config: NgbCarouselConfig, private clinica: ClinicaService) {
-    this.clinica.getAllClinica().subscribe((Response: any) => {
+  constructor(private config: NgbCarouselConfig, private imagenService: ImagenService) {
+    this.imagenService.getAllClinica().subscribe((Response: any) => {
       let archivo = '';
       for (let i = 0; i < Response.length; i++) {
         archivo = Response[i].url;

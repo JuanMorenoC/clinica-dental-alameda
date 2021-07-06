@@ -18,7 +18,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
-import { RegistroModeradorComponent } from './registro/registro-moderador/registro-moderador.component';
 import {MatCardModule} from '@angular/material/card';
 import { UsuarioService } from './Service/usuario/usuario.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -43,10 +42,7 @@ import { ActualizarPacienteComponent } from './paciente/actualizar-paciente/actu
 import { ActualizarPacienteParaSecretariaComponent } from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
 import {DialogActualizarPacienteComponent} from './paciente/actualizar-paciente/actualizar-paciente.component';
 import {DialogActualizarPacienteParaSecretariaComponent} from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
-import { BorrarPacienteComponent } from './paciente/borrar-paciente/borrar-paciente.component';
-import {DialogBorrarPacienteComponent} from './paciente/borrar-paciente/borrar-paciente.component';
 import {DialogErrorActualizarPacienteParaSecretariaComponent} from './paciente/actualizar-paciente-para-secretaria/actualizar-paciente-para-secretaria.component';
-import {DialogErrorBorrarPacienteComponent} from './paciente/borrar-paciente/borrar-paciente.component';
 import { PacienteHomeComponent } from './paciente/paciente-home/paciente-home.component';
 import { ConfirmarCitaComponent } from './cita/confirmar-cita/confirmar-cita.component';
 import {DialogConfirmarCitaComponent} from './cita/confirmar-cita/confirmar-cita.component';
@@ -54,15 +50,11 @@ import { CambiarEstadoComponent } from './cita/cambiar-estado/cambiar-estado.com
 import {DialogCambiarEstadoComponent} from './cita/cambiar-estado/cambiar-estado.component';
 import {DialogRegistroOdontologoComponent} from './registro/registro-odontologo/registro-odontologo.component';
 import {DialogErrorRegistroOdontologoComponent} from './registro/registro-odontologo/registro-odontologo.component';
-import {DialogRegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
-import {DialogErrorRegistroModeradorComponent} from './registro/registro-moderador/registro-moderador.component';
 import { AdministradorComponent } from './administrador/administrador.component';
-import { ModeradorComponent } from './moderador/moderador.component';
 import { RegistroSecretariaComponent } from './registro/registro-secretaria/registro-secretaria.component';
 import {DialogRegistroSecretariaComponent} from './registro/registro-secretaria/registro-secretaria.component';
 import {DialogErrorRegistroSecretariaComponent} from './registro/registro-secretaria/registro-secretaria.component';
 import { PqrsComponent } from './cita/pqrs/pqrs.component';
-import { HistorialPacienteComponent } from './paciente/historial-paciente/historial-paciente.component';
 import { DebounceClickDirective } from './directivas/debounce-click/debounce-click.directive';
 import {MatSortModule} from '@angular/material/sort';
 import {DialogBuscarPacienteComponent} from './paciente/buscar-paciente/buscar-paciente.component';
@@ -89,7 +81,13 @@ import {DialogActualizarOdontologoComponent} from './odontologo/actualizar-datos
 import {DialogActualizarSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
 import {DialogErrorActualizarOdontologoComponent} from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
 import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
+import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { UbicacionComponent } from './ubicacion/ubicacion.component';
 
+/**
+ * Modulos donde se registra todos los componentes directivas, servicios, dialogos y
+ * cualquier modulo instalado, desde Angular Calendar como el uso de Materiia Angular
+ */
 // @ts-ignore
 @NgModule({
   declarations: [
@@ -101,7 +99,6 @@ import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-
     RegistroCitaComponent,
     RegistroHomeComponent,
     RegistroPacienteComponent,
-    RegistroModeradorComponent,
     LoginComponent,
     OdontologoComponent,
     SecretariaComponent,
@@ -113,10 +110,7 @@ import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-
     ActualizarPacienteParaSecretariaComponent,
     DialogActualizarPacienteComponent,
     DialogActualizarPacienteParaSecretariaComponent,
-    BorrarPacienteComponent,
-    DialogBorrarPacienteComponent,
     DialogErrorActualizarPacienteParaSecretariaComponent,
-    DialogErrorBorrarPacienteComponent,
     PacienteHomeComponent,
     ConfirmarCitaComponent,
     DialogConfirmarCitaComponent,
@@ -124,15 +118,11 @@ import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-
     DialogCambiarEstadoComponent,
     DialogRegistroOdontologoComponent,
     DialogErrorRegistroOdontologoComponent,
-    DialogRegistroModeradorComponent,
-    DialogErrorRegistroModeradorComponent,
     AdministradorComponent,
-    ModeradorComponent,
     RegistroSecretariaComponent,
     DialogRegistroSecretariaComponent,
     DialogErrorRegistroSecretariaComponent,
     PqrsComponent,
-    HistorialPacienteComponent,
     DebounceClickDirective,
     DialogBuscarPacienteComponent,
     DialogErrorRegistroCitaComponent,
@@ -154,7 +144,9 @@ import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-
     DialogActualizarOdontologoComponent,
     DialogActualizarSecretariaComponent,
     DialogErrorActualizarOdontologoComponent,
-    DialogErrorActualizarSecretariaComponent
+    DialogErrorActualizarSecretariaComponent,
+    EspecialidadesComponent,
+    UbicacionComponent
   ],
     imports: [
         BrowserModule,
@@ -198,7 +190,7 @@ import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-
     MatIconModule,
     MatTableModule,
   ],
-  providers: [ UsuarioService, AppConfig, AppConfigJS ],
+  providers: [ UsuarioService, AppConfig, AppConfigJS, LoginComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

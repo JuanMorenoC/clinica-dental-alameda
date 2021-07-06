@@ -1,9 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import {UsuarioService} from '../../Service/usuario/usuario.service';
-import {CiudadService} from '../../Service/ciudad/ciudad.service';
-import {DepartamentoService} from '../../Service/departamento/departamento.service';
-import {PaisService} from '../../Service/pais/pais.service';
 import {RoleService} from '../../Service/role/role.service';
 import { debounceTime } from 'rxjs/operators';
 import {Observable} from 'rxjs';
@@ -42,9 +39,6 @@ export class Usuario {
 export class RegistroOdontologoComponent implements MatFormFieldControl<Usuario>, OnInit {
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
-              private ciudadSerice: CiudadService,
-              private departamentoSerice: DepartamentoService,
-              private paisSerice: PaisService,
               private roleService: RoleService,
               public dialog: MatDialog) {
   }
@@ -189,6 +183,7 @@ export class RegistroOdontologoComponent implements MatFormFieldControl<Usuario>
               // console.log(datau.roles.id);
               this.mensaje = 'El registro ha sido exitoso';
               this.mostrar = true;
+              window.location.reload();
               this.dialog.open(DialogRegistroOdontologoComponent);
             });
             // FIN DE PERSONA

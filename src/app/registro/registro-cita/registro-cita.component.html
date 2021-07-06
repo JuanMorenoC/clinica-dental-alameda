@@ -5,10 +5,18 @@
     </mat-card-header>
     <mat-card-content>
       <p>
-        Porfavor completar todos los campos para registrar la cita.
+        Horario de Atencion solo de lunes a viernes de 8 a.m. - 5 p.m. Y los sabados de 8 a.m. - 1 p.m.
       </p>
+      <hr>
       <br>
       <form [formGroup]="form">
+        <div class="row">
+          <div class="col">
+            <p>
+              Porfavor completar todos los campos para registrar la cita.
+            </p>
+          </div>
+        </div>
         <div class="row">
           <div class="col">
             <mat-form-field>
@@ -19,42 +27,14 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <!--
           <div class="col">
             <button mat-raised-button type="submit" color="primary" (click)="cargarData()">Buscar</button>
           </div>
+          -->
         </div>
         <br>
         <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Nombre:</mat-label>
-              <input matInput type="text" formControlName="nombre" class="form-control" required/>
-              <mat-error *ngIf="form.get('nombre').hasError('required')">
-                El Nombre es requerida.
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Apellido:</mat-label>
-              <input matInput type="text" formControlName="apellido" class="form-control" required/>
-              <mat-error *ngIf="form.get('apellido').hasError('required')">
-                El Apellido es requerida.
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col">
-            <mat-form-field class="colemail">
-              <mat-label>Email:</mat-label>
-              <input matInput type="email" formControlName="email" class="form-control" required/>
-              <mat-error *ngIf="form.get('email').hasError('required')">
-                El Email es requerida.
-              </mat-error>
-            </mat-form-field>
-          </div>
           <div class="col">
             <mat-form-field class="especial" appearance="fill">
               <mat-label>Tipo de Especialidad:</mat-label>

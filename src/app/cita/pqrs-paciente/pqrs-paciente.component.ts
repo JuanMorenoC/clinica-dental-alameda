@@ -136,7 +136,7 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
               this.contadortipo = dataallp[dataallp.length - 1].idPQRS;
               this.usuarioService.getAllUsuario().subscribe((dataUs: any) => {
                 for (let i = 0; i < datar.length; i++) {
-                  if (datar[i].nombre === 'moderador'){
+                  if (datar[i].nombre === 'administrador'){
                     for (let j = 0; j < dataUs.length; j++) {
                       if (dataUs[j].cedula === datar[i].cedula){
                         this.listamoderador.push(dataUs[j].cedula);
@@ -211,7 +211,11 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
                     tipo: this.form.value.pqrs
                   }
                 };
-                this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {-
+                this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {
+                  this.form.patchValue({
+                    pqrs: '',
+                    descripcion: '',
+                  });
                   this.dialog.open(DialogPqrsPacienteComponent);
                 });
               });

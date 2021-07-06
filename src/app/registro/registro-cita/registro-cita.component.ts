@@ -12,7 +12,6 @@ import {
 import { MatFormFieldControl} from '@angular/material/form-field';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
 import { CitaService } from '../../Service/cita/cita.service';
-import { AgendaService } from '../../Service/agenda/agenda.service';
 import {RoleService} from '../../Service/role/role.service';
 import {ProcedimientoService} from '../../Service/procedimiento/procedimiento.service';
 import {Observable} from 'rxjs';
@@ -61,7 +60,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private citaService: CitaService,
-              private agendaService: AgendaService,
               private rolService: RoleService,
               private procedimientoService: ProcedimientoService,
               public dialog: MatDialog) {
@@ -140,33 +138,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
       tipoespecialidad: ['', [Validators.required]],
       fechacita: ['', [Validators.required]],
       hora: ['', [Validators.required]],
-    });
-  }
-
-  /**
-   * PENDIENTE PARA BORRAR
-   */
-  cargarData(): void{
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].cedula){
-          idencontrado = true;
-          break;
-        }
-      }
-      if (idencontrado === false){
-        this.dialog.open(DialogErrorRegistroCitaComponent);
-      } else {
-        this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-          this.data = data;
-          this.form.patchValue({
-            nombre: this.data.nombre,
-            apellido: this.data.apellido,
-            email: this.data.correo,
-          });
-        });
-      }
     });
   }
 

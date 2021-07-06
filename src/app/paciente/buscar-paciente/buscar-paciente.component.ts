@@ -28,6 +28,8 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   data: any = [];
   public listaPaciente: Array<any> = [];
   public listaOdontologo: Array<any> = [];
+  public res: Array<any> = [];
+  public dataH = new Object();
 
   /**
    * Llena el array de odontologos solo con el nombre y el apellido
@@ -163,8 +165,8 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
    */
   private builFormH(): void{
     this.formHistorial = this.fb.group({
-      descripcion: ['', [Validators.required]],
-      odontologo: ['', [Validators.required]],
+      descripcion: [''],
+      odontologo: [''],
     });
   }
 
@@ -263,6 +265,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         }
       }
     });
+    this.cargarTabla();
   }
 
   /**
@@ -310,6 +313,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         }
       });
     });
+    this.cargarTabla();
   }
 
   /**
@@ -356,6 +360,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         }
       });
     });
+    this.cargarTabla();
   }
 
   /**
@@ -435,7 +440,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         }
       }
       this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
+        this.formHistorial.reset();
         this.dialog.open(DialogBuscarPacienteComponent);
+        this.cargarTabla();
       });
     });
   }
@@ -492,7 +499,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           }
         }
         this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
+          this.formHistorial.reset();
           this.dialog.open(DialogBuscarPacienteComponent);
+          this.cargarTabla();
         });
       });
     });
@@ -549,9 +558,35 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
           }
         }
         this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
+          this.formHistorial.reset();
           this.dialog.open(DialogBuscarPacienteComponent);
+          this.cargarTabla();
         });
       });
+    });
+  }
+
+  /**
+   *  Carga la tabla con todos los procedimientos que se le han hecho a ese paciente
+   */
+  cargarTabla(): void{
+    let nombreCompleto = '';
+    let nombrePaciente = '';
+    this.citaService.getAllCita().subscribe((datap: any) => {
+      for (let i = 0; i < datap.length ; i++) {
+        if (datap[i].paciente.cedula === this.formBuscar.value.id){
+          nombreCompleto = datap[i].odontologo.nombre + ' ' + datap[i].odontologo.apellido;
+          nombrePaciente = datap[i].paciente.nombre + ' ' + datap[i].paciente.apellido;
+          this.dataH = [{
+            date: String(new Date(datap[i].fecha_cita).toLocaleDateString()),
+            describe: String(datap[i].descripcion),
+            name: String(nombrePaciente),
+            parent: String(nombreCompleto)
+          }];
+          // this.res = this.dataH;
+          this.res.push(this.dataH);
+        }
+      }
     });
   }
 

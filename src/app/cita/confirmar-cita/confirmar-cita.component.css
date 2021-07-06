@@ -3,8 +3,8 @@
 }
 
 .example-card {
-  max-width: 800px;
-  left: 275px;
+  max-width: 1000px;
+  left: 100px;
 }
 
 .row .col .mat-form-field + .mat-form-field {
@@ -18,9 +18,10 @@
   left: 300px;
 }
 
-.row .especial {
-  max-width: 250px;
+.especial {
+  width: 250px;
   align-items: center;
+  border-color: #020202;
 }
 
 .row .colemail {

@@ -1,9 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgControl, FormControl } from '@angular/forms';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
-import {PaisService} from '../../Service/pais/pais.service';
-import {DepartamentoService} from '../../Service/departamento/departamento.service';
-import {CiudadService} from '../../Service/ciudad/ciudad.service';
 import {RoleService} from '../../Service/role/role.service';
 import { debounceTime } from 'rxjs/operators';
 import {Observable} from 'rxjs';
@@ -41,9 +38,6 @@ export class Usuario {
 export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, OnInit {
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
-              private ciudadSerice: CiudadService,
-              private departamentoSerice: DepartamentoService,
-              private paisSerice: PaisService,
               private roleService: RoleService,
               public dialog: MatDialog) {
   }
@@ -190,6 +184,7 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
               };
               this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
                 this.mostrar = true;
+                window.location.reload();
                 this.dialog.open(DialogRegistroPacienteComponent);
               });
               // FIN DE PERSONA
