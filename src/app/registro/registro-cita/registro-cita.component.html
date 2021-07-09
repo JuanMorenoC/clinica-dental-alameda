@@ -38,8 +38,8 @@
           <div class="col">
             <mat-form-field class="especial" appearance="fill">
               <mat-label>Tipo de Especialidad:</mat-label>
-              <mat-select formControlName="tipoespecialidad" required>
-                <mat-option value="Odontología General">Odontología General</mat-option>
+              <mat-select [(value)]="selected" formControlName="tipoespecialidad">
+                <mat-option value="Odontología General" selected>Odontología General</mat-option>
                 <mat-option value="Ortodoncia">Ortodoncia</mat-option>
                 <mat-option value="Implantología">Implantología</mat-option>
                 <mat-option value="Rehabilitación Oral">Rehabilitación Oral</mat-option>

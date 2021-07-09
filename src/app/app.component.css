@@ -1,33 +1,19 @@
-nav {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background: #015798;
-  color: white;
-  font-weight: 600;
-  font-family: sans-serif;
+img {
+  width: 30px;
+  height: 30px;
 }
-
-form {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  background: #015798;
-  color: white;
-  font-weight: 600;
+.imagen{
+  width: 80px;
+  height: 80px;
 }
 
 .clinica {
-  margin-left: 275px;
-  margin-top: 20px;
-  display: flex;
+  padding: 0 2px;
+  margin: 0 2px;
 }
+
+.navbar{
+  background-color: #51D1F6;
+}
+
 

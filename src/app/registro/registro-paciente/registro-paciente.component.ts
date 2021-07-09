@@ -145,56 +145,63 @@ export class RegistroPacienteComponent implements MatFormFieldControl<Usuario>, 
    * Metodo para agregar un paciente
    */
   agregarUsuario(): void {
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].cedula){
-          idencontrado = true;
-          break;
+    if (this.form.value.id !== '' && this.form.value.tipoidentificacion !== '' && this.form.value.nombre !== ''
+    && this.form.value.apellido !== '' && this.form.value.email !== '' && this.form.value.celular !== ''
+    && this.form.value.pais !== '' && this.form.value.departamento !== '' && this.form.value.fechanacimiento !== ''
+      && this.form.value.seudonimo !== '' && this.form.value.clave !== '' && this.form.value.ciudad !== ''){
+      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+        let idencontrado = false;
+        for (let i = 0 ; i < datoId.length ; i ++){
+          if (this.form.value.id === datoId[i].cedula){
+            idencontrado = true;
+            break;
+          }
         }
-      }
-      if (idencontrado === true){
-        this.mostrar = false;
-        this.dialog.open(DialogErrorRegistroPacienteComponent);
-      } else {
-        if (this.form.value.clave.length > 7){
-          this.roleService.getAllRol().subscribe((datar: any) => {
-            this.contadorrol = datar.length + 1;
-            this.datarol = {
-              id: datar.length + 1,
-              cedula: this.form.value.id,
-              nombre: 'paciente'
-            };
-            this.roleService.addRol(this.datarol).subscribe((datara: any) => {
-              // AGREGAR
-
-              this.datapersona = {
-                cedula: this.form.value.id,
-                nombre: this.form.value.nombre,
-                apellido: this.form.value.apellido,
-                seudonimo: this.form.value.seudonimo,
-                tipo_identificacion: this.form.value.tipoidentificacion,
-                correo: this.form.value.email,
-                clave: this.form.value.clave,
-                fecha_nacimiento: this.form.value.fechanacimiento,
-                celular: this.form.value.celular,
-                ciudad: this.form.value.ciudad,
-                departamento: this.form.value.departamento,
-                pais: this.form.value.pais
-              };
-              this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
-                this.mostrar = true;
-                window.location.reload();
-                this.dialog.open(DialogRegistroPacienteComponent);
-              });
-              // FIN DE PERSONA
-            });
-          });
+        if (idencontrado === true){
+          this.mostrar = false;
+          this.dialog.open(DialogErrorRegistroPacienteComponent);
         } else {
-          this.mostrarmensaje = true;
+          if (this.form.value.clave.length > 7){
+            this.roleService.getAllRol().subscribe((datar: any) => {
+              this.contadorrol = datar.length + 1;
+              this.datarol = {
+                id: datar.length + 1,
+                cedula: this.form.value.id,
+                nombre: 'paciente'
+              };
+              this.roleService.addRol(this.datarol).subscribe((datara: any) => {
+                // AGREGAR
+
+                this.datapersona = {
+                  cedula: this.form.value.id,
+                  nombre: this.form.value.nombre,
+                  apellido: this.form.value.apellido,
+                  seudonimo: this.form.value.seudonimo,
+                  tipo_identificacion: this.form.value.tipoidentificacion,
+                  correo: this.form.value.email,
+                  clave: this.form.value.clave,
+                  fecha_nacimiento: this.form.value.fechanacimiento,
+                  celular: this.form.value.celular,
+                  ciudad: this.form.value.ciudad,
+                  departamento: this.form.value.departamento,
+                  pais: this.form.value.pais
+                };
+                this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
+                  this.mostrar = true;
+                  window.location.reload();
+                  this.dialog.open(DialogRegistroPacienteComponent);
+                });
+                // FIN DE PERSONA
+              });
+            });
+          } else {
+            this.mostrarmensaje = true;
+          }
         }
-      }
-    });
+      });
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
   onContainerClick(event: MouseEvent): void {
   }
@@ -216,3 +223,9 @@ export class DialogRegistroPacienteComponent {}
   templateUrl: 'dialog-error-registro-paciente.html',
 })
 export class DialogErrorRegistroPacienteComponent {}
+
+@Component({
+  selector: 'app-dialog-registro-paciente',
+  templateUrl: 'dialog-falta-registro-paciente.html',
+})
+export class DialogFaltaRegistroPacienteComponent {}

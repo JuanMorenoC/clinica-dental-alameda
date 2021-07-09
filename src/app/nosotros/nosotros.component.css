@@ -4,17 +4,17 @@
   position: relative;
   width: 100%;
   z-index: 100;
-  top: 130px;
+  top: 80px;
   left: 0px;
   right: 0px;
   height: 60px;
   display: inline-flex;
   align-items: center;
-  background: #015798;
+  background: #51D1F6;
   font-weight: 600;
 }
 
-.nosotros h2 {
+.nosotros h1 {
   float: right;
   text-align: center;
   width: 100%;
@@ -22,13 +22,13 @@
   padding: 0;
 }
 
-.nosotros h2 span{
-  color: rgb(245, 246, 246);
+.nosotros h1 span{
+  color: #020202;
 }
 .informacion {
   position: relative;
-  top: 130px;
-  background: #015798;
+  top: 80px;
+  background: #51D1F6;
 }
 .container{
   width: 100%;
@@ -38,17 +38,17 @@
   text-align: center;
 }
 .lbl-menu{
-  background: #015798;
+  background: #51D1F6;
 }
 .lbl-menu label{
   display: inline-block;
   padding: 20px;
-  color: #ffffff;
+  color: #020202;
   cursor: pointer;
   transition: all 400ms ease;
 }
 .lbl-menu label:hover{
-  background: #28435d;
+  background: #099ec1;
 }
 .content{
   position: relative;

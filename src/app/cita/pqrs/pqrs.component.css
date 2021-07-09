@@ -16,6 +16,8 @@
   width: 200px;
   align-items: center;
   left: 100px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }
 .large-textarea {
   font-family: sans-serif;
@@ -27,6 +29,8 @@
 table{
   align-items: center;
 }
-button {
+.botonenviar {
   max-width: 200px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }

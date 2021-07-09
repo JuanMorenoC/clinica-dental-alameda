@@ -9,11 +9,11 @@
   height: 60px;
   display: inline-flex;
   align-items: center;
-  background: #015798;
+  background: #51D1F6;
   font-weight: 600;
 }
 
-.especialidades h2 {
+.especialidades h1 {
   float: right;
   text-align: center;
   width: 100%;
@@ -21,13 +21,13 @@
   padding: 0;
 }
 
-.especialidades h2 span{
-  color: rgb(245, 246, 246);
+.especialidades h1 span{
+  color: #020202;
 }
 .informacione {
   position: relative;
   top: 500px;
-  background: #015798;
+  background: #51D1F6;
 }
 .containere{
   width: 100%;
@@ -37,17 +37,17 @@
   text-align: center;
 }
 .lbl-menu-e{
-  background: #015798;
+  background: #51D1F6;
 }
 .lbl-menu-e label{
   display: inline-block;
   padding: 20px;
-  color: #ffffff;
+  color: #020202;
   cursor: pointer;
   transition: all 400ms ease;
 }
 .lbl-menu-e label:hover{
-  background: #28435d;
+  background: #099ec1;
 }
 .contente{
   position: relative;

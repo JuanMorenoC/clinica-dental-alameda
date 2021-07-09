@@ -19,6 +19,7 @@ import {AdministradorComponent} from './administrador/administrador.component';
 import {RecuperacionContrasenaComponent} from './recuperacion-contrasena/recuperacion-contrasena.component';
 import {ActualizarDatosOdontologoComponent} from './odontologo/actualizar-datos-odontologo/actualizar-datos-odontologo.component';
 import {ActualizarDatosSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
+import {RegistroPacienteSinRegistrarComponent} from './registro/registro-paciente-sin-registrar/registro-paciente-sin-registrar.component';
 
 /**
  * Se guarda las rutas de cada componente y donde va a aaceder a cada una de ella e incluso a la principal
@@ -63,6 +64,10 @@ const routes: Routes = [
   {
     path: 'registro/registro-paciente',
     component: RegistroPacienteComponent, // another child route component that the router renders
+  },
+  {
+    path: 'registro/registro-paciente-sin-registrar',
+    component: RegistroPacienteSinRegistrarComponent, // another child route component that the router renders
   },
   {
     path: 'paciente/buscar-paciente',

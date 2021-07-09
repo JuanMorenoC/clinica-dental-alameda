@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
 import {map, startWith} from 'rxjs/operators';
+import {DialogFaltaRegistroPacienteComponent} from '../registro-paciente/registro-paciente.component';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -142,54 +143,61 @@ export class RegistroSecretariaComponent implements MatFormFieldControl<Usuario>
    * Metodo para agregar una secretaria
    */
   agregarSecretaria(): void {
-    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-      let idencontrado = false;
-      for (let i = 0 ; i < datoId.length ; i ++){
-        if (this.form.value.id === datoId[i].cedula){
-          idencontrado = true;
-          break;
+    if (this.form.value.id !== '' && this.form.value.tipoidentificacion !== '' && this.form.value.nombre !== ''
+      && this.form.value.apellido !== '' && this.form.value.email !== '' && this.form.value.celular !== ''
+      && this.form.value.pais !== '' && this.form.value.departamento !== '' && this.form.value.fechanacimiento !== ''
+      && this.form.value.seudonimo !== '' && this.form.value.clave !== '' && this.form.value.ciudad !== ''){
+      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+        let idencontrado = false;
+        for (let i = 0 ; i < datoId.length ; i ++){
+          if (this.form.value.id === datoId[i].cedula){
+            idencontrado = true;
+            break;
+          }
         }
-      }
-      if (idencontrado === true){
-        this.mensaje = 'El usuario ya esta registrado';
-        this.mostrar = false;
-        this.dialog.open(DialogErrorRegistroSecretariaComponent);
-      } else {
-        this.roleService.getAllRol().subscribe((datar: any) => {
-          this.contadorrol = datar.length + 1;
-          this.datarol = {
-            id: datar.length + 1,
-            cedula: this.form.value.id,
-            nombre: 'secretaria'
-          };
-          this.roleService.addRol(this.datarol).subscribe((datara: any) => {
-            // AGREGAR
-
-            this.datapersona = {
+        if (idencontrado === true){
+          this.mensaje = 'El usuario ya esta registrado';
+          this.mostrar = false;
+          this.dialog.open(DialogErrorRegistroSecretariaComponent);
+        } else {
+          this.roleService.getAllRol().subscribe((datar: any) => {
+            this.contadorrol = datar.length + 1;
+            this.datarol = {
+              id: datar.length + 1,
               cedula: this.form.value.id,
-              nombre: this.form.value.nombre,
-              apellido: this.form.value.apellido,
-              seudonimo: this.form.value.seudonimo,
-              tipo_identificacion: this.form.value.tipoidentificacion,
-              correo: this.form.value.email,
-              clave: this.form.value.clave,
-              fecha_nacimiento: this.form.value.fechanacimiento,
-              celular: this.form.value.celular,
-              ciudad: this.form.value.ciudad,
-              departamento: this.form.value.departamento,
-              pais: this.form.value.pais
+              nombre: 'secretaria'
             };
+            this.roleService.addRol(this.datarol).subscribe((datara: any) => {
+              // AGREGAR
 
-            this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
-              this.mensaje = 'El registro ha sido exitoso';
-              this.mostrar = true;
-              window.location.reload();
-              this.dialog.open(DialogRegistroSecretariaComponent);
+              this.datapersona = {
+                cedula: this.form.value.id,
+                nombre: this.form.value.nombre,
+                apellido: this.form.value.apellido,
+                seudonimo: this.form.value.seudonimo,
+                tipo_identificacion: this.form.value.tipoidentificacion,
+                correo: this.form.value.email,
+                clave: this.form.value.clave,
+                fecha_nacimiento: this.form.value.fechanacimiento,
+                celular: this.form.value.celular,
+                ciudad: this.form.value.ciudad,
+                departamento: this.form.value.departamento,
+                pais: this.form.value.pais
+              };
+
+              this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
+                this.mensaje = 'El registro ha sido exitoso';
+                this.mostrar = true;
+                window.location.reload();
+                this.dialog.open(DialogRegistroSecretariaComponent);
+              });
             });
           });
-        });
-      }
-    });
+        }
+      });
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
   onContainerClick(event: MouseEvent): void {
   }

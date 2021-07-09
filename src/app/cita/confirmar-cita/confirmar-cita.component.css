@@ -16,6 +16,23 @@
   max-width: 200px;
   align-items: center;
   left: 300px;
+  color: #ffffff;
+  background-color: #3B83BD;
+}
+
+.botondos {
+  color: #ffffff;
+  background-color: #3B83BD;
+}
+
+.botonconfirmar {
+  color: #ffffff;
+  background-color: #3B83BD;
+}
+
+.botoncancelar {
+  color: #020202;
+  background-color: #e3bc08;
 }
 
 .especial {

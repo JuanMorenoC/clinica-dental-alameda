@@ -326,6 +326,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
     let yearCita = 0;
     let fechaHoy = '';
     let fechaCita = '';
+    let contador = 0;
     this.citaService.getAllCita().subscribe( (data: any) => {
       let nombreCompleto = '';
       for (let i = 0; i < data.length ; i++) {
@@ -349,6 +350,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               parent: String(data[i].hora)
             }];
             this.res.push(this.dataH);
+            contador ++;
           } else if (mesCita > mesHoy && yearCita === yearHoy){
             nombreCompleto = data[i].paciente.nombre + ' ' + data[i].paciente.apellido;
             this.dataH = [{
@@ -360,6 +362,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               parent: String(data[i].hora)
             }];
             this.res.push(this.dataH);
+            contador ++;
           } else if (mesCita < mesHoy && yearCita === (yearHoy + 1)){
             nombreCompleto = data[i].paciente.nombre + ' ' + data[i].paciente.apellido;
             this.dataH = [{
@@ -371,8 +374,12 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               parent: String(data[i].hora)
             }];
             this.res.push(this.dataH);
+            contador ++;
           }
         }
+      }
+      if (contador === 0){
+        this.dialog.open(DialogListaConfirmarCitaVaciaComponent);
       }
       this.rolService.getAllRol().subscribe((datar: any) => {
         this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
@@ -418,3 +425,9 @@ export class DialogCancelarCitaComponent {}
   templateUrl: 'dialog-error-confirmar-cita.html',
 })
 export class DialogErrorConfirmarCitaComponent {}
+
+@Component({
+  selector: 'app-dialog-lista-confirmar-cita-vacia',
+  templateUrl: 'dialog-lista-confirmar-cita-vacia.html',
+})
+export class DialogListaConfirmarCitaVaciaComponent {}

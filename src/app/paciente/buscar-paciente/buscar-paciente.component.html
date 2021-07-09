@@ -64,21 +64,9 @@
               <br>
               <div class="row">
                 <div class="col">
-                  <mat-form-field>
+                  <mat-form-field class="identificacion">
                     <mat-label>Identificaci&oacute;n:</mat-label>
                     <input matInput formControlName="id" class="form-control" type="text"/>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field>
-                    <mat-label>Nombre:</mat-label>
-                    <input matInput formControlName="nombre" class="form-control" type="text"/>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field>
-                    <mat-label>Apellido:</mat-label>
-                    <input matInput formControlName="apellido" class="form-control" type="text"/>
                   </mat-form-field>
                 </div>
               </div>
@@ -88,9 +76,6 @@
                   <button mat-raised-button appDebounceClick class="botonb" type="button" color="primary" (click)="cargarData()"
                           (debounceClick)="log()" [debounceTime]="500">Buscar
                   </button>
-                </div>
-                <div class="col">
-                  <button mat-raised-button class="botonb" type="button" color="primary" (click)="borrarCampos()">Resetear</button>
                 </div>
               </div>
             </mat-card-content>
@@ -142,7 +127,7 @@
     <table class="table table-hover" align="center">
       <thead class="text-center">
       <tr>
-        <th scope="col">Fecha y Hora</th>
+        <th scope="col">Fecha</th>
         <th colspan="2">Evoluci&oacute;n</th>
         <th scope="col">Paciente</th>
         <th scope="col">Odontologo</th>

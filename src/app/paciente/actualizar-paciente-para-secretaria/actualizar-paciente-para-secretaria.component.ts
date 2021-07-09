@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogFaltaRegistroPacienteComponent} from '../../registro/registro-paciente/registro-paciente.component';
 
 /** Data structure for Usuario. */
 export class Usuario {
@@ -43,6 +44,7 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
    */
   form: FormGroup | any;
   mostrar: any = false;
+  mostrarCampo: any = false;
   datapersona: any;
   mensaje = '';
   hide = true;
@@ -136,35 +138,43 @@ export class ActualizarPacienteParaSecretariaComponent implements MatFormFieldCo
    * Metodo para actualizar los datos del paciente
    */
   actualizarUsuario(): void {
-    this.usuarioService.getAllUsuario().subscribe((datauall: any) => {
-      for (let i = 0 ; i < datauall.length ; i ++){
-        if (this.form.value.id === datauall[i].cedula){
-          this.datapersona = {
-            cedula: datauall[i].cedula,
-            nombre: this.form.value.nombre,
-            apellido: this.form.value.apellido,
-            seudonimo: datauall[i].seudonimo,
-            tipo_identificacion: this.form.value.tipoidentificacion,
-            correo: this.form.value.email,
-            clave: datauall[i].clave,
-            fecha_nacimiento: this.form.value.fechanacimiento,
-            celular: this.form.value.celular,
-            ciudad: this.form.value.ciudad,
-            departamento: this.form.value.departamento,
-            pais: this.form.value.pais
-          };
+    if (this.form.value.id !== '' && this.form.value.tipoidentificacion !== '' && this.form.value.nombre !== ''
+      && this.form.value.apellido !== '' && this.form.value.email !== '' && this.form.value.celular !== ''
+      && this.form.value.pais !== '' && this.form.value.departamento !== '' && this.form.value.fechanacimiento !== ''
+      && this.form.value.ciudad !== ''){
+      this.usuarioService.getAllUsuario().subscribe((datauall: any) => {
+        for (let i = 0 ; i < datauall.length ; i ++){
+          if (this.form.value.id === datauall[i].cedula){
+            this.datapersona = {
+              cedula: datauall[i].cedula,
+              nombre: this.form.value.nombre,
+              apellido: this.form.value.apellido,
+              seudonimo: datauall[i].seudonimo,
+              tipo_identificacion: this.form.value.tipoidentificacion,
+              correo: this.form.value.email,
+              clave: datauall[i].clave,
+              fecha_nacimiento: this.form.value.fechanacimiento,
+              celular: this.form.value.celular,
+              ciudad: this.form.value.ciudad,
+              departamento: this.form.value.departamento,
+              pais: this.form.value.pais
+            };
+          }
         }
-      }
-      this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
-        window.location.reload();
-        this.dialog.open(DialogActualizarPacienteParaSecretariaComponent);
+        this.usuarioService.updateUsuario(this.datapersona, this.form.value.id).subscribe( (data: any) => {
+          window.location.reload();
+          this.dialog.open(DialogActualizarPacienteParaSecretariaComponent);
+        });
       });
-    });
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
   /**
    * Cargar los datos del paciente en los campos
    */
   cargarData(): void {
+    this.mostrarCampo = true;
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       let error = true;
       for (let i = 0 ; i < data.length ; i++){

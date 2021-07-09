@@ -83,6 +83,14 @@ import {DialogErrorActualizarOdontologoComponent} from './odontologo/actualizar-
 import {DialogErrorActualizarSecretariaComponent} from './secretaria/actualizar-datos-secretaria/actualizar-datos-secretaria.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { UbicacionComponent } from './ubicacion/ubicacion.component';
+import {DialogErrorLoginComponent} from './login/login.component';
+import {DialogFaltaRegistroPacienteComponent} from './registro/registro-paciente/registro-paciente.component';
+// tslint:disable-next-line:max-line-length
+import { RegistroPacienteSinRegistrarComponent } from './registro/registro-paciente-sin-registrar/registro-paciente-sin-registrar.component';
+import {DialogListaPqrsVaciaComponent} from './cita/pqrs/pqrs.component';
+import {DialogListaConfirmarCitaVaciaComponent} from './cita/confirmar-cita/confirmar-cita.component';
+import {LoginService} from './Service/login/login.service';
+import { ContactoComponent } from './contacto/contacto.component';
 
 /**
  * Modulos donde se registra todos los componentes directivas, servicios, dialogos y
@@ -146,7 +154,13 @@ import { UbicacionComponent } from './ubicacion/ubicacion.component';
     DialogErrorActualizarOdontologoComponent,
     DialogErrorActualizarSecretariaComponent,
     EspecialidadesComponent,
-    UbicacionComponent
+    UbicacionComponent,
+    DialogErrorLoginComponent,
+    DialogFaltaRegistroPacienteComponent,
+    RegistroPacienteSinRegistrarComponent,
+    DialogListaPqrsVaciaComponent,
+    DialogListaConfirmarCitaVaciaComponent,
+    ContactoComponent
   ],
     imports: [
         BrowserModule,
@@ -190,7 +204,7 @@ import { UbicacionComponent } from './ubicacion/ubicacion.component';
     MatIconModule,
     MatTableModule,
   ],
-  providers: [ UsuarioService, AppConfig, AppConfigJS, LoginComponent ],
+  providers: [ UsuarioService, AppConfig, AppConfigJS, LoginComponent, LoginService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

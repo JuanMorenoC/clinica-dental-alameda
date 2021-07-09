@@ -6,11 +6,10 @@
         <form [formGroup]="form" (ngSubmit)="envio()">
           <br>
           <br>
-          <p>
-            <mat-form-field>
-              <input type="email" matInput placeholder="Correo" formControlName="email"/>
-            </mat-form-field>
-          </p>
+          <mat-form-field appearance="fill">
+            <mat-label>Email:</mat-label>
+            <input matInput type="email" formControlName="email" class="form-control" placeholder="Ej: ejemplo@gmail.com" required/>
+          </mat-form-field>
           <br>
           <button class="btn" type="submit" mat-raised-button color="primary">Enviar</button>
         </form>

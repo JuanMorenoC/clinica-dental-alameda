@@ -12,6 +12,7 @@ import { PqrsService } from '../../Service/pqrs/pqrs.service';
 import { RoleService } from '../../Service/role/role.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
+import {DialogFaltaRegistroPacienteComponent} from '../../registro/registro-paciente/registro-paciente.component';
 
 /** Data structure for cita. */
 export class PQRS {
@@ -117,119 +118,125 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
    * Se guarda el pqrs sin responder
    */
   envio(): void{
-    this.rolService.getAllRol().subscribe((datar: any) => {
-      this.usuarioService.getAllUsuario().subscribe((datau: any) => {
-        let encontrado = false;
-        for (let i = 0; i < datar.length; i++) {
-          if (this.form.value.id === datar[i].cedula && datar[i].nombre === 'paciente'){
-            encontrado = true;
+    if (this.form.value.id !== '' && this.form.value.pqrs !== ''
+      && this.form.value.descripcion !== ''){
+      this.rolService.getAllRol().subscribe((datar: any) => {
+        this.usuarioService.getAllUsuario().subscribe((datau: any) => {
+          let encontrado = false;
+          for (let i = 0; i < datar.length; i++) {
+            if (this.form.value.id === datar[i].cedula && datar[i].nombre === 'paciente'){
+              encontrado = true;
+            }
           }
-        }
-        if (encontrado === false){
-          this.dialog.open(DialogErrorPqrsPacienteComponent);
-        } else {
-          let datatpqrs = {
-            tipo: this.form.value.pqrs
-          };
-          this.tipopqrsService.addTipoPqrs(datatpqrs).subscribe((datatp: any) => {
-            this.tipopqrsService.getAllTipoPqrs().subscribe((dataallp: any) => {
-              this.contadortipo = dataallp[dataallp.length - 1].idPQRS;
-              this.usuarioService.getAllUsuario().subscribe((dataUs: any) => {
-                for (let i = 0; i < datar.length; i++) {
-                  if (datar[i].nombre === 'administrador'){
-                    for (let j = 0; j < dataUs.length; j++) {
-                      if (dataUs[j].cedula === datar[i].cedula){
-                        this.listamoderador.push(dataUs[j].cedula);
-                        this.listamoderador.push(dataUs[j].nombre);
-                        this.listamoderador.push(dataUs[j].apellido);
-                        this.listamoderador.push(dataUs[j].seudonimo);
-                        this.listamoderador.push(dataUs[j].tipo_identificacion);
-                        this.listamoderador.push(dataUs[j].correo);
-                        this.listamoderador.push(dataUs[j].clave);
-                        this.listamoderador.push(dataUs[j].fecha_nacimiento);
-                        this.listamoderador.push(dataUs[j].celular);
-                        this.listamoderador.push(dataUs[j].ciudad);
-                        this.listamoderador.push(dataUs[j].departamento);
-                        this.listamoderador.push(dataUs[j].pais);
-                        break;
+          if (encontrado === false){
+            this.dialog.open(DialogErrorPqrsPacienteComponent);
+          } else {
+            let datatpqrs = {
+              tipo: this.form.value.pqrs
+            };
+            this.tipopqrsService.addTipoPqrs(datatpqrs).subscribe((datatp: any) => {
+              this.tipopqrsService.getAllTipoPqrs().subscribe((dataallp: any) => {
+                this.contadortipo = dataallp[dataallp.length - 1].idPQRS;
+                this.usuarioService.getAllUsuario().subscribe((dataUs: any) => {
+                  for (let i = 0; i < datar.length; i++) {
+                    if (datar[i].nombre === 'administrador'){
+                      for (let j = 0; j < dataUs.length; j++) {
+                        if (dataUs[j].cedula === datar[i].cedula){
+                          this.listamoderador.push(dataUs[j].cedula);
+                          this.listamoderador.push(dataUs[j].nombre);
+                          this.listamoderador.push(dataUs[j].apellido);
+                          this.listamoderador.push(dataUs[j].seudonimo);
+                          this.listamoderador.push(dataUs[j].tipo_identificacion);
+                          this.listamoderador.push(dataUs[j].correo);
+                          this.listamoderador.push(dataUs[j].clave);
+                          this.listamoderador.push(dataUs[j].fecha_nacimiento);
+                          this.listamoderador.push(dataUs[j].celular);
+                          this.listamoderador.push(dataUs[j].ciudad);
+                          this.listamoderador.push(dataUs[j].departamento);
+                          this.listamoderador.push(dataUs[j].pais);
+                          break;
+                        }
+                      }
+                    }
+                    if (datar[i].nombre === 'paciente'){
+                      for (let j = 0; j < dataUs.length; j++) {
+                        if (dataUs[j].cedula === datar[i].cedula && dataUs[j].cedula === this.form.value.id) {
+                          this.listausuario.push(dataUs[j].cedula);
+                          this.listausuario.push(dataUs[j].nombre);
+                          this.listausuario.push(dataUs[j].apellido);
+                          this.listausuario.push(dataUs[j].seudonimo);
+                          this.listausuario.push(dataUs[j].tipo_identificacion);
+                          this.listausuario.push(dataUs[j].correo);
+                          this.listausuario.push(dataUs[j].clave);
+                          this.listausuario.push(dataUs[j].fecha_nacimiento);
+                          this.listausuario.push(dataUs[j].celular);
+                          this.listausuario.push(dataUs[j].ciudad);
+                          this.listausuario.push(dataUs[j].departamento);
+                          this.listausuario.push(dataUs[j].pais);
+                          break;
+                        }
                       }
                     }
                   }
-                  if (datar[i].nombre === 'paciente'){
-                    for (let j = 0; j < dataUs.length; j++) {
-                      if (dataUs[j].cedula === datar[i].cedula && dataUs[j].cedula === this.form.value.id) {
-                        this.listausuario.push(dataUs[j].cedula);
-                        this.listausuario.push(dataUs[j].nombre);
-                        this.listausuario.push(dataUs[j].apellido);
-                        this.listausuario.push(dataUs[j].seudonimo);
-                        this.listausuario.push(dataUs[j].tipo_identificacion);
-                        this.listausuario.push(dataUs[j].correo);
-                        this.listausuario.push(dataUs[j].clave);
-                        this.listausuario.push(dataUs[j].fecha_nacimiento);
-                        this.listausuario.push(dataUs[j].celular);
-                        this.listausuario.push(dataUs[j].ciudad);
-                        this.listausuario.push(dataUs[j].departamento);
-                        this.listausuario.push(dataUs[j].pais);
-                        break;
-                      }
+                  this.dataPqrs = {
+                    descripcion: this.form.value.descripcion,
+                    respuesta: '',
+                    moderador: {
+                      cedula: this.listamoderador[0],
+                      nombre: this.listamoderador[1],
+                      apellido: this.listamoderador[2],
+                      seudonimo: this.listamoderador[3],
+                      tipo_identificacion: this.listamoderador[4],
+                      correo: this.listamoderador[5],
+                      clave: this.listamoderador[6],
+                      fecha_nacimiento: this.listamoderador[7],
+                      celular: this.listamoderador[8],
+                      ciudad: this.listamoderador[9],
+                      departamento: this.listamoderador[10],
+                      pais: this.listamoderador[11]
+                    },
+                    paciente: {
+                      cedula: this.listausuario[0],
+                      nombre: this.listausuario[1],
+                      apellido: this.listausuario[2],
+                      seudonimo: this.listausuario[3],
+                      tipo_identificacion: this.listausuario[4],
+                      correo: this.listausuario[5],
+                      clave: this.listausuario[6],
+                      fecha_nacimiento: this.listausuario[7],
+                      celular: this.listausuario[8],
+                      ciudad: this.listausuario[9],
+                      departamento: this.listausuario[10],
+                      pais: this.listausuario[11]
+                    },
+                    tipopqrs: {
+                      idPQRS: this.contadortipo,
+                      tipo: this.form.value.pqrs
                     }
-                  }
-                }
-                this.dataPqrs = {
-                  descripcion: this.form.value.descripcion,
-                  respuesta: '',
-                  moderador: {
-                    cedula: this.listamoderador[0],
-                    nombre: this.listamoderador[1],
-                    apellido: this.listamoderador[2],
-                    seudonimo: this.listamoderador[3],
-                    tipo_identificacion: this.listamoderador[4],
-                    correo: this.listamoderador[5],
-                    clave: this.listamoderador[6],
-                    fecha_nacimiento: this.listamoderador[7],
-                    celular: this.listamoderador[8],
-                    ciudad: this.listamoderador[9],
-                    departamento: this.listamoderador[10],
-                    pais: this.listamoderador[11]
-                  },
-                  paciente: {
-                    cedula: this.listausuario[0],
-                    nombre: this.listausuario[1],
-                    apellido: this.listausuario[2],
-                    seudonimo: this.listausuario[3],
-                    tipo_identificacion: this.listausuario[4],
-                    correo: this.listausuario[5],
-                    clave: this.listausuario[6],
-                    fecha_nacimiento: this.listausuario[7],
-                    celular: this.listausuario[8],
-                    ciudad: this.listausuario[9],
-                    departamento: this.listausuario[10],
-                    pais: this.listausuario[11]
-                  },
-                  tipopqrs: {
-                    idPQRS: this.contadortipo,
-                    tipo: this.form.value.pqrs
-                  }
-                };
-                this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {
-                  this.form.patchValue({
-                    pqrs: '',
-                    descripcion: '',
+                  };
+                  this.pqrsService.addPqrs(this.dataPqrs).subscribe((dataaddpqrs: any) => {
+                    this.form.patchValue({
+                      pqrs: '',
+                      descripcion: '',
+                    });
+                    this.dialog.open(DialogPqrsPacienteComponent);
                   });
-                  this.dialog.open(DialogPqrsPacienteComponent);
                 });
               });
             });
-          });
-        }
+          }
+        });
       });
-    });
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
 
   /**
    * Se carga la tabla de los pqrs de cada persona asi esten respondidas o no
    */
   cargarTabla(): void{
+    this.res = [];
     this.pqrsService.getAllPqrs().subscribe((datap: any) => {
       for (let i = 0; i < datap.length; i++) {
         if (datap[i].paciente.cedula === this.form.value.id){

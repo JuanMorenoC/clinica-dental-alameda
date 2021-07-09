@@ -13,6 +13,8 @@
 
 .row .col .botoncentral {
   width: 200px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }
 .large-textarea {
   font-family: sans-serif;
@@ -26,4 +28,6 @@ table{
 }
 button {
   max-width: 200px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }

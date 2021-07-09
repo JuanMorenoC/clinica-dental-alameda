@@ -7,6 +7,7 @@ import {Cita, DialogErrorRegistroCitaComponent} from '../../registro/registro-ci
 import {CitaService} from '../../Service/cita/cita.service';
 import {RoleService} from '../../Service/role/role.service';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogFaltaRegistroPacienteComponent} from '../../registro/registro-paciente/registro-paciente.component';
 
 /** Data structure for usuario. */
 export class Usuario {
@@ -133,9 +134,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   initEditFormB(): void{
     this.formBuscar = this.fb.group({
       id: new FormControl(),
-      ident: new FormControl(),
-      nombre: new FormControl(),
-      apellido: new FormControl(),
     });
   }
   /**
@@ -145,9 +143,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   private builFormB(): void{
     this.formBuscar = this.fb.group({
       id: [''],
-      ident: [''],
-      nombre: [''],
-      apellido: [''],
     });
   }
   /**
@@ -174,54 +169,20 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
    * Cargar los datos del paciente que se esta buscando
    */
   cargarData(): void {
-    if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
-      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-        let idencontrado = false;
-        for (let i = 0 ; i < datoId.length ; i ++){
-          if (this.formBuscar.value.id === datoId[i].cedula){
-            idencontrado = true;
-            break;
-          }
+    this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
+      let idencontrado = false;
+      for (let i = 0 ; i < datoId.length ; i ++){
+        if (this.formBuscar.value.id === datoId[i].cedula){
+          idencontrado = true;
+          break;
         }
-        if (idencontrado === false){
-          this.dialog.open(DialogErrorBuscarPacienteComponent);
-        } else {
-          this.cargarDataporId();
-        }
-      });
-    }
-    if (this.formBuscar.value.id === '' && this.formBuscar.value.apellido === ''){
-      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-        let idencontrado = false;
-        for (let i = 0 ; i < datoId.length ; i ++){
-          if (this.formBuscar.value.nombre === datoId[i].nombre){
-            idencontrado = true;
-            break;
-          }
-        }
-        if (idencontrado === false){
-          this.dialog.open(DialogErrorBuscarPacienteComponent);
-        } else {
-          this.cargarDataporNombre();
-        }
-      });
-    }
-    if (this.formBuscar.value.id === '' && this.formBuscar.value.nombre === ''){
-      this.usuarioService.getAllUsuario().subscribe((datoId: any) => {
-        let idencontrado = false;
-        for (let i = 0 ; i < datoId.length ; i ++){
-          if (this.formBuscar.value.apellido === datoId[i].apellido){
-            idencontrado = true;
-            break;
-          }
-        }
-        if (idencontrado === false){
-          this.dialog.open(DialogErrorBuscarPacienteComponent);
-        } else {
-          this.cargarDataporApellido();
-        }
-      });
-    }
+      }
+      if (idencontrado === false){
+        this.dialog.open(DialogErrorBuscarPacienteComponent);
+      } else {
+        this.cargarDataporId();
+      }
+    });
   }
 
   /**
@@ -269,307 +230,78 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
   }
 
   /**
-   * Cargar los datos del paciente que es buscado por el nombre
-   */
-  cargarDataporNombre(): void {
-    this.rolService.getAllRol().subscribe((datar: any) => {
-      this.usuarioService.getAllUsuario().subscribe((data: any) => {
-        let ident = '';
-        let tipo = '';
-        let nom = '';
-        let ape = '';
-        let ema = '';
-        let cel = '';
-        let fecha = '';
-        let pai = '';
-        let depa = '';
-        let ciu = '';
-        console.log(data);
-        for (let j = 0; j < datar.length ; j++) {
-          for (let i = 0; i < data.length; i++) {
-            if (this.formBuscar.value.nombre.toLowerCase() === data[i].nombre.toLowerCase() && 'paciente' === datar[j].nombre && data[i].cedula === datar[j].cedula) {
-              ident = data[i].cedula;
-              this.listaPaciente.push(ident);
-              tipo = data[i].tipo_identificacion;
-              this.listaPaciente.push(tipo);
-              nom = data[i].nombre;
-              this.listaPaciente.push(nom);
-              ape = data[i].apellido;
-              this.listaPaciente.push(ape);
-              ema = data[i].correo;
-              this.listaPaciente.push(ema);
-              cel = data[i].celular;
-              this.listaPaciente.push(cel);
-              fecha = String(new Date(data[i].fecha_nacimiento).toLocaleDateString());
-              this.listaPaciente.push(fecha);
-              depa = data[i].departamento;
-              this.listaPaciente.push(depa);
-              ciu = data[i].ciudad;
-              this.listaPaciente.push(ciu);
-              pai = data[i].pais;
-              this.listaPaciente.push(pai);
-            }
-          }
-        }
-      });
-    });
-    this.cargarTabla();
-  }
-
-  /**
-   * Cargar los datos del paciente que es buscado por el apellido
-   */
-  cargarDataporApellido(): void {
-    this.rolService.getAllRol().subscribe((datar: any) => {
-      this.usuarioService.getAllUsuario().subscribe((data: any) => {
-        let ident = '';
-        let tipo = '';
-        let nom = '';
-        let ape = '';
-        let ema = '';
-        let cel = '';
-        let fecha = '';
-        let pai = '';
-        let depa = '';
-        let ciu = '';
-        for (let j = 0; j < datar.length ; j++) {
-          for (let i = 0; i < data.length; i++) {
-            if (this.formBuscar.value.apellido.toLowerCase() === data[i].apellido.toLowerCase() && 'paciente' === datar[j].nombre && data[i].cedula === datar[j].cedula) {
-              ident = data[i].cedula;
-              this.listaPaciente.push(ident);
-              tipo = data[i].tipo_identificacion;
-              this.listaPaciente.push(tipo);
-              nom = data[i].nombre;
-              this.listaPaciente.push(nom);
-              ape = data[i].apellido;
-              this.listaPaciente.push(ape);
-              ema = data[i].correo;
-              this.listaPaciente.push(ema);
-              cel = data[i].celular;
-              this.listaPaciente.push(cel);
-              fecha = String(new Date(data[i].fecha_nacimiento).toLocaleDateString());
-              this.listaPaciente.push(fecha);
-              depa = data[i].departamento;
-              this.listaPaciente.push(depa);
-              ciu = data[i].ciudad;
-              this.listaPaciente.push(ciu);
-              pai = data[i].pais;
-              this.listaPaciente.push(pai);
-            }
-          }
-        }
-      });
-    });
-    this.cargarTabla();
-  }
-
-  /**
-   * Borra los campos de texto de cedula, nombre y apellido
-   */
-  borrarCampos(): void {
-    this.formBuscar.patchValue({
-      id: '',
-      nombre: '',
-      apellido: ''
-    });
-    // this.form.reset();
-    this.listaPaciente.splice(0);
-  }
-
-  /**
    * Metodo para guardar el historial odontologico del paciente
    */
   guardarHistorial(): void {
-    if (this.formBuscar.value.apellido === '' && this.formBuscar.value.nombre === ''){
-      this.guardarDataporId();
-    }
-    if (this.formBuscar.value.id === '' && this.formBuscar.value.apellido === ''){
-      this.guardarDataporNombre();
-    }
-    if (this.formBuscar.value.id === '' && this.formBuscar.value.nombre === ''){
-      this.guardarDataporApellido();
-    }
+    this.guardarDataporId();
   }
 
   /**
    * Metodo para guardar el historial odontologico buscado por cedula
    */
   guardarDataporId(): void {
-    this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
-      for (let n = 0 ; n < dataAgendaAll.length ; n++){
-        if (dataAgendaAll[n].paciente.cedula === this.formBuscar.value.id){
-          this.dataAgenda = {
-            idCita: dataAgendaAll[n].idCita,
-            hora: dataAgendaAll[n].hora,
-            descripcion: this.formHistorial.value.descripcion,
-            estado: dataAgendaAll[n].estado,
-            fecha_cita: dataAgendaAll[n].fecha_cita,
-            paciente: {
-              cedula: dataAgendaAll[n].paciente.cedula,
-              nombre: dataAgendaAll[n].paciente.nombre,
-              apellido: dataAgendaAll[n].paciente.apellido,
-              seudonimo: dataAgendaAll[n].paciente.seudonimo,
-              tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
-              correo: dataAgendaAll[n].paciente.correo,
-              clave: dataAgendaAll[n].paciente.clave,
-              fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
-              celular: dataAgendaAll[n].paciente.celular,
-              ciudad: dataAgendaAll[n].paciente.ciudad,
-              departamento: dataAgendaAll[n].paciente.departamento,
-              pais: dataAgendaAll[n].paciente.pais
-            },
-            odontologo: {
-              cedula: dataAgendaAll[n].odontologo.cedula,
-              nombre: dataAgendaAll[n].odontologo.nombre,
-              apellido: dataAgendaAll[n].odontologo.apellido,
-              seudonimo: dataAgendaAll[n].odontologo.seudonimo,
-              tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
-              correo: dataAgendaAll[n].odontologo.correo,
-              clave: dataAgendaAll[n].odontologo.clave,
-              fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
-              celular: dataAgendaAll[n].odontologo.celular,
-              ciudad: dataAgendaAll[n].odontologo.ciudad,
-              departamento: dataAgendaAll[n].odontologo.departamento,
-              pais: dataAgendaAll[n].odontologo.pais
-            },
-            procedimiento: {
-              idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
-              tipo: dataAgendaAll[n].procedimiento.tipo
-            }
-          };
-        }
-      }
-      this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-        this.formHistorial.reset();
-        this.dialog.open(DialogBuscarPacienteComponent);
-        this.cargarTabla();
-      });
-    });
-  }
-
-  /**
-   * Metodo para guardar el historial odontologico del paciente buscado por nombre
-   */
-  guardarDataporNombre(): void {
-    this.rolService.getAllRol().subscribe((datar: any) => {
+    if (this.formBuscar.value.id !== '' && this.formHistorial.value.odontologo !== ''
+      && this.formHistorial.value.descripcion !== ''){
       this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
-        for (let j = 0; j < datar.length ; j++) {
-          for (let n = 0 ; n < dataAgendaAll.length ; n++){
-            if (this.formBuscar.value.nombre.toLowerCase() === dataAgendaAll[n].paciente.nombre.toLowerCase() && 'paciente' === datar[j].nombre && dataAgendaAll[n].paciente.cedula === datar[j].cedula){
-              this.dataAgenda = {
-                idCita: dataAgendaAll[n].idCita,
-                hora: dataAgendaAll[n].hora,
-                descripcion: this.formHistorial.value.descripcion,
-                estado: dataAgendaAll[n].estado,
-                fecha_cita: dataAgendaAll[n].fecha_cita,
-                paciente: {
-                  cedula: dataAgendaAll[n].paciente.cedula,
-                  nombre: dataAgendaAll[n].paciente.nombre,
-                  apellido: dataAgendaAll[n].paciente.apellido,
-                  seudonimo: dataAgendaAll[n].paciente.seudonimo,
-                  tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
-                  correo: dataAgendaAll[n].paciente.correo,
-                  clave: dataAgendaAll[n].paciente.clave,
-                  fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
-                  celular: dataAgendaAll[n].paciente.celular,
-                  ciudad: dataAgendaAll[n].paciente.ciudad,
-                  departamento: dataAgendaAll[n].paciente.departamento,
-                  pais: dataAgendaAll[n].paciente.pais
-                },
-                odontologo: {
-                  cedula: dataAgendaAll[n].odontologo.cedula,
-                  nombre: dataAgendaAll[n].odontologo.nombre,
-                  apellido: dataAgendaAll[n].odontologo.apellido,
-                  seudonimo: dataAgendaAll[n].odontologo.seudonimo,
-                  tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
-                  correo: dataAgendaAll[n].odontologo.correo,
-                  clave: dataAgendaAll[n].odontologo.clave,
-                  fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
-                  celular: dataAgendaAll[n].odontologo.celular,
-                  ciudad: dataAgendaAll[n].odontologo.ciudad,
-                  departamento: dataAgendaAll[n].odontologo.departamento,
-                  pais: dataAgendaAll[n].odontologo.pais
-                },
-                procedimiento: {
-                  idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
-                  tipo: dataAgendaAll[n].procedimiento.tipo
-                }
-              };
-            }
+        for (let n = 0 ; n < dataAgendaAll.length ; n++){
+          if (dataAgendaAll[n].paciente.cedula === this.formBuscar.value.id){
+            this.dataAgenda = {
+              idCita: dataAgendaAll[n].idCita,
+              hora: dataAgendaAll[n].hora,
+              descripcion: this.formHistorial.value.descripcion,
+              estado: dataAgendaAll[n].estado,
+              fecha_cita: dataAgendaAll[n].fecha_cita,
+              paciente: {
+                cedula: dataAgendaAll[n].paciente.cedula,
+                nombre: dataAgendaAll[n].paciente.nombre,
+                apellido: dataAgendaAll[n].paciente.apellido,
+                seudonimo: dataAgendaAll[n].paciente.seudonimo,
+                tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
+                correo: dataAgendaAll[n].paciente.correo,
+                clave: dataAgendaAll[n].paciente.clave,
+                fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
+                celular: dataAgendaAll[n].paciente.celular,
+                ciudad: dataAgendaAll[n].paciente.ciudad,
+                departamento: dataAgendaAll[n].paciente.departamento,
+                pais: dataAgendaAll[n].paciente.pais
+              },
+              odontologo: {
+                cedula: dataAgendaAll[n].odontologo.cedula,
+                nombre: dataAgendaAll[n].odontologo.nombre,
+                apellido: dataAgendaAll[n].odontologo.apellido,
+                seudonimo: dataAgendaAll[n].odontologo.seudonimo,
+                tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
+                correo: dataAgendaAll[n].odontologo.correo,
+                clave: dataAgendaAll[n].odontologo.clave,
+                fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
+                celular: dataAgendaAll[n].odontologo.celular,
+                ciudad: dataAgendaAll[n].odontologo.ciudad,
+                departamento: dataAgendaAll[n].odontologo.departamento,
+                pais: dataAgendaAll[n].odontologo.pais
+              },
+              procedimiento: {
+                idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
+                tipo: dataAgendaAll[n].procedimiento.tipo
+              }
+            };
           }
         }
         this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
           this.formHistorial.reset();
+          this.formBuscar.reset();
           this.dialog.open(DialogBuscarPacienteComponent);
           this.cargarTabla();
         });
       });
-    });
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
-  /**
-   * Metodo para guardar el historial odontologico del paciente buscado por apellido
-   */
-  guardarDataporApellido(): void {
-    this.rolService.getAllRol().subscribe((datar: any) => {
-      this.citaService.getAllCita().subscribe((dataAgendaAll: any) => {
-        for (let j = 0; j < datar.length ; j++) {
-          for (let n = 0 ; n < dataAgendaAll.length ; n++){
-            if (this.formBuscar.value.apellido.toLowerCase() === dataAgendaAll[n].paciente.apellido.toLowerCase() && 'paciente' === datar[j].nombre && dataAgendaAll[n].paciente.cedula === datar[j].cedula){
-              this.dataAgenda = {
-                idCita: dataAgendaAll[n].idCita,
-                hora: dataAgendaAll[n].hora,
-                descripcion: this.formHistorial.value.descripcion,
-                estado: dataAgendaAll[n].estado,
-                fecha_cita: dataAgendaAll[n].fecha_cita,
-                paciente: {
-                  cedula: dataAgendaAll[n].paciente.cedula,
-                  nombre: dataAgendaAll[n].paciente.nombre,
-                  apellido: dataAgendaAll[n].paciente.apellido,
-                  seudonimo: dataAgendaAll[n].paciente.seudonimo,
-                  tipo_identificacion: dataAgendaAll[n].paciente.tipo_identificacion,
-                  correo: dataAgendaAll[n].paciente.correo,
-                  clave: dataAgendaAll[n].paciente.clave,
-                  fecha_nacimiento: dataAgendaAll[n].paciente.fecha_nacimiento,
-                  celular: dataAgendaAll[n].paciente.celular,
-                  ciudad: dataAgendaAll[n].paciente.ciudad,
-                  departamento: dataAgendaAll[n].paciente.departamento,
-                  pais: dataAgendaAll[n].paciente.pais
-                },
-                odontologo: {
-                  cedula: dataAgendaAll[n].odontologo.cedula,
-                  nombre: dataAgendaAll[n].odontologo.nombre,
-                  apellido: dataAgendaAll[n].odontologo.apellido,
-                  seudonimo: dataAgendaAll[n].odontologo.seudonimo,
-                  tipo_identificacion: dataAgendaAll[n].odontologo.tipo_identificacion,
-                  correo: dataAgendaAll[n].odontologo.correo,
-                  clave: dataAgendaAll[n].odontologo.clave,
-                  fecha_nacimiento: dataAgendaAll[n].odontologo.fecha_nacimiento,
-                  celular: dataAgendaAll[n].odontologo.celular,
-                  ciudad: dataAgendaAll[n].odontologo.ciudad,
-                  departamento: dataAgendaAll[n].odontologo.departamento,
-                  pais: dataAgendaAll[n].odontologo.pais
-                },
-                procedimiento: {
-                  idProcedimiento: dataAgendaAll[n].procedimiento.idProcedimiento,
-                  tipo: dataAgendaAll[n].procedimiento.tipo
-                }
-              };
-            }
-          }
-        }
-        this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-          this.formHistorial.reset();
-          this.dialog.open(DialogBuscarPacienteComponent);
-          this.cargarTabla();
-        });
-      });
-    });
-  }
-
-  /**
-   *  Carga la tabla con todos los procedimientos que se le han hecho a ese paciente
-   */
+   /**
+    * Carga la tabla con todos los procedimientos que se le han hecho a ese paciente
+    */
   cargarTabla(): void{
+  this.res = [];
     let nombreCompleto = '';
     let nombrePaciente = '';
     this.citaService.getAllCita().subscribe((datap: any) => {

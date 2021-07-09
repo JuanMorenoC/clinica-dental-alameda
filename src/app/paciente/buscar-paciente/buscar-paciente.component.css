@@ -65,10 +65,15 @@ h3 {
   width: 200px;
   align-items: center;
   left: 250px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }
 
 .row .col .botonb {
   width: 200px;
+  left: 250px;
+  color: #ffffff;
+  background-color: #3B83BD;
 }
 
 .row .col .odonto {
@@ -90,4 +95,10 @@ form .row .col .mat-form-field {
 .tabla table {
   font-weight: bold;
   color: #020202;
+}
+
+.row .col .identificacion {
+  width: 200px;
+  align-items: center;
+  left: 250px;
 }

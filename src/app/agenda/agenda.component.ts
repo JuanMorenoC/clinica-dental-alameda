@@ -83,7 +83,7 @@ export class AgendaComponent implements OnInit {
     event: CalendarEvent;
   } | undefined;
   /**
-   * Botones de acciones siguiente o anterior
+   * Botones de acciones borrar y editar.
    */
   actions: CalendarEventAction[] = [
     {
@@ -316,10 +316,10 @@ export class AgendaComponent implements OnInit {
             title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
             color: this.obtenerColorPrueba(i),
             resizable: {
-              beforeStart: true,
-              afterEnd: true,
+              beforeStart: false,
+              afterEnd: false,
             },
-            draggable: true,
+            draggable: false,
             cssClass: 'my-custom-class',
           };
           this.listaAgenda.push(datosEventos);
@@ -331,10 +331,10 @@ export class AgendaComponent implements OnInit {
             title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
             color: this.obtenerColorPrueba(i),
             resizable: {
-              beforeStart: true,
-              afterEnd: true,
+              beforeStart: false,
+              afterEnd: false,
             },
-            draggable: true,
+            draggable: false,
             cssClass: 'my-custom-class',
           };
           this.listaAgenda.push(datosEventos);
@@ -346,10 +346,10 @@ export class AgendaComponent implements OnInit {
             title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
             color: this.obtenerColorPrueba(i),
             resizable: {
-              beforeStart: true,
-              afterEnd: true,
+              beforeStart: false,
+              afterEnd: false,
             },
-            draggable: true,
+            draggable: false,
             cssClass: 'my-custom-class',
           };
           this.listaAgenda.push(datosEventos);
@@ -395,10 +395,10 @@ export class AgendaComponent implements OnInit {
               title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
               color: this.obtenerColorPrueba(i),
               resizable: {
-                beforeStart: true,
-                afterEnd: true,
+                beforeStart: false,
+                afterEnd: false,
               },
-              draggable: true,
+              draggable: false,
               cssClass: 'my-custom-class',
             };
             this.listaAgenda.push(datosEventos);
@@ -413,10 +413,10 @@ export class AgendaComponent implements OnInit {
               title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
               color: this.obtenerColorPrueba(i),
               resizable: {
-                beforeStart: true,
-                afterEnd: true,
+                beforeStart: false,
+                afterEnd: false,
               },
-              draggable: true,
+              draggable: false,
               cssClass: 'my-custom-class',
             };
             this.listaAgenda.push(datosEventos);
@@ -431,10 +431,10 @@ export class AgendaComponent implements OnInit {
               title: 'Paciente: ' + i.paciente.nombre  + ' ' + i.paciente.apellido + ' - Numero de Identificacion: ' + i.paciente.cedula,
               color: this.obtenerColorPrueba(i),
               resizable: {
-                beforeStart: true,
-                afterEnd: true,
+                beforeStart: false,
+                afterEnd: false,
               },
-              draggable: true,
+              draggable: false,
               cssClass: 'my-custom-class',
             };
             this.listaAgenda.push(datosEventos);
