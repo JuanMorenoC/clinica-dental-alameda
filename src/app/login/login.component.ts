@@ -1,10 +1,11 @@
-import { Component, OnInit, Output} from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {UsuarioService} from '../Service/usuario/usuario.service';
 import {RoleService} from '../Service/role/role.service';
 import {LoginService} from '../Service/login/login.service';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {DialogFaltaRegistroPacienteComponent} from '../registro/registro-paciente/registro-paciente.component';
 
 /**
  * Componente del login
@@ -15,14 +16,10 @@ import {MatDialog} from '@angular/material/dialog';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  sesionIniciada = false;
-  mensajeEnviar = '';
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
-  }
-
-  // siteKey = '';
-  loginForm: FormGroup | any;
+  alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V'
+    , 'W', 'X', 'Y', 'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+    'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '!', '@', '#', '$', '%', '^', '&', '*', '+'];
+  public mostrarCaptcha = '';
   constructor(private fb: FormBuilder,
               private usuarioService: UsuarioService,
               private roleService: RoleService,
@@ -30,8 +27,29 @@ export class LoginComponent implements OnInit {
               private router: Router,
               public dialog: MatDialog) {
     // this.siteKey = '6Lec7lgbAAAAAO9J6NhTu3gDipR4v8S48z3gQ1Pl';
+    const a = this.alpha[Math.floor(Math.random() * 71)];
+    const b = this.alpha[Math.floor(Math.random() * 71)];
+    const c = this.alpha[Math.floor(Math.random() * 71)];
+    const d = this.alpha[Math.floor(Math.random() * 71)];
+    const e = this.alpha[Math.floor(Math.random() * 71)];
+    const f = this.alpha[Math.floor(Math.random() * 71)];
+
+    const final = a + b + c + d + e + f;
+    // document.getElementById('capt').value = final;
+    this.mostrarCaptcha = final;
   }
+  public get onSesionIniciada(): any{
+    return this.sesionIniciada;
+  }
+  sesionIniciada = false;
+  mensajeEnviar = '';
+
+  // siteKey = '';
+  loginForm: FormGroup | any;
   ruta = '';
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
 
   /**
    * Inicializa los campos de texto
@@ -41,6 +59,8 @@ export class LoginComponent implements OnInit {
       // recaptcha: new FormControl(),
       email: new FormControl(),
       password: new FormControl(),
+      captcha: new FormControl(),
+      textinput: new FormControl(),
     });
   }
 
@@ -51,8 +71,10 @@ export class LoginComponent implements OnInit {
   private builForm(): void{
     this.loginForm = this.fb.group({
       // recaptcha: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: ['', [Validators.email]],
+      password: [''],
+      captcha: [''],
+      textinput: [''],
     });
   }
 
@@ -65,85 +87,112 @@ export class LoginComponent implements OnInit {
 
   /**
    * Metodo que valida si se puede loguear o no
-   * @param form - formulario
    */
-  onLogin(form: any): void{
-    this.sesionIniciada = false;
-    this.roleService.getAllRol().subscribe((datar: any) => {
-      this.usuarioService.getAllUsuario().subscribe((datau: any) => {
-        for (let i = 0 ; i < datar.length ; i++ ){
-          for (let j = 0 ; j < datau.length ; j++ ){
-            if (datau[j].correo === this.loginForm.value.email && datau[j].clave === this.loginForm.value.password){
-              this.sesionIniciada = true;
-              if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'paciente'){
-                let correo = this.loginForm.value.email;
-                let data = {
-                  email: this.loginForm.value.email,
-                  password: this.loginForm.value.password
-                };
-                this.loginService.setUser(correo);
-                const token = data;
-                this.loginService.setToken(token);
-                this.router.onSameUrlNavigation = 'reload';
-                this.router.navigateByUrl('/paciente/paciente-home').then(() => {
-                  window.location.reload();
-                });
-              }
-              if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'administrador'){
-                let correo = this.loginForm.value.email;
-                let data = {
-                  email: this.loginForm.value.email,
-                  password: this.loginForm.value.password
-                };
-                this.loginService.setUser(correo);
-                const token = data;
-                this.loginService.setToken(token);
-                this.router.onSameUrlNavigation = 'reload';
-                this.router.navigateByUrl('/administrador').then(() => {
-                  window.location.reload();
-                });
-              }
-              if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'odontologo'){
-                let correo = this.loginForm.value.email;
-                let data = {
-                  email: this.loginForm.value.email,
-                  password: this.loginForm.value.password
-                };
-                this.loginService.setUser(correo);
-                const token = data;
-                this.loginService.setToken(token);
-                this.router.onSameUrlNavigation = 'reload';
-                this.router.navigateByUrl('/odontologo').then(() => {
-                  window.location.reload();
-                });
-              }
-              if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'secretaria'){
-                let correo = this.loginForm.value.email;
-                let data = {
-                  email: this.loginForm.value.email,
-                  password: this.loginForm.value.password
-                };
-                this.loginService.setUser(correo);
-                const token = data;
-                this.loginService.setToken(token);
-                this.router.onSameUrlNavigation = 'reload';
-                this.router.navigateByUrl('/secretaria').then(() => {
-                  window.location.reload();
+  onLogin(): void{
+    if (this.loginForm.value.email !== '' && this.loginForm.value.password !== '' && this.loginForm.value.textinput !== ''){
+      if (this.validcap()){
+        this.sesionIniciada = false;
+        this.roleService.getAllRol().subscribe((datar: any) => {
+          this.usuarioService.getAllUsuario().subscribe((datau: any) => {
+            for (let i = 0 ; i < datar.length ; i++ ){
+              for (let j = 0 ; j < datau.length ; j++ ){
+                if (datau[j].correo === this.loginForm.value.email && datau[j].clave === this.loginForm.value.password){
+                  this.sesionIniciada = true;
+                  if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'paciente'){
+                    const correo = this.loginForm.value.email;
+                    const data = {
+                      email: this.loginForm.value.email,
+                      password: this.loginForm.value.password
+                    };
+                    this.loginService.setUser(correo);
+                    const token = data;
+                    this.loginService.setToken(token);
+                    this.router.onSameUrlNavigation = 'reload';
+                    this.router.navigateByUrl('/paciente/paciente-home').then(() => {
+                      window.location.reload();
+                    });
+                  }
+                  if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'administrador'){
+                    const correo = this.loginForm.value.email;
+                    const data = {
+                      email: this.loginForm.value.email,
+                      password: this.loginForm.value.password
+                    };
+                    this.loginService.setUser(correo);
+                    const token = data;
+                    this.loginService.setToken(token);
+                    this.router.onSameUrlNavigation = 'reload';
+                    this.router.navigateByUrl('/administrador').then(() => {
+                      window.location.reload();
+                    });
+                  }
+                  if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'odontologo'){
+                    const correo = this.loginForm.value.email;
+                    const data = {
+                      email: this.loginForm.value.email,
+                      password: this.loginForm.value.password
+                    };
+                    this.loginService.setUser(correo);
+                    const token = data;
+                    this.loginService.setToken(token);
+                    this.router.onSameUrlNavigation = 'reload';
+                    this.router.navigateByUrl('/odontologo').then(() => {
+                      window.location.reload();
+                    });
+                  }
+                  if (datar[i].cedula === datau[j].cedula && datar[i].nombre === 'secretaria'){
+                    const correo = this.loginForm.value.email;
+                    const data = {
+                      email: this.loginForm.value.email,
+                      password: this.loginForm.value.password
+                    };
+                    this.loginService.setUser(correo);
+                    const token = data;
+                    this.loginService.setToken(token);
+                    this.router.onSameUrlNavigation = 'reload';
+                    this.router.navigateByUrl('/secretaria').then(() => {
+                      window.location.reload();
 
-                });
+                    });
+                  }
+                }
               }
             }
-          }
-        }
-        if (this.sesionIniciada === false){
-          // alert('Email y Contraseña no coinciden');
-          this.dialog.open(DialogErrorLoginComponent);
-        }
-      });
-    });
+            if (!this.sesionIniciada){
+              this.dialog.open(DialogErrorLoginComponent);
+            }
+          });
+        });
+      } else {
+        this.dialog.open(DialogErrorCaptchaComponent);
+      }
+    } else {
+      this.dialog.open(DialogFaltaRegistroPacienteComponent);
+    }
   }
-  public get onSesionIniciada(): any{
-    return this.sesionIniciada;
+
+  cap(): void{
+    const a = this.alpha[Math.floor(Math.random() * 71)];
+    const b = this.alpha[Math.floor(Math.random() * 71)];
+    const c = this.alpha[Math.floor(Math.random() * 71)];
+    const d = this.alpha[Math.floor(Math.random() * 71)];
+    const e = this.alpha[Math.floor(Math.random() * 71)];
+    const f = this.alpha[Math.floor(Math.random() * 71)];
+
+    const final = a + b + c + d + e + f;
+    this.mostrarCaptcha = final;
+  }
+
+  validcap(): boolean{
+    const stg1 = this.mostrarCaptcha;
+    const stg2 = this.loginForm.value.textinput;
+    if (stg1 === stg2){
+      // alert('Form is validated Succesfully');
+      return true;
+    }else{
+      // alert('Please enter a valid captcha');
+      return false;
+    }
   }
 }
 
@@ -152,3 +201,9 @@ export class LoginComponent implements OnInit {
   templateUrl: 'dialog-error-login.html',
 })
 export class DialogErrorLoginComponent {}
+
+@Component({
+  selector: 'app-dialog-error-captcha',
+  templateUrl: 'dialog-error-captcha.html',
+})
+export class DialogErrorCaptchaComponent {}

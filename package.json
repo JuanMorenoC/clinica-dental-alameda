@@ -30,6 +30,7 @@
     "@fullcalendar/timegrid": "^5.6.0",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "angular-calendar": "^0.28.24",
+    "angular-captcha": "^3.7.4",
     "bootstrap": "^4.6.0",
     "date-fns": "^2.21.3",
     "ng-recaptcha": "^8.0.0",

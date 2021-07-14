@@ -48,4 +48,5 @@ export class LoginService {
   public get onUsuarioLogueado(): any{
     return this.name;
   }
+
 }

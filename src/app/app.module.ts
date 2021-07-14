@@ -91,6 +91,7 @@ import {DialogListaPqrsVaciaComponent} from './cita/pqrs/pqrs.component';
 import {DialogListaConfirmarCitaVaciaComponent} from './cita/confirmar-cita/confirmar-cita.component';
 import {LoginService} from './Service/login/login.service';
 import { ContactoComponent } from './contacto/contacto.component';
+import {DialogErrorCaptchaComponent} from './login/login.component';
 
 /**
  * Modulos donde se registra todos los componentes directivas, servicios, dialogos y
@@ -160,7 +161,8 @@ import { ContactoComponent } from './contacto/contacto.component';
     RegistroPacienteSinRegistrarComponent,
     DialogListaPqrsVaciaComponent,
     DialogListaConfirmarCitaVaciaComponent,
-    ContactoComponent
+    ContactoComponent,
+    DialogErrorCaptchaComponent
   ],
     imports: [
         BrowserModule,

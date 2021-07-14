@@ -1,9 +1,8 @@
 .rg {
-  position: fixed;
+  position: relative;
   top: 65px;
   left: 0px;
   right: 0px;
-  height: 10000px;
 }
 .btn{
   color: #ffffff;
@@ -16,12 +15,27 @@
 
 }
 .main-div{
-  top:30%;
+  top:0px;
   width:100%;
+  left: 525px;
   text-align:center;
-  position:fixed;
+  position:relative;
 }
 .mat-form-field{
   width: 100%;
   min-width: 300px;
+}
+
+.imagenicon{
+  width: 50px;
+  height: 50px;
+}
+
+.captchastyle {
+  font-weight: bold;
+  font-size: x-large;
+  align-items: center;
+  /*text-decoration: line-through;*/
+  text-shadow: 2px 2px;
+  background-color: #c7d4d2;
 }

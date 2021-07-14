@@ -1,9 +1,16 @@
 .principal {
   display: inline-block;
+  width: 100%;
 }
 
 .titulo {
-  top: 20px;
+  position: relative;
+  top: 60%;
+  margin-bottom: 48px;
+}
+
+.titulo h2 {
+  left: 700px;
   text-align: center;
 }
 

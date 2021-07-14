@@ -29,7 +29,7 @@
 table{
   align-items: center;
 }
-.botonenviar {
+button {
   max-width: 200px;
   color: #ffffff;
   background-color: #3B83BD;
