@@ -2,8 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  FormGroup, NgControl,
-  Validators
+  FormGroup, NgControl
 } from '@angular/forms';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
@@ -255,7 +254,6 @@ export class PqrsPacienteComponent implements MatFormFieldControl<PQRS>, OnInit 
    */
   log(): void {
     this.count++;
-    console.log('Clicked!');
   }
 
 }

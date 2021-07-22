@@ -177,16 +177,6 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
               id = String(dataAll[i].idCita);
             }
           }
-          /*
-          this.usuarioService.getUsuario(this.form.value.id).subscribe( data => {
-            this.data = data;
-            this.form.patchValue({
-              nombre: this.data.nombre,
-              apellido: this.data.apellido,
-              email: this.data.correo,
-            });
-          });
-           */
           this.citaService.getCita(Number(id)).subscribe( data => {
             this.data = data;
             this.form.patchValue({

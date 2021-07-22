@@ -195,7 +195,6 @@ export class ActualizarDatosOdontologoComponent implements OnInit {
             apellido: this.data.apellido,
             email: this.data.correo,
             celular: this.data.celular,
-            // fechanacimiento: String(new Date(this.data.fechanacimiento).toISOString().replace(/T.*$/, '')),
             fechanacimiento: this.data.fecha_nacimiento,
             pais: this.data.pais,
             departamento: this.data.departamento,

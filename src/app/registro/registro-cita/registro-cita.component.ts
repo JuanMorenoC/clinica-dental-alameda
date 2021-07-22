@@ -193,15 +193,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
             this.procedimientoService.addProcedimiento(procedimiento).subscribe((datap: any) => {
               this.procedimientoService.getAllProcedimiento().subscribe((datapall: any) => {
                 this.rolService.getAllRol().subscribe((datar: any) => {
-                  console.log('SANDWICH ROL USUARIO');
                   this.usuarioService.getAllUsuario().subscribe((datau: any) => {
-                    console.log('RECORRER ROL USUARIO');
-                    console.log(datau);
-                    console.log(datar);
                     for (let i = 0; i < datar.length ; i++){
-                      console.log('CONTEO u');
                       for (const item of datau) {
-                        console.log('CONTEO r');
                         if (this.form.value.id === item.cedula && datar[i].nombre === 'paciente'){
                           this.paciente.push(item.cedula);
                           this.paciente.push(item.nombre);
@@ -296,7 +290,6 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
    * Al seleccionar la fecha muestra las horas disponibles
    */
   capturar(): void {
-    console.log('ENTRO A CAPTURAR');
     this.listahoras = [];
     let fechaactual = '';
     let fechacita = '';

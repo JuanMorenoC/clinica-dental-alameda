@@ -6,8 +6,7 @@ import {
 import {
   FormBuilder,
   FormControl,
-  FormGroup, NgControl,
-  Validators
+  FormGroup, NgControl
 } from '@angular/forms';
 import { MatFormFieldControl} from '@angular/material/form-field';
 import { UsuarioService } from '../../Service/usuario/usuario.service';
@@ -16,7 +15,6 @@ import { RoleService } from '../../Service/role/role.service';
 import { EnvioCorreoService } from '../../Service/envioCorreo/envio-correo.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {DialogCambiarEstadoComponent} from '../cambiar-estado/cambiar-estado.component';
 
 /** Data structure for cita. */
 export class Cita {
@@ -299,8 +297,6 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               };
             }
           }
-          console.log(this.dataAgenda);
-          console.log(this.odontologos);
           this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
             this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
               this.citaService.deleteCita(Number(this.dataAgenda.idCita)).subscribe((datad: any) => {
@@ -387,7 +383,6 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
             for (let j = 0; j < datasO.length ; j++) {
               if (datar[i].cedula === datasO[j].cedula && datar[i].nombre === 'odontologo'){
                 this.listaOdontologo.push(datasO[j].nombre + ' ' + datasO[j].apellido);
-                // debugger;
               }
             }
           }

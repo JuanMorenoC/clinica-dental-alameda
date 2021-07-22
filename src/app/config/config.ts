@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {environment} from '../../environments/environment.prod';
 
 
 @Injectable()
@@ -19,8 +20,8 @@ export class AppConfig{
   private initConfiguracion(): void{
     // this.configuracionj = 'http://localhost:3000';
     this._configuracion = {
-      Url: 'http://localhost:8080',
-      Patch: '/api'
+      Url: environment.productionUrl,
+      Patch: environment.productionPatch
     };
   }
 

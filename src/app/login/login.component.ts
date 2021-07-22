@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
               private loginService: LoginService,
               private router: Router,
               public dialog: MatDialog) {
-    // this.siteKey = '6Lec7lgbAAAAAO9J6NhTu3gDipR4v8S48z3gQ1Pl';
     const a = this.alpha[Math.floor(Math.random() * 71)];
     const b = this.alpha[Math.floor(Math.random() * 71)];
     const c = this.alpha[Math.floor(Math.random() * 71)];
@@ -35,7 +34,6 @@ export class LoginComponent implements OnInit {
     const f = this.alpha[Math.floor(Math.random() * 71)];
 
     const final = a + b + c + d + e + f;
-    // document.getElementById('capt').value = final;
     this.mostrarCaptcha = final;
   }
   public get onSesionIniciada(): any{
@@ -43,8 +41,6 @@ export class LoginComponent implements OnInit {
   }
   sesionIniciada = false;
   mensajeEnviar = '';
-
-  // siteKey = '';
   loginForm: FormGroup | any;
   ruta = '';
   resolved(captchaResponse: string) {
@@ -56,7 +52,6 @@ export class LoginComponent implements OnInit {
    */
   initEditForm(): void{
     this.loginForm = this.fb.group({
-      // recaptcha: new FormControl(),
       email: new FormControl(),
       password: new FormControl(),
       captcha: new FormControl(),
@@ -70,7 +65,6 @@ export class LoginComponent implements OnInit {
    */
   private builForm(): void{
     this.loginForm = this.fb.group({
-      // recaptcha: ['', [Validators.required]],
       email: ['', [Validators.email]],
       password: [''],
       captcha: [''],
@@ -187,10 +181,8 @@ export class LoginComponent implements OnInit {
     const stg1 = this.mostrarCaptcha;
     const stg2 = this.loginForm.value.textinput;
     if (stg1 === stg2){
-      // alert('Form is validated Succesfully');
       return true;
     }else{
-      // alert('Please enter a valid captcha');
       return false;
     }
   }
