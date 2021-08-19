@@ -7,6 +7,10 @@
   left: 275px;
 }
 
+.row {
+  left: 200px
+}
+
 .row .col .mat-form-field + .mat-form-field {
   margin-left: 12px;
   align-items: center;

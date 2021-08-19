@@ -47,7 +47,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
               private dialog: MatDialog) {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
-        console.log(datasO);
         for (let i = 0 ; i < datar.length ; i++){
           for (let j = 0; j < datasO.length ; j++) {
             if (datar[i].cedula === datasO[j].cedula && datar[i].nombre === 'odontologo'){
@@ -181,6 +180,9 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
         this.dialog.open(DialogErrorBuscarPacienteComponent);
       } else {
         this.cargarDataporId();
+        this.formBuscar.patchValue({
+          id: ''
+        });
       }
     });
   }
@@ -189,6 +191,7 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
    * Cargar los datos del paciente que es buscado por la cedula
    */
   cargarDataporId(): void {
+    this.listaPaciente = [];
     this.usuarioService.getAllUsuario().subscribe((data: any) => {
       let ident = '';
       let tipo = '';
@@ -200,7 +203,6 @@ export class BuscarPacienteComponent implements OnInit, MatFormFieldControl<Usua
       let pai = '';
       let depa = '';
       let ciu = '';
-      console.log(data);
       for (let i = 0; i < data.length; i++) {
         if (this.formBuscar.value.id === data[i].cedula) {
           ident = data[i].cedula;

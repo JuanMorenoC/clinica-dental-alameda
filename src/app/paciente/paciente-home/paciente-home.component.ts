@@ -14,8 +14,6 @@ export class PacienteHomeComponent implements OnInit {
   constructor(private loginService: LoginService,
               private login: LoginComponent,
               private usuarioService: UsuarioService) {
-    console.log('PACIENTE');
-    console.log(localStorage.getItem('currentUser'));
     this.correoPersona = localStorage.getItem('currentUser');
     this.usuarioService.getAllUsuario().subscribe((datau: any) => {
       for (let i = 0; i < datau.length ; i++) {

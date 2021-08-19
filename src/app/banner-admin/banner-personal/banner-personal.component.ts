@@ -134,8 +134,6 @@ export class BannerPersonalComponent implements OnInit {
    */
   cargar(imagen: any): void {
     const contador = this.images.length;
-    console.log(this.images[0]);
-    console.log(typeof this.images[0]);
     if (contador === 0){
       let datosi = {
         id: 1,

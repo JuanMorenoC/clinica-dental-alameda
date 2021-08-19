@@ -14,7 +14,6 @@ export class RecuperarContrasenaService {
     this.path = this.configuracion.configuracion.Patch;
   }
   addCorreoRecuperar(mail: string){
-    debugger;
-    return this.httpClient.post(`${this.url}${this.path}/enviocontrasena`, mail);
+    return this.httpClient.post(`${this.url}${this.path}/sending-email`, mail);
   }
 }

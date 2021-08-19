@@ -188,7 +188,6 @@ export class RegistroOdontologoComponent implements MatFormFieldControl<Usuario>
                 pais: this.form.value.pais
               };
               this.usuarioService.addUsuario(this.datapersona).subscribe( (datau: any) => {
-                // console.log(datau.roles.id);
                 this.mensaje = 'El registro ha sido exitoso';
                 this.mostrar = true;
                 window.location.reload();

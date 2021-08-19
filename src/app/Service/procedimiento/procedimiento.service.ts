@@ -20,7 +20,6 @@ export class ProcedimientoService {
     return this.httpClient.get(`${this.url}${this.path}/tipoprocedimiento/${id}`);
   }
   addProcedimiento(procedimiento: any){
-    // console.log(procedimiento);
     return this.httpClient.post(`${this.url}${this.path}/tipoprocedimiento`, procedimiento);
   }
   updateProcedimiento(procedimiento: any, idProcedimiento: number){

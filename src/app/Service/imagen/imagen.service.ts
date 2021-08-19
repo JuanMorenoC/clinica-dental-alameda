@@ -22,7 +22,6 @@ export class ImagenService {
     return this.httpClient.get(`${this.url}${this.path}/imagen/${id}`);
   }
   addClinica(imagen: any){
-    // console.log(clinica);
     return this.httpClient.post(`${this.url}${this.path}/imagen`, imagen);
   }
   updateClinica(imagen: any){

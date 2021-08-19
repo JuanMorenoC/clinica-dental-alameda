@@ -60,6 +60,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
   public odontologos: any[] = [];
   public paciente: any[] = [];
   dataAgenda: any;
+  correoConfirmacion: any;
   mostrar: any = false;
   count = 0;
   public ident = 0;
@@ -149,7 +150,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
         for (let i = 0; i < datar.length ; i++){
           for (const item of datau) {
             if (datar[i].cedula === item.cedula && datar[i].nombre === 'odontologo'){
-              let odonto = item.nombre + ' ' + item.apellido;
+              const odonto = item.nombre + ' ' + item.apellido;
               if (odonto === this.form.value.odontologo){
                 this.odontologos.push(item.cedula);
                 this.odontologos.push(item.nombre);
@@ -211,10 +212,39 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
               };
             }
           }
-          console.log(this.dataAgenda);
-          console.log(this.odontologos);
           this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-            this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
+            const horaCita = Number(this.dataAgenda.hora.substring(0, 2));
+            let horaFinal = '';
+            if (horaCita < 13) {
+              horaFinal = ' a.m.';
+            } else {
+              horaFinal = ' p.m.';
+            }
+
+            const mensaje = 'Hola' + this.dataAgenda.paciente.nombre
+              + '\n\nSu cita para ' + this.dataAgenda.procedimiento.tipo
+              + ', fue programada de forma exitosa. '
+              + 'A continuaciòn, te entregamos toda la informaciòn'
+              + ' que necesitas para tu atenciòn:'
+              + '\n\nNombre: ' + this.dataAgenda.paciente.nombre
+              + ' ' + this.dataAgenda.paciente.apellido
+              + '\nFecha de la cita: ' + this.dataAgenda.fecha_cita.substring(0, 10)
+              + '\nHora de la cita: ' + this.dataAgenda.hora + horaFinal
+              + '\nOdontologo asignado: ' + this.dataAgenda.odontologo.nombre + ' ' + this.dataAgenda.odontologo.apellido
+              + '\n\n Que tengas un buen dìa. \n\n' + 'Clínica Dental Alameda.\r\n'
+              + 'Av Libertador Bernardo O´Higgins 4050\r\n'
+              + 'Piso 4, Oficina 418. Estación Central.\r\n'
+              + 'Edificio Alameda Oficinas.\r\n'
+              + 'Metro San Alberto Hurtado Línea 1\r\n'
+              + 'Tel +56 2 32451667 +56989053857';
+            this.correoConfirmacion = {
+              ownerRef: 'Clinica Dental Alameda',
+              emailFrom: 'stgo.cda@gmail.com',
+              emailTo: this.dataAgenda.paciente.correo,
+              subject: 'Clinica Alameda te confirma tu cita!',
+              text: mensaje
+            };
+            this.envioCorreoService.addCorreo(this.correoConfirmacion).subscribe((datae: any) => {
               this.dialog.open(DialogConfirmarCitaComponent);
               window.location.reload();
             });
@@ -235,7 +265,7 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
         for (let i = 0; i < datar.length ; i++){
           for (const item of datau) {
             if (datar[i].cedula === item.cedula && datar[i].nombre === 'odontologo'){
-              let odonto = item.nombre + ' ' + item.apellido;
+              const odonto = item.nombre + ' ' + item.apellido;
               if (odonto === this.form.value.odontologo){
                 this.odontologos.push(item.cedula);
                 this.odontologos.push(item.nombre);
@@ -298,11 +328,31 @@ export class ConfirmarCitaComponent implements MatFormFieldControl<Cita>, OnInit
             }
           }
           this.citaService.updateCita(this.dataAgenda, this.dataAgenda.idCita).subscribe((dataAgendaAgregar: any) => {
-            this.envioCorreoService.addCorreo(this.dataAgenda).subscribe((datae: any) => {
+            const mensaje = 'Hola' + this.dataAgenda.paciente.nombre
+              + '\n\nSu cita en la fecha: ' + this.dataAgenda.fecha_cita.substring(0, 10)
+              + ' ha sido cancelada. Para mayor informaciòn contactase con nosotros: '
+              + '\n\nTelefono: +56 2 32451667'
+              + '\nMóvil-WhatsApp : +56 9 8905 3857'
+              + '\n\n Que tengas un buen dìa. \n\n' + 'Clínica Dental Alameda.\r\n'
+              + 'Av Libertador Bernardo O´Higgins 4050\r\n'
+              + 'Piso 4, Oficina 418. Estación Central.\r\n'
+              + 'Edificio Alameda Oficinas.\r\n'
+              + 'Metro San Alberto Hurtado Línea 1\r\n'
+              + 'Tel +56 2 32451667 +56989053857';
+            this.correoConfirmacion = {
+              ownerRef: 'Clinica Dental Alameda',
+              emailFrom: 'stgo.cda@gmail.com',
+              emailTo: this.dataAgenda.paciente.correo,
+              subject: 'Clinica Alameda te cancela tu cita!',
+              text: mensaje
+            };
+            this.envioCorreoService.addCorreo(this.correoConfirmacion).subscribe((datae: any) => {
+              this.dialog.open(DialogCancelarCitaComponent);
+              window.location.reload();
+              /*
               this.citaService.deleteCita(Number(this.dataAgenda.idCita)).subscribe((datad: any) => {
-                this.dialog.open(DialogCancelarCitaComponent);
-                window.location.reload();
               });
+               */
             });
           });
         });

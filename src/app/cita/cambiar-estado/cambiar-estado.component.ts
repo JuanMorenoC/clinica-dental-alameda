@@ -61,7 +61,6 @@ export class CambiarEstadoComponent implements MatFormFieldControl<Cita>, OnInit
               public dialog: MatDialog) {
     this.rolService.getAllRol().subscribe((datar: any) => {
       this.usuarioService.getAllUsuario().subscribe((datasO: any) => {
-        console.log(datasO);
         for (let i = 0 ; i < datar.length ; i++){
           for (let j = 0; j < datasO.length ; j++) {
             if (datar[i].cedula === datasO[j].cedula && datar[i].nombre === 'odontologo'){

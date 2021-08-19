@@ -4,7 +4,7 @@
       <mat-card-title>Registro de Odontologo</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="form">
+      <form [formGroup]="form" class="formOdonto">
         <div class="row">
           <div class="col">
             <mat-form-field>
@@ -66,7 +66,8 @@
           <div class="col">
             <mat-form-field appearance="fill">
               <mat-label>Celular: +56</mat-label>
-              <input matInput type="text" formControlName="celular" class="form-control" required/>
+              <input matInput type="text" formControlName="celular" class="form-control" required minlength="9"/>
+              <mat-hint class="ac-form-field-description">Digite solo numeros.</mat-hint>
               <mat-error *ngIf="form.get('celular').hasError('required')">
                 El celular es requerida.
               </mat-error>

@@ -14,6 +14,6 @@ export class EnvioCorreoService {
     this.path = this.configuracion.configuracion.Patch;
   }
   addCorreo(mail: string){
-    return this.httpClient.post(`${this.url}${this.path}/envio`, mail);
+    return this.httpClient.post(`${this.url}${this.path}/sending-email`, mail);
   }
 }

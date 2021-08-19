@@ -302,6 +302,9 @@ export class RegistroCitaComponent implements MatFormFieldControl<Cita>, OnInit{
           if (this.horas[i] === data[j].hora && fechaactual.substr(0, 10) === fechacita.substr(0, 10)){
             encontro = 1;
           }
+          if (this.horas[i] === data[j].hora && fechaactual.substr(0, 10) === fechacita.substr(0, 10) && data[j].estado === 'cancelado'){
+            encontro = 0;
+          }
         }
         if (encontro === 0){
           this.listahoras.push(this.horasMostrar[i]);
