@@ -38,3 +38,14 @@ ul li a:hover, ul li a:active{
 ul li:nth-last-of-type(1){
   border-right: none;
 }
+
+.final {
+  position: relative;
+  width: 100%;
+  top: 1650px;
+  bottom: 0px;
+  height: 60px;
+  padding: 1em 2em;
+  text-align: center;
+  background: #51D1F6;
+}

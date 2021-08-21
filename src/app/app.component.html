@@ -76,15 +76,15 @@
       </li>
 -->
       <li class="nav-item" *ngIf="isLogged === false">
-        <a class="nav-link blockquote" style="color: #020202" routerLink="/login" routerLinkActive="active">Iniciar Sesi&oacute;n</a>
+        <a class="cursor nav-link blockquote" style="color: #020202" routerLink="/login" routerLinkActive="active">Iniciar Sesi&oacute;n</a>
       </li>
 
       <li class="nav-item" *ngIf="isLogged === true">
-        <a class="nav-link blockquote" style="color: #020202" (click)="dirigirRuta()">Servicios</a>
+        <a class="cursor nav-link blockquote" style="color: #020202" (click)="dirigirRuta()">Servicios</a>
       </li>
 
       <li class="nav-item" *ngIf="isLogged === true">
-        <a class="nav-link blockquote" style="color: #020202" (click)="onLogout()">Cerrar Sesi&oacute;n</a>
+        <a class="cursor nav-link blockquote" style="color: #020202" (click)="onLogout()">Cerrar Sesi&oacute;n</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
